@@ -71,5 +71,88 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 34f16afa42fb945e79e0a54a0d828b4b, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 8391742545408965389}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 34f16afa42fb945e79e0a54a0d828b4b, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1591196729588191270}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 34f16afa42fb945e79e0a54a0d828b4b, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 4575153597277776291}
   m_SourcePrefab: {fileID: 100100000, guid: 34f16afa42fb945e79e0a54a0d828b4b, type: 3}
+--- !u!1 &2531502027599347266 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 34f16afa42fb945e79e0a54a0d828b4b, type: 3}
+  m_PrefabInstance: {fileID: 3449997556165133075}
+  m_PrefabAsset: {fileID: 0}
+--- !u!136 &8391742545408965389
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2531502027599347266}
+  m_Material: {fileID: 13400000, guid: 2d23b7ca8715f4ba5869b6c46f4bef66, type: 2}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.7912276
+  m_Height: 1.5520041
+  m_Direction: 1
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &1591196729588191270
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2531502027599347266}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 95eafdd6096a84f4ea87acad06ff1da7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Ballcontroller
+  rb: {fileID: 4575153597277776291}
+  serveSpeed: 5
+  hitForce: 5
+  leftSide: {fileID: 0}
+  rightSide: {fileID: 0}
+  lastHitDirection: {x: 0, y: 0, z: 0}
+  inPlay: 0
+--- !u!54 &4575153597277776291
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2531502027599347266}
+  serializedVersion: 5
+  m_Mass: 0.056
+  m_LinearDamping: 0.1
+  m_AngularDamping: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 1
+  m_Constraints: 0
+  m_CollisionDetection: 2
