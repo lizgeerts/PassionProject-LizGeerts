@@ -370,15 +370,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2912248973140763896, guid: 13c69c3bf7e58467087392e1826d22d0, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 2.803
+      value: 2.691
       objectReference: {fileID: 0}
     - target: {fileID: 2912248973140763896, guid: 13c69c3bf7e58467087392e1826d22d0, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1.579
+      value: 2.069
       objectReference: {fileID: 0}
     - target: {fileID: 2912248973140763896, guid: 13c69c3bf7e58467087392e1826d22d0, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 15.988
+      value: 16
       objectReference: {fileID: 0}
     - target: {fileID: 2912248973140763896, guid: 13c69c3bf7e58467087392e1826d22d0, type: 3}
       propertyPath: m_LocalRotation.w
@@ -413,6 +413,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 13c69c3bf7e58467087392e1826d22d0, type: 3}
+--- !u!4 &157606833 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 679381761947722824, guid: 7c611317ec9f54c42b559e15f68c2f6d, type: 3}
+  m_PrefabInstance: {fileID: 485133241}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &181228059
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -716,9 +721,21 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 107296913}
     - target: {fileID: 8625715497906410865, guid: 7c611317ec9f54c42b559e15f68c2f6d, type: 3}
+      propertyPath: maxX
+      value: 0.8
+      objectReference: {fileID: 0}
+    - target: {fileID: 8625715497906410865, guid: 7c611317ec9f54c42b559e15f68c2f6d, type: 3}
+      propertyPath: minX
+      value: -4.81
+      objectReference: {fileID: 0}
+    - target: {fileID: 8625715497906410865, guid: 7c611317ec9f54c42b559e15f68c2f6d, type: 3}
       propertyPath: side
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 8625715497906410865, guid: 7c611317ec9f54c42b559e15f68c2f6d, type: 3}
+      propertyPath: teammate
+      value: 
+      objectReference: {fileID: 157606833}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -838,9 +855,21 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 107296913}
     - target: {fileID: 8625715497906410865, guid: 7c611317ec9f54c42b559e15f68c2f6d, type: 3}
+      propertyPath: maxX
+      value: 4.65
+      objectReference: {fileID: 0}
+    - target: {fileID: 8625715497906410865, guid: 7c611317ec9f54c42b559e15f68c2f6d, type: 3}
+      propertyPath: minX
+      value: -0.717
+      objectReference: {fileID: 0}
+    - target: {fileID: 8625715497906410865, guid: 7c611317ec9f54c42b559e15f68c2f6d, type: 3}
       propertyPath: side
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 8625715497906410865, guid: 7c611317ec9f54c42b559e15f68c2f6d, type: 3}
+      propertyPath: teammate
+      value: 
+      objectReference: {fileID: 1378813850}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1096,6 +1125,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7c1e30c6900f746f097e4bce1004578d, type: 3}
+--- !u!4 &724771347 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 679381761947722824, guid: 7c611317ec9f54c42b559e15f68c2f6d, type: 3}
+  m_PrefabInstance: {fileID: 1661311542}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &815355044
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1529,8 +1563,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 961739749}
   serializedVersion: 2
-  m_LocalRotation: {x: -0.16491716, y: -0.7806419, z: 0.2312538, w: -0.5567065}
-  m_LocalPosition: {x: -5.2936287, y: 5.1233463, z: 14.9716425}
+  m_LocalRotation: {x: 0.14707726, y: 0.8499292, z: -0.31700748, w: 0.3943285}
+  m_LocalPosition: {x: -6.4361033, y: 7.454733, z: 16.341377}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1826,6 +1860,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8d9c95ed7ffcc403aa2e5f3f40396d1c, type: 3}
+--- !u!4 &1047302187 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 679381761947722824, guid: 7c611317ec9f54c42b559e15f68c2f6d, type: 3}
+  m_PrefabInstance: {fileID: 1865460265}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1053509664
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2743,6 +2782,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f556a254d040b48aeb455c72de451204, type: 3}
+--- !u!4 &1378813850 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 679381761947722824, guid: 7c611317ec9f54c42b559e15f68c2f6d, type: 3}
+  m_PrefabInstance: {fileID: 436309711}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1423820733
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3032,6 +3076,18 @@ PrefabInstance:
       propertyPath: ball
       value: 
       objectReference: {fileID: 107296913}
+    - target: {fileID: 8625715497906410865, guid: 7c611317ec9f54c42b559e15f68c2f6d, type: 3}
+      propertyPath: maxX
+      value: 0.8
+      objectReference: {fileID: 0}
+    - target: {fileID: 8625715497906410865, guid: 7c611317ec9f54c42b559e15f68c2f6d, type: 3}
+      propertyPath: minX
+      value: -4.81
+      objectReference: {fileID: 0}
+    - target: {fileID: 8625715497906410865, guid: 7c611317ec9f54c42b559e15f68c2f6d, type: 3}
+      propertyPath: teammate
+      value: 
+      objectReference: {fileID: 1047302187}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -3569,6 +3625,18 @@ PrefabInstance:
       propertyPath: ball
       value: 
       objectReference: {fileID: 107296913}
+    - target: {fileID: 8625715497906410865, guid: 7c611317ec9f54c42b559e15f68c2f6d, type: 3}
+      propertyPath: maxX
+      value: 4.65
+      objectReference: {fileID: 0}
+    - target: {fileID: 8625715497906410865, guid: 7c611317ec9f54c42b559e15f68c2f6d, type: 3}
+      propertyPath: minX
+      value: -0.717
+      objectReference: {fileID: 0}
+    - target: {fileID: 8625715497906410865, guid: 7c611317ec9f54c42b559e15f68c2f6d, type: 3}
+      propertyPath: teammate
+      value: 
+      objectReference: {fileID: 724771347}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
