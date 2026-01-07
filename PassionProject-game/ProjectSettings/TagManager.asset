@@ -8,6 +8,9 @@ TagManager:
   - Glass
   - Cage
   - Racket
+  - Ball
+  - Left
+  - Right
   layers:
   - Default
   - TransparentFX

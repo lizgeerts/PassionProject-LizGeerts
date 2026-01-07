@@ -7,18 +7,20 @@ public class Ballcontroller : MonoBehaviour
     public Rigidbody rb; //get the balls rigidbody
     public float serveSpeed = 5;
     public float hitForce = 5;
-    public Transform leftSide; //transform is component of GObject that stores position, rotation etc..
-    public Transform rightSide;
+    // public Transform leftSide; //transform is component of GObject that stores position, rotation etc..
+    // public Transform rightSide;
     public Vector3 lastHitDirection;
-    public bool inPlay = false;
+    // public bool inPlay = false;
 
+    public bool leftSide = false;
+    public bool rightSide = false;
 
     public void Serve(Vector3 direction)
     {
         rb.linearVelocity = Vector3.zero;
         rb.angularVelocity = Vector3.zero;
         rb.AddForce(direction.normalized * serveSpeed, ForceMode.VelocityChange);
-        inPlay = true;
+        // inPlay = true;
     }
 
     void OnCollisionEnter(Collision collision)
@@ -39,23 +41,45 @@ public class Ballcontroller : MonoBehaviour
         }
         else if (collision.collider.CompareTag("Racket"))
         {
-            Debug.Log("Ball hit glass");
-
+            Debug.Log("Ball hit racket");
+            HitByRacket(collision);
         }
     }
 
+    void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Left"))
+            leftSide = true;
+        if (other.CompareTag("Right"))
+            rightSide = true;
+    }
 
+    void OnTriggerExit(Collider other)
+    {
+        if (other.CompareTag("Left"))
+            leftSide = false;
+        if (other.CompareTag("Right"))
+            rightSide = false;
+    }
 
     void HitByRacket(Collision collision)
     {
-        // Direction from racket to ball
-        Vector3 hitDir = (transform.position - collision.transform.position).normalized;
+
+        Vector3 hitDir = (transform.position - collision.transform.position).normalized + Vector3.up * 0.3f;
+        //transform = balls transform
+        // collision.transform = rackets transform
+        /* so this gives a vector from the racket → toward the ball. 
+           if the ball is in front. the force goes forward
+           +vector 3 gives it an upward lift = more real
+        */
+
+        hitDir.Normalize();
 
         // Apply force
         rb.linearVelocity = Vector3.zero;
         rb.AddForce(hitDir * hitForce, ForceMode.VelocityChange);
 
-        lastHitDirection = hitDir;
+        lastHitDirection = hitDir; //for future
     }
 
 
@@ -67,6 +91,7 @@ public class Ballcontroller : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+
 
     }
 }
