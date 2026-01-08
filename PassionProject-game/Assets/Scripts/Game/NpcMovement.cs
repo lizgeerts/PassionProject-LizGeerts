@@ -1,6 +1,7 @@
 using System;
 using UnityEditor.ShaderGraph.Internal;
 using UnityEngine;
+using UnityEngine.AI;
 
 
 public class NPCcontroller : MonoBehaviour
@@ -37,9 +38,16 @@ public class NPCcontroller : MonoBehaviour
     private bool canMoveZ;
     private bool isClosest;
     private Vector3 moveDirection;
-    public float minX; //get them to stay in their lane
-    public float maxX;
 
+    public Transform hitPoint;
+    private float swingRotation; 
+    private string swingType;
+    private Quaternion preSwingRotation; // store NPC rotation before swing
+    private bool isSwinging = false;
+
+    [Header("Zone Movement")]
+    public Ballcontroller.CourtZone myZone;
+    private bool ballInMyZone;
 
 
     void Start()
@@ -49,93 +57,81 @@ public class NPCcontroller : MonoBehaviour
     }
 
 
-    void MoveZ()
+    void Move()
     {
-        //is the ball on my side of the court
-        bool ballOnMySide = (side == CourtSide.Left && ballController.leftSide) ||
-        (side == CourtSide.Right && ballController.rightSide);
+        if (myZone == ballController.currentZone)
+        {
+            ballInMyZone = true;
+        }
+        else
+        {
+            ballInMyZone = false;
+        }
 
-
-        //is the ball behind me
-        bool ballBehindMe =
-        (side == CourtSide.Left && target.z < transform.position.z) ||
-        (side == CourtSide.Right && target.z > transform.position.z);
-
-
-        canMoveZ = ballOnMySide && !ballBehindMe;
-    }
-
-
-    void ClosestOne()
-    {
-        float distance = Vector3.Distance(transform.position, target); //distance to ball
-        float teammateDist = Vector3.Distance(teammate.position, target); //teammates distance
-
-        isClosest = distance <= teammateDist; //is this npc closer
-    }
-
-
-    void ChooseMovement()
-    {
         moveDirection = Vector3.zero;
-        target.y = transform.position.y; //keep npc from flying
-        target.x = Mathf.Clamp(target.x, minX, maxX);
+        target.y = transform.position.y;
 
-
-        if (canMoveZ && isClosest) //then you can fully move
+        if (ballInMyZone)
         {
             moveDirection = target - transform.position;
         }
-        else //otherwise only sideways
-        {
-            float xDiff = target.x - transform.position.x;
-            if (Math.Abs(xDiff) > 0.2f)
-            {
-                moveDirection = new Vector3(xDiff, 0, 0);
-            }
-        }
+
     }
 
-
-    void MoveTowardBall()
+    private void DetermineSwingTrigger()
     {
+        Vector3 localBallPos = transform.InverseTransformPoint(target);
 
-        if (moveDirection.magnitude < 0.05f)
+        // ball = high
+        if (target.y > hitPoint.position.y + 0.4f)
         {
-            animator.SetFloat("Direction", 0);
-            return;
+            swingRotation = 20f; // slight turn to the right
+            swingType = "Overhand";
+        } else if (localBallPos.x > 0){
+            swingRotation = 90f;
+            swingType = "Forehand";
+        } else if (localBallPos.x < 0)
+        {
+            swingRotation = -90f;
+            swingType = "Backhand";
         }
-
-
-        Vector3 dir = moveDirection.normalized;
-
-        transform.position += dir * moveSpeed * Time.deltaTime;
-
-        transform.rotation = Quaternion.Slerp(
-        transform.rotation,
-        Quaternion.LookRotation(dir),
-        Time.deltaTime * 8f
-        );
-
-
-        animator.SetFloat("Direction", 1);
     }
-
 
     void TrySwing()
     {
 
-
         if (Time.time - lastSwingTime < swingCooldown) return;
 
+        preSwingRotation = transform.rotation; //store rotation
+        DetermineSwingTrigger();
 
-        if (ballInRange)
-        {
-            animator.SetTrigger("Forehand");
-            lastSwingTime = Time.time;
-        }
+        Vector3 dirToBall = target - transform.position;
+        dirToBall.y = 0;
+        if (dirToBall.sqrMagnitude < 0.001f) dirToBall = transform.forward;
+        float targetY = Mathf.Atan2(dirToBall.x, dirToBall.z) * Mathf.Rad2Deg + swingRotation;
+        Quaternion targetRot = Quaternion.Euler(0, targetY, 0);
+
+        transform.rotation = targetRot;
 
 
+        animator.SetTrigger(swingType);
+
+        lastSwingTime = Time.time;
+        isSwinging = true;
+    }
+
+    private Quaternion ComputeSwingRotation()
+    {
+        // Direction to ball on horizontal plane
+        Vector3 dirToBall = target - transform.position;
+        dirToBall.y = 0;
+
+        if (dirToBall.sqrMagnitude < 0.001f) dirToBall = transform.forward;
+
+        Quaternion lookRot = Quaternion.LookRotation(dirToBall);
+        Quaternion swingOffset = Quaternion.Euler(0, swingRotation, 0); // swingRotation from DetermineSwingTrigger
+
+        return lookRot * swingOffset;
     }
 
 
@@ -164,15 +160,26 @@ public class NPCcontroller : MonoBehaviour
         target = ball.transform.position;
 
 
-        MoveZ();
-        ClosestOne();
-        ChooseMovement();
-        MoveTowardBall();
+        Move();
 
 
-        if (ballInRange)
+        if (ballInRange && !isSwinging)
         {
+            DetermineSwingTrigger();
             TrySwing();
+        }
+
+        if (isSwinging)
+        {
+            // only rotate yaw back to pre-swing rotation
+            float currentY = transform.eulerAngles.y;
+            float targetY = preSwingRotation.eulerAngles.y;
+            float newY = Mathf.LerpAngle(currentY, targetY, Time.deltaTime * 4f);
+
+            transform.rotation = Quaternion.Euler(0, newY, 0);
+
+            if (Mathf.Abs(Mathf.DeltaAngle(transform.eulerAngles.y, preSwingRotation.eulerAngles.y)) < 0.5f)
+                isSwinging = false;
         }
     }
 }

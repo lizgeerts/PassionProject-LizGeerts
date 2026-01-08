@@ -15,6 +15,16 @@ public class Ballcontroller : MonoBehaviour
     public bool leftSide = false;
     public bool rightSide = false;
 
+    public enum CourtZone
+    {
+        Box1,
+        Box2,
+        Box3,
+        Box4
+    }
+
+    public CourtZone currentZone;
+
     public void Serve(Vector3 direction)
     {
         rb.linearVelocity = Vector3.zero;
@@ -48,10 +58,19 @@ public class Ballcontroller : MonoBehaviour
 
     void OnTriggerEnter(Collider other)
     {
+        //which side
         if (other.CompareTag("Left"))
             leftSide = true;
         if (other.CompareTag("Right"))
             rightSide = true;
+
+        //which box
+        BoxScript box = other.GetComponent<BoxScript>();
+        if (box != null)
+        {
+            currentZone = box.zone;
+            Debug.Log("Ball entered zone: " + currentZone);
+        }
     }
 
     void OnTriggerExit(Collider other)

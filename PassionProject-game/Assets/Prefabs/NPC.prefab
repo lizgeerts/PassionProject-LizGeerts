@@ -673,6 +673,11 @@ MonoBehaviour:
   ball: {fileID: 0}
   moveSpeed: 3
   stopDistance: 1.2
+  side: 0
+  swingCooldown: 1
+  teammate: {fileID: 0}
+  teamFollowWeight: 0.3
+  hitPoint: {fileID: 4349123870896737022}
 --- !u!136 &3468862400131682710
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -823,6 +828,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 849467061948292481}
+  - {fileID: 4349123870896737022}
   m_Father: {fileID: 7898277390950429065}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &1070360257709521828
@@ -1010,6 +1016,37 @@ Transform:
   - {fileID: 563448091888948722}
   m_Father: {fileID: 7737837450528588862}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &4183776769338234750
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4349123870896737022}
+  m_Layer: 6
+  m_Name: HitPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4349123870896737022
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4183776769338234750}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0.114691794, y: 0.10283289, z: -0.14685479, w: 0.97709}
+  m_LocalPosition: {x: -0.00144, y: 0.004664, z: 0.000441}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1427488363881024501}
+  m_LocalEulerAnglesHint: {x: -11.182, y: 13.838, z: -18.456}
 --- !u!1 &4549792419049628522
 GameObject:
   m_ObjectHideFlags: 0
