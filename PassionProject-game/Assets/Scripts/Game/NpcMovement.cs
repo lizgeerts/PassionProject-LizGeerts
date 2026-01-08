@@ -5,9 +5,8 @@ using UnityEngine;
 using UnityEngine.AI;
 
 
-public class NPCcontroller : MonoBehaviour
+public class NpcMovement : MonoBehaviour
 {
-
 
     public GameObject ball;
     private Vector3 target;
@@ -31,7 +30,7 @@ public class NPCcontroller : MonoBehaviour
 
     [Header("Swinging")]
     private Quaternion swingRotation;
-    private string swingType;
+    public string swingType;
     private Quaternion preSwingRotation; // store NPC rotation before swing
     private bool isSwinging = false;
     private enum SwingPhase { None, ToSwing, Back }
@@ -61,7 +60,7 @@ public class NPCcontroller : MonoBehaviour
         float distance = Vector3.Distance(transform.position, target); //distance to ball
 
         // Stop moving if the ball is close enough to swing
-        if (distance <= 1f)
+        if (distance <= 0.7f)
         {
             isMoving = false;
             moveDirection = Vector3.zero;
@@ -76,8 +75,19 @@ public class NPCcontroller : MonoBehaviour
         if (ballController.currentZone != lastBallZone)
         {
             timer = 0f;
-            timerTreshold = UnityEngine.Random.Range(1f, 2f);
             lastBallZone = ballController.currentZone;
+
+            if ((side == CourtSide.Left && ballController.leftSide) ||
+                (side == CourtSide.Right && ballController.rightSide))
+            {
+                // Ball is on my side → move a bit longer
+                timerTreshold = UnityEngine.Random.Range(1.5f, 2.2f);
+            }
+            else
+            {
+                // Ball is on the other side → shorter move
+                timerTreshold = UnityEngine.Random.Range(0.8f, 1.1f);
+            }
         }
 
         if (myZone == ballController.currentZone)

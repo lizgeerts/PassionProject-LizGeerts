@@ -295,6 +295,17 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 2531502027599347266, guid: 13c69c3bf7e58467087392e1826d22d0, type: 3}
   m_PrefabInstance: {fileID: 150427135}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &107296919 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1591196729588191270, guid: 13c69c3bf7e58467087392e1826d22d0, type: 3}
+  m_PrefabInstance: {fileID: 150427135}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 107296913}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 95eafdd6096a84f4ea87acad06ff1da7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Ballcontroller
 --- !u!1001 &141077874
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -378,15 +389,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2912248973140763896, guid: 13c69c3bf7e58467087392e1826d22d0, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 2.425
+      value: 2.643
       objectReference: {fileID: 0}
     - target: {fileID: 2912248973140763896, guid: 13c69c3bf7e58467087392e1826d22d0, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 2.069
+      value: 1.06
       objectReference: {fileID: 0}
     - target: {fileID: 2912248973140763896, guid: 13c69c3bf7e58467087392e1826d22d0, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 15.916
+      value: 16.08
       objectReference: {fileID: 0}
     - target: {fileID: 2912248973140763896, guid: 13c69c3bf7e58467087392e1826d22d0, type: 3}
       propertyPath: m_LocalRotation.w
@@ -791,6 +802,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: NPC 1
       objectReference: {fileID: 0}
+    - target: {fileID: 3113496068355747493, guid: 7c611317ec9f54c42b559e15f68c2f6d, type: 3}
+      propertyPath: ball
+      value: 
+      objectReference: {fileID: 107296919}
     - target: {fileID: 8625715497906410865, guid: 7c611317ec9f54c42b559e15f68c2f6d, type: 3}
       propertyPath: ball
       value: 
@@ -925,6 +940,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: NPC 2
       objectReference: {fileID: 0}
+    - target: {fileID: 3113496068355747493, guid: 7c611317ec9f54c42b559e15f68c2f6d, type: 3}
+      propertyPath: ball
+      value: 
+      objectReference: {fileID: 107296919}
     - target: {fileID: 8625715497906410865, guid: 7c611317ec9f54c42b559e15f68c2f6d, type: 3}
       propertyPath: ball
       value: 
@@ -1709,8 +1728,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 961739749}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.20698494, y: 0.008219103, z: -0.0017381166, w: 0.9783081}
-  m_LocalPosition: {x: 2.744885, y: 2.0193262, z: 12.430767}
+  m_LocalRotation: {x: 0.2748894, y: 0.53525645, z: -0.18964003, w: 0.77586925}
+  m_LocalPosition: {x: -2.4075437, y: 4.233552, z: 12.162804}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -3287,6 +3306,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: NPC 3
       objectReference: {fileID: 0}
+    - target: {fileID: 3113496068355747493, guid: 7c611317ec9f54c42b559e15f68c2f6d, type: 3}
+      propertyPath: ball
+      value: 
+      objectReference: {fileID: 107296919}
     - target: {fileID: 8625715497906410865, guid: 7c611317ec9f54c42b559e15f68c2f6d, type: 3}
       propertyPath: ball
       value: 
@@ -3842,6 +3865,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: NPC 4
       objectReference: {fileID: 0}
+    - target: {fileID: 3113496068355747493, guid: 7c611317ec9f54c42b559e15f68c2f6d, type: 3}
+      propertyPath: ball
+      value: 
+      objectReference: {fileID: 107296919}
     - target: {fileID: 8625715497906410865, guid: 7c611317ec9f54c42b559e15f68c2f6d, type: 3}
       propertyPath: ball
       value: 

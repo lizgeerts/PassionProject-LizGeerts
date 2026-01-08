@@ -52,7 +52,7 @@ public class Ballcontroller : MonoBehaviour
         else if (collision.collider.CompareTag("Racket"))
         {
             Debug.Log("Ball hit racket");
-            HitByRacket(collision);
+           // HitByRacket(collision);
         }
     }
 
@@ -81,25 +81,25 @@ public class Ballcontroller : MonoBehaviour
             rightSide = false;
     }
 
-    void HitByRacket(Collision collision)
-    {
+    // void HitByRacket(Collision collision)
+    // {
 
-        Vector3 hitDir = (transform.position - collision.transform.position).normalized + Vector3.up * 0.3f;
-        //transform = balls transform
-        // collision.transform = rackets transform
-        /* so this gives a vector from the racket → toward the ball. 
-           if the ball is in front. the force goes forward
-           +vector 3 gives it an upward lift = more real
-        */
+    //     Vector3 hitDir = (transform.position - collision.transform.position).normalized + Vector3.up * 0.3f;
+    //     //transform = balls transform
+    //     // collision.transform = rackets transform
+    //     /* so this gives a vector from the racket → toward the ball. 
+    //        if the ball is in front. the force goes forward
+    //        +vector 3 gives it an upward lift = more real
+    //     */
 
-        hitDir.Normalize();
+    //     hitDir.Normalize();
 
-        // Apply force
-        rb.linearVelocity = Vector3.zero;
-        rb.AddForce(hitDir * hitForce, ForceMode.VelocityChange);
+    //     // Apply force
+    //     rb.linearVelocity = Vector3.zero;
+    //     rb.AddForce(hitDir * hitForce, ForceMode.VelocityChange);
 
-        lastHitDirection = hitDir; //for future
-    }
+    //     lastHitDirection = hitDir; //for future
+    // }
 
 
     void Start()
