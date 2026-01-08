@@ -1,4 +1,5 @@
 using System;
+using NUnit.Framework.Internal;
 using UnityEditor.ShaderGraph.Internal;
 using UnityEngine;
 using UnityEngine.AI;
@@ -22,24 +23,11 @@ public class NPCcontroller : MonoBehaviour
     private Animator animator;
     private bool ballInRange = false;
 
+    public Transform hitPoint;
 
-    public enum CourtSide { Left, Right }
+    public enum CourtSide { Left, Right };
     public CourtSide side;
 
-
-    public float swingCooldown = 1f;
-    private float lastSwingTime = 0f;
-
-
-    public Transform teammate;
-    public float teamFollowWeight = 0.3f;
-
-
-    private bool canMoveZ;
-    private bool isClosest;
-    private Vector3 moveDirection;
-
-    public Transform hitPoint;
 
     [Header("Swinging")]
     private Quaternion swingRotation;
@@ -48,11 +36,16 @@ public class NPCcontroller : MonoBehaviour
     private bool isSwinging = false;
     private enum SwingPhase { None, ToSwing, Back }
     private SwingPhase swingPhase = SwingPhase.None;
+    private float swingCooldown = 1f;
+    private float lastSwingTime = 0f;
 
     [Header("Zone Movement")]
     public Ballcontroller.CourtZone myZone;
-    private bool ballInMyZone;
-
+    private Vector3 moveDirection;
+    private float timer = 0f;
+    private float timerTreshold = 0f;
+    private bool isMoving = false;
+    public Ballcontroller.CourtZone lastBallZone;
 
     void Start()
     {
@@ -63,23 +56,63 @@ public class NPCcontroller : MonoBehaviour
 
     void Move()
     {
+        target.y = transform.position.y; //keep from flying
+
+        float distance = Vector3.Distance(transform.position, target); //distance to ball
+
+        // Stop moving if the ball is close enough to swing
+        if (distance <= 1f)
+        {
+            isMoving = false;
+            moveDirection = Vector3.zero;
+            animator.SetFloat("Direction", 0);
+            return;
+        }
+
+        moveDirection = target - transform.position;
+        moveDirection.y = 0;
+
+        // Reset timer if ball has changed zones
+        if (ballController.currentZone != lastBallZone)
+        {
+            timer = 0f;
+            timerTreshold = UnityEngine.Random.Range(1f, 2f);
+            lastBallZone = ballController.currentZone;
+        }
+
         if (myZone == ballController.currentZone)
         {
-            ballInMyZone = true;
+            // Ball is in my zone = fully moving
+            isMoving = true;
         }
         else
         {
-            ballInMyZone = false;
+            // Ball is not in my zone = move only for short time
+            timer += Time.deltaTime;
+            isMoving = timer < timerTreshold;
         }
+    }
 
-        moveDirection = Vector3.zero;
-        target.y = transform.position.y;
-
-        if (ballInMyZone)
+    void MoveTowardBall()
+    {
+        if (!isMoving || moveDirection.magnitude < 0.05f)
         {
-            moveDirection = target - transform.position;
+            animator.SetFloat("Direction", 0); // idle
+            return;
         }
 
+        Vector3 dir = moveDirection.normalized;
+        transform.position += dir * moveSpeed * Time.deltaTime;
+
+        // Smooth rotation
+        transform.rotation = Quaternion.Slerp(
+            transform.rotation,
+            Quaternion.LookRotation(dir),
+            Time.deltaTime * 8f
+        );
+
+        animator.SetFloat("Direction", 1);
+    
     }
 
     private void DetermineSwingTrigger()
@@ -98,12 +131,12 @@ public class NPCcontroller : MonoBehaviour
         }
         else if (localBallPos.x > 0)
         {
-            swingRotation = Quaternion.LookRotation(dirToBall) * Quaternion.Euler(0, 45f, 0);
+            swingRotation = Quaternion.LookRotation(dirToBall) * Quaternion.Euler(0, 33f, 0);
             swingType = "Forehand";
         }
         else if (localBallPos.x < 0)
         {
-            swingRotation = Quaternion.LookRotation(dirToBall) * Quaternion.Euler(0, -45f, 0);
+            swingRotation = Quaternion.LookRotation(dirToBall) * Quaternion.Euler(0, -33f, 0);
             swingType = "Backhand";
         }
         else
@@ -138,7 +171,7 @@ public class NPCcontroller : MonoBehaviour
                     swingPhase = SwingPhase.Back;
                 }
 
-            break;
+                break;
 
             case SwingPhase.Back:
                 transform.rotation = Quaternion.Slerp(transform.rotation, preSwingRotation, Time.deltaTime * 4f);
@@ -149,7 +182,7 @@ public class NPCcontroller : MonoBehaviour
                     isSwinging = false;
                     swingPhase = SwingPhase.None;
                 }
-            break;
+                break;
         }
     }
 
@@ -177,9 +210,11 @@ public class NPCcontroller : MonoBehaviour
     {
         target = ball.transform.position;
 
-
-        Move();
-
+        if (!isSwinging)
+        {
+            Move();
+            MoveTowardBall();
+        }
 
         if (ballInRange && !isSwinging)
         {

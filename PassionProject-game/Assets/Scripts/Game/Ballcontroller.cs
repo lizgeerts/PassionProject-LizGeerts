@@ -37,7 +37,7 @@ public class Ballcontroller : MonoBehaviour
     {
         if (collision.collider.CompareTag("Floor"))
         {
-            Debug.Log("Ball hit floor");
+           // Debug.Log("Ball hit floor");
             lastHitDirection = rb.linearVelocity.normalized;
         }
         else if (collision.collider.CompareTag("Cage"))
@@ -69,7 +69,7 @@ public class Ballcontroller : MonoBehaviour
         if (box != null)
         {
             currentZone = box.zone;
-            Debug.Log("Ball entered zone: " + currentZone);
+           // Debug.Log("Ball entered zone: " + currentZone);
         }
     }
 
