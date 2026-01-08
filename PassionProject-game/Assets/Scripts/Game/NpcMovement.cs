@@ -40,10 +40,14 @@ public class NPCcontroller : MonoBehaviour
     private Vector3 moveDirection;
 
     public Transform hitPoint;
-    private float swingRotation; 
+
+    [Header("Swinging")]
+    private Quaternion swingRotation;
     private string swingType;
     private Quaternion preSwingRotation; // store NPC rotation before swing
     private bool isSwinging = false;
+    private enum SwingPhase { None, ToSwing, Back }
+    private SwingPhase swingPhase = SwingPhase.None;
 
     [Header("Zone Movement")]
     public Ballcontroller.CourtZone myZone;
@@ -82,56 +86,71 @@ public class NPCcontroller : MonoBehaviour
     {
         Vector3 localBallPos = transform.InverseTransformPoint(target);
 
+        Vector3 dirToBall = target - transform.position;
+        dirToBall.y = 0; // keep horizontal
+        if (dirToBall.sqrMagnitude < 0.001f) dirToBall = transform.forward;
+
         // ball = high
-        if (target.y > hitPoint.position.y + 0.4f)
+        if (target.y > hitPoint.position.y + 0.5f)
         {
-            swingRotation = 20f; // slight turn to the right
+            swingRotation = Quaternion.LookRotation(dirToBall) * Quaternion.Euler(0, 20f, 0); // slight turn to the right
             swingType = "Overhand";
-        } else if (localBallPos.x > 0){
-            swingRotation = 90f;
-            swingType = "Forehand";
-        } else if (localBallPos.x < 0)
+        }
+        else if (localBallPos.x > 0)
         {
-            swingRotation = -90f;
+            swingRotation = Quaternion.LookRotation(dirToBall) * Quaternion.Euler(0, 45f, 0);
+            swingType = "Forehand";
+        }
+        else if (localBallPos.x < 0)
+        {
+            swingRotation = Quaternion.LookRotation(dirToBall) * Quaternion.Euler(0, -45f, 0);
             swingType = "Backhand";
+        }
+        else
+        {
+            swingRotation = Quaternion.LookRotation(dirToBall); // just face the ball
+            swingType = "Forehand";    // pick a reasonable default
         }
     }
 
     void TrySwing()
     {
-
         if (Time.time - lastSwingTime < swingCooldown) return;
 
         preSwingRotation = transform.rotation; //store rotation
         DetermineSwingTrigger();
 
-        Vector3 dirToBall = target - transform.position;
-        dirToBall.y = 0;
-        if (dirToBall.sqrMagnitude < 0.001f) dirToBall = transform.forward;
-        float targetY = Mathf.Atan2(dirToBall.x, dirToBall.z) * Mathf.Rad2Deg + swingRotation;
-        Quaternion targetRot = Quaternion.Euler(0, targetY, 0);
-
-        transform.rotation = targetRot;
-
-
         animator.SetTrigger(swingType);
-
         lastSwingTime = Time.time;
+
+        swingPhase = SwingPhase.ToSwing;
         isSwinging = true;
     }
 
-    private Quaternion ComputeSwingRotation()
+    void RotateSwing()
     {
-        // Direction to ball on horizontal plane
-        Vector3 dirToBall = target - transform.position;
-        dirToBall.y = 0;
+        switch (swingPhase)
+        {
+            case SwingPhase.ToSwing:
+                transform.rotation = Quaternion.Slerp(transform.rotation, swingRotation, Time.deltaTime * 8f);
+                if (Quaternion.Angle(transform.rotation, swingRotation) < 0.5f)
+                {
+                    swingPhase = SwingPhase.Back;
+                }
 
-        if (dirToBall.sqrMagnitude < 0.001f) dirToBall = transform.forward;
+            break;
 
-        Quaternion lookRot = Quaternion.LookRotation(dirToBall);
-        Quaternion swingOffset = Quaternion.Euler(0, swingRotation, 0); // swingRotation from DetermineSwingTrigger
+            case SwingPhase.Back:
+                transform.rotation = Quaternion.Slerp(transform.rotation, preSwingRotation, Time.deltaTime * 4f);
 
-        return lookRot * swingOffset;
+                // finished swinging
+                if (Quaternion.Angle(transform.rotation, preSwingRotation) < 0.5f)
+                {
+                    isSwinging = false;
+                    swingPhase = SwingPhase.None;
+                }
+            break;
+        }
     }
 
 
@@ -142,7 +161,6 @@ public class NPCcontroller : MonoBehaviour
             ballInRange = true;
         }
     }
-
 
 
     void OnTriggerExit(Collider other)
@@ -165,21 +183,12 @@ public class NPCcontroller : MonoBehaviour
 
         if (ballInRange && !isSwinging)
         {
-            DetermineSwingTrigger();
             TrySwing();
         }
 
         if (isSwinging)
         {
-            // only rotate yaw back to pre-swing rotation
-            float currentY = transform.eulerAngles.y;
-            float targetY = preSwingRotation.eulerAngles.y;
-            float newY = Mathf.LerpAngle(currentY, targetY, Time.deltaTime * 4f);
-
-            transform.rotation = Quaternion.Euler(0, newY, 0);
-
-            if (Mathf.Abs(Mathf.DeltaAngle(transform.eulerAngles.y, preSwingRotation.eulerAngles.y)) < 0.5f)
-                isSwinging = false;
+            RotateSwing();
         }
     }
 }
