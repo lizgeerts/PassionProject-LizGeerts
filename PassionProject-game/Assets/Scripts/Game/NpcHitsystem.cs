@@ -23,7 +23,8 @@ public class NpcHitsystem : MonoBehaviour
     Vector3 ComputeShotDirection()
     {
         // Forward relative to NPC
-        Vector3 dir = GetActiveHitPoint().forward;
+        //Vector3 dir = GetActiveHitPoint().forward;
+        Vector3 dir = (GetActiveHitPoint().position - ball.transform.position).normalized;
 
         // Add lift so the ball always goes up
         dir += Vector3.up * 0.4f;
@@ -62,7 +63,9 @@ public class NpcHitsystem : MonoBehaviour
 
         Transform activeHitPoint = GetActiveHitPoint();
 
-        ball.transform.position = Vector3.Lerp(ball.transform.position, activeHitPoint.position, 0.5f);
+        // ball.transform.position = Vector3.Lerp(ball.transform.position, activeHitPoint.position, 0.5f);
+        ball.transform.position = Vector3.Lerp(ball.transform.position, activeHitPoint.position, Time.deltaTime * 8f);
+
 
         // Reset velocity for consistency
         rb.linearVelocity = Vector3.zero;
@@ -70,7 +73,7 @@ public class NpcHitsystem : MonoBehaviour
 
         Vector3 shotDir = ComputeShotDirection();
 
-        float hitForce = 7f; // tune later
+        float hitForce = 10f; // tune later
         rb.AddForce(shotDir * hitForce, ForceMode.VelocityChange);
 
     }
