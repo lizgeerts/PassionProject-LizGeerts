@@ -220,15 +220,15 @@ public class NpcMovement : MonoBehaviour
     {
         target = ball.transform.position;
 
+        if (ballInRange && !isSwinging)
+        {
+            TrySwing();
+        }
+
         if (!isSwinging)
         {
             Move();
             MoveTowardBall();
-        }
-
-        if (ballInRange && !isSwinging)
-        {
-            TrySwing();
         }
 
         if (isSwinging)

@@ -52,7 +52,7 @@ public class Ballcontroller : MonoBehaviour
         else if (collision.collider.CompareTag("Racket"))
         {
             Debug.Log("Ball hit racket");
-           // HitByRacket(collision);
+          // HitByRacket(collision);
         }
     }
 
