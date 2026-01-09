@@ -41,8 +41,7 @@ public class NpcHitsystem : MonoBehaviour
     {
         if (hitSensor.BallInHitCircle)
         {
-            // Debug.Log("Ball in hit range");
-            // Debug.Log(NPCscript.swingType);
+            Debug.Log("Ball in hit range");
         }
 
         if (hitWindowOpen && hitSensor.BallInHitCircle)
@@ -62,19 +61,6 @@ public class NpcHitsystem : MonoBehaviour
 
         Transform activeHitPoint = GetActiveHitPoint();
         ball.transform.position = activeHitPoint.position;
-       // ball.transform.position = Vector3.Lerp(ball.transform.position, activeHitPoint.position, 0.9f);
-
-        // Reset velocity for consistency
-        // rb.linearVelocity = Vector3.zero;
-        // rb.angularVelocity = Vector3.zero;
-
-        // Vector3 direction = (GetActiveHitPoint().position - ball.transform.position).normalized;
-        // // Add lift so the ball always goes up
-        // direction += Vector3.up * 0.4f;
-        // Vector3 shotDir = direction.normalized;
-
-        // float hitForce = 10f; // tune later
-        // rb.AddForce(shotDir * hitForce, ForceMode.VelocityChange);
 
         if (!hasHitThisSwing)
         {
@@ -97,30 +83,29 @@ public class NpcHitsystem : MonoBehaviour
             Debug.Log("launched");
             Rigidbody rb = ball.rb;
 
-            // Vector3 hitDir = (ball.transform.position - hitPoint.position).normalized + Vector3.up * 0.3f;
-            // //transform = balls transform
-            // // collision.transform = rackets transform
-            // /* so this gives a vector from the racket → toward the ball. 
-            //    if the ball is in front. the force goes forward
-            //    +vector 3 gives it an upward lift = more real
-            // */
-
-            // hitDir.Normalize();
-
-            // // Apply force
-            // rb.linearVelocity = Vector3.zero;
-            // rb.AddForce(hitDir * 5, ForceMode.VelocityChange);
-
             Transform activeHitPoint = GetActiveHitPoint();
-            Vector3 hitDir = (ball.transform.position - activeHitPoint.position).normalized + Vector3.up * upFactor;
 
-            hitDir.Normalize();
+            Vector3 shotDir = activeHitPoint.forward;
+            shotDir += Vector3.up * upFactor;
+            shotDir.Normalize();
 
             rb.linearVelocity = Vector3.zero;
-            rb.AddForce(hitDir * hitForce, ForceMode.VelocityChange);
+            rb.angularVelocity = Vector3.zero;
+            rb.AddForce(shotDir * hitForce, ForceMode.VelocityChange);
+            // Transform activeHitPoint = GetActiveHitPoint();
+
+            // Vector3 dir = (ball.transform.position - activeHitPoint.position).normalized;
+            // dir += Vector3.up * upFactor;
+
+            // Vector3 shotDir = dir.normalized;
+
+            // rb.linearVelocity = Vector3.zero;
+            // rb.AddForce(shotDir * hitForce, ForceMode.VelocityChange);
+
 
             canLaunch = false;
             hasLaunched = true;
+   
         }
 
     }

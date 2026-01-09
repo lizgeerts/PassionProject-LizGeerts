@@ -122,7 +122,7 @@ public class NpcMovement : MonoBehaviour
         );
 
         animator.SetFloat("Direction", 1);
-    
+
     }
 
     private void DetermineSwingTrigger()
@@ -136,17 +136,17 @@ public class NpcMovement : MonoBehaviour
         // ball = high
         if (target.y > hitPoint.position.y + 0.5f)
         {
-            swingRotation = Quaternion.LookRotation(dirToBall) * Quaternion.Euler(0, 20f, 0); // slight turn to the right
+            swingRotation = Quaternion.LookRotation(dirToBall) * Quaternion.Euler(0, 17f, 0); // slight turn to the right
             swingType = "Overhand";
         }
         else if (localBallPos.x > 0)
         {
-            swingRotation = Quaternion.LookRotation(dirToBall) * Quaternion.Euler(0, 33f, 0);
+            swingRotation = Quaternion.LookRotation(dirToBall) * Quaternion.Euler(0, 22f, 0);
             swingType = "Forehand";
         }
         else if (localBallPos.x < 0)
         {
-            swingRotation = Quaternion.LookRotation(dirToBall) * Quaternion.Euler(0, -33f, 0);
+            swingRotation = Quaternion.LookRotation(dirToBall) * Quaternion.Euler(0, -22f, 0);
             swingType = "Backhand";
         }
         else

@@ -174,7 +174,7 @@ ModelImporter:
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
       events:
-      - time: 0.38422298
+      - time: 0.56008506
         functionName: OpenHitWindow
         data: 
         objectReferenceParameter: {instanceID: 0}
