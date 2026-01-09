@@ -27,13 +27,13 @@ public class NpcHitsystem : MonoBehaviour
     {
         if (NPCscript.swingType == "Backhand")
             return hitPoint.Find("HitPoint-back");
-        else if (NPCscript.swingType == "Forehand")
+        else if (NPCscript.swingType == "Overhand")
         {
-            return hitPoint.Find("HitPoint-front");
+            return hitPoint.Find("HitPoint-up");
         }
         else
         {
-            return hitPoint.Find("HitPoint-up");
+            return hitPoint.Find("HitPoint-front");
         }
     }
 
@@ -81,7 +81,6 @@ public class NpcHitsystem : MonoBehaviour
             rb.linearVelocity = Vector3.zero;
             rb.angularVelocity = Vector3.zero;
         }
-
     }
 
 

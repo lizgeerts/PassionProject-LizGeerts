@@ -80,12 +80,12 @@ public class NpcMovement : MonoBehaviour
         if (side == CourtSide.Right)
         {
             // Right side: -90 to +90
-            clampRotation = Mathf.Clamp(clampRotation, -70f, 70f);
+            clampRotation = Mathf.Clamp(clampRotation, -60f, 60f);
         }
         else
         {
             // Left side: centered around 180
-            clampRotation = Mathf.Clamp(clampRotation, 80f, 260f);
+            clampRotation = Mathf.Clamp(clampRotation, 120, 240f);
         }
 
         return Quaternion.Euler(0f, clampRotation, 0f);
@@ -227,6 +227,11 @@ public class NpcMovement : MonoBehaviour
     {
         if (!isMoving || moveDirection.magnitude < 0.05f)
         {
+            transform.rotation = Quaternion.Slerp(
+                 transform.rotation,
+                 Quaternion.LookRotation(transform.forward),
+                 Time.deltaTime * 8f
+             );
             animator.SetFloat("Direction", 0); // idle
             return;
         }
@@ -241,7 +246,7 @@ public class NpcMovement : MonoBehaviour
         Vector3 dir = moveDirection.normalized;
         transform.position += dir * moveSpeed * Time.deltaTime;
 
-        //old:
+
         // transform.rotation = Quaternion.Slerp(
         //     transform.rotation,
         //     Quaternion.LookRotation(dir),
@@ -256,39 +261,85 @@ public class NpcMovement : MonoBehaviour
             Time.deltaTime * 8f
         );
 
-        animator.SetFloat("Direction", 1);
+        // Determine animation direction based on X-axis movement
+        float horizontalMovement = dir.x;
 
+        int direction = 0;
+
+        if (side == CourtSide.Left)
+        {
+            direction = (horizontalMovement > 0f) ? 1 : (horizontalMovement < 0f ? -1 : 0);
+        }
+        else // left side
+        {
+            direction = (horizontalMovement < 0f) ? 1 : (horizontalMovement > 0f ? -1 : 0);
+        }
+        Debug.Log(direction);
+
+        animator.SetFloat("Direction", direction);
     }
 
     private void DetermineSwingTrigger()
     {
         Vector3 localBallPos = transform.InverseTransformPoint(target);
+        Quaternion baseForward = (side == CourtSide.Left) ? Quaternion.Euler(0, 180f, 0) : Quaternion.Euler(0, 0f, 0);
+
+        // Vector3 dirToBall = target - transform.position;
+        // dirToBall.y = 0; // keep horizontal
+        // if (dirToBall.sqrMagnitude < 0.001f) dirToBall = transform.forward;
+
+        // // ball = high
+        // if (target.y > hitPoint.position.y + 0.5f)
+        // {
+        //     swingRotation = Quaternion.LookRotation(dirToBall) * Quaternion.Euler(0, 17f, 0); // slight turn to the right
+        //     swingType = "Overhand";
+        // }
+        // else if (localBallPos.x > 0)
+        // {
+        //     swingRotation = Quaternion.LookRotation(dirToBall) * Quaternion.Euler(0, 22f, 0);
+        //     swingType = "Forehand";
+        // }
+        // else if (localBallPos.x < 0)
+        // {
+        //     swingRotation = Quaternion.LookRotation(dirToBall) * Quaternion.Euler(0, -45f, 0);
+        //     swingType = "Backhand";
+        // }
+        // else
+        // {
+        //     swingRotation = Quaternion.LookRotation(dirToBall); // just face the ball
+        //     swingType = "Forehand";    // pick a reasonable default
+        // }
 
         Vector3 dirToBall = target - transform.position;
         dirToBall.y = 0; // keep horizontal
         if (dirToBall.sqrMagnitude < 0.001f) dirToBall = transform.forward;
 
-        // ball = high
+        // Max swing angles relative to base forward
+        float swingAngle = 0f;
+
         if (target.y > hitPoint.position.y + 0.5f)
         {
-            swingRotation = Quaternion.LookRotation(dirToBall) * Quaternion.Euler(0, 17f, 0); // slight turn to the right
+            swingAngle = 17f;  // Overhand
             swingType = "Overhand";
         }
         else if (localBallPos.x > 0)
         {
-            swingRotation = Quaternion.LookRotation(dirToBall) * Quaternion.Euler(0, 22f, 0);
+            swingAngle = 45f;  // Forehand
             swingType = "Forehand";
         }
         else if (localBallPos.x < 0)
         {
-            swingRotation = Quaternion.LookRotation(dirToBall) * Quaternion.Euler(0, -45f, 0);
+            swingAngle = -45f; // Backhand
             swingType = "Backhand";
         }
         else
         {
-            swingRotation = Quaternion.LookRotation(dirToBall); // just face the ball
-            swingType = "Forehand";    // pick a reasonable default
+            swingAngle = 0f;
+            swingType = "Forehand";
         }
+
+        // Apply swing angle relative to base forward rotation
+        swingRotation = baseForward * Quaternion.Euler(0f, swingAngle, 0f);
     }
 
     void TrySwing()
@@ -402,3 +453,4 @@ public class NpcMovement : MonoBehaviour
         }
     }
 }
+

@@ -946,8 +946,8 @@ MonoBehaviour:
   hitPoint: {fileID: 4349123870896737022}
   racketCollider: {fileID: 8757970397132625537}
   timerTreshold: 20
-  hitForce: 10
-  upFactor: 0.2
+  hitForce: 13
+  upFactor: 0.3
 --- !u!1 &2500320972902131490
 GameObject:
   m_ObjectHideFlags: 0
