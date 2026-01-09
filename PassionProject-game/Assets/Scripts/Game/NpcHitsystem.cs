@@ -33,7 +33,6 @@ public class NpcHitsystem : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        racketCollider.enabled = false;
     }
 
     // Update is called once per frame
@@ -105,14 +104,13 @@ public class NpcHitsystem : MonoBehaviour
 
             canLaunch = false;
             hasLaunched = true;
-   
         }
-
     }
 
 
     public void OpenHitWindow()
     {
+        racketCollider.enabled = false;
         hitWindowOpen = true;
         hasHitThisSwing = false;
         hasLaunched = false;
@@ -122,7 +120,7 @@ public class NpcHitsystem : MonoBehaviour
     public void CloseHitWindow()
     {
         hitWindowOpen = false;
-        racketCollider.enabled = false;
+        racketCollider.enabled = true;
         timer = 0f;
     }
 }
