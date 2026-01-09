@@ -5,7 +5,8 @@ public class NpcHitsystem : MonoBehaviour
 {
 
     public HitSensor hitSensor;
-    public bool hitWindowOpen;
+    public bool hitWindowOpen = false;
+    public bool animationStarted = false;
 
     private bool hasHitThisSwing;
 
@@ -26,8 +27,14 @@ public class NpcHitsystem : MonoBehaviour
     {
         if (NPCscript.swingType == "Backhand")
             return hitPoint.Find("HitPoint-back");
-        else
+        else if (NPCscript.swingType == "Forehand")
+        {
             return hitPoint.Find("HitPoint-front");
+        }
+        else
+        {
+            return hitPoint.Find("HitPoint-up");
+        }
     }
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -41,9 +48,11 @@ public class NpcHitsystem : MonoBehaviour
         if (hitSensor.BallInHitCircle)
         {
             Debug.Log("Ball in hit range");
+            NPCscript.predictionLocked = false;
+            NPCscript.hasPrediction = false;
         }
 
-        if (hitWindowOpen && hitSensor.BallInHitCircle)
+        if (animationStarted && hitSensor.BallInHitCircle)
         {
             PerformHit();
         }
@@ -61,8 +70,11 @@ public class NpcHitsystem : MonoBehaviour
         Transform activeHitPoint = GetActiveHitPoint();
         ball.transform.position = activeHitPoint.position;
 
-        if (!hasHitThisSwing)
+        if (!hasHitThisSwing && hitWindowOpen)
         {
+            ball.bounceCount = 0;
+            ball.bounceTreshold = 1;
+
             Debug.Log("HIT!");
             canLaunch = true;
             hasHitThisSwing = true;
@@ -76,7 +88,7 @@ public class NpcHitsystem : MonoBehaviour
     void FlyUp()
     {
         timer += 1;
-        Debug.Log(timer);
+        // Debug.Log(timer);
         if (timer >= timerTreshold && !hasLaunched)
         {
             Debug.Log("launched");
@@ -90,7 +102,7 @@ public class NpcHitsystem : MonoBehaviour
 
             rb.linearVelocity = Vector3.zero;
             rb.angularVelocity = Vector3.zero;
-            rb.AddForce(shotDir * hitForce, ForceMode.VelocityChange);
+            rb.AddForce(shotDir * hitForce, ForceMode.VelocityChange);//
             // Transform activeHitPoint = GetActiveHitPoint();
 
             // Vector3 dir = (ball.transform.position - activeHitPoint.position).normalized;
@@ -107,10 +119,13 @@ public class NpcHitsystem : MonoBehaviour
         }
     }
 
-
-    public void OpenHitWindow()
+    public void startSwing()
     {
         racketCollider.enabled = false;
+        animationStarted = true;
+    }
+    public void OpenHitWindow()
+    {
         hitWindowOpen = true;
         hasHitThisSwing = false;
         hasLaunched = false;
@@ -119,6 +134,7 @@ public class NpcHitsystem : MonoBehaviour
 
     public void CloseHitWindow()
     {
+        animationStarted = false;
         hitWindowOpen = false;
         racketCollider.enabled = true;
         timer = 0f;

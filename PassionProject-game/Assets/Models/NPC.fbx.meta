@@ -174,6 +174,13 @@ ModelImporter:
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
       events:
+      - time: 0.14171124
+        functionName: startSwing
+        data: 
+        objectReferenceParameter: {instanceID: 0}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
       - time: 0.56008506
         functionName: OpenHitWindow
         data: 
@@ -217,15 +224,22 @@ ModelImporter:
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
       events:
-      - time: 0.41436467
+      - time: 0.65500635
         functionName: OpenHitWindow
         data: 
         objectReferenceParameter: {instanceID: 0}
         floatParameter: 0
         intParameter: 0
         messageOptions: 0
-      - time: 0.7569061
+      - time: 0.8424676
         functionName: CloseHitWindow
+        data: 
+        objectReferenceParameter: {instanceID: 0}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
+      - time: 0.31558934
+        functionName: startSwing
         data: 
         objectReferenceParameter: {instanceID: 0}
         floatParameter: 0
@@ -260,7 +274,7 @@ ModelImporter:
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
       events:
-      - time: 0.32596686
+      - time: 0.40618077
         functionName: OpenHitWindow
         data: 
         objectReferenceParameter: {instanceID: 0}
@@ -269,6 +283,13 @@ ModelImporter:
         messageOptions: 0
       - time: 0.59668505
         functionName: CloseHitWindow
+        data: 
+        objectReferenceParameter: {instanceID: 0}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
+      - time: 0.23193917
+        functionName: startSwing
         data: 
         objectReferenceParameter: {instanceID: 0}
         floatParameter: 0

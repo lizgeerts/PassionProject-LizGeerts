@@ -11,7 +11,6 @@ public class NpcMovement : MonoBehaviour
     public GameObject ball;
     private Vector3 target;
 
-
     private Ballcontroller ballController;
 
 
@@ -46,12 +45,133 @@ public class NpcMovement : MonoBehaviour
     private bool isMoving = false;
     public Ballcontroller.CourtZone lastBallZone;
 
+    [Header("Ball Prediction")]
+    private Vector3 predictedLandingPoint;
+    public bool hasPrediction = false;
+    public bool predictionLocked = false;
+
+
+    private float TimeToGroundBounce(Rigidbody rb)
+    {
+        float y = rb.position.y;
+        float vy = rb.linearVelocity.y;
+        float g = Physics.gravity.y;
+
+        // Solve: y + vy*t + 0.5*g*t^2 = groundHeight (≈0)
+        float discriminant = vy * vy - 2f * g * y;
+
+        if (discriminant < 0f) return -1f;
+
+        return (-vy - Mathf.Sqrt(discriminant)) / g;
+    }
+    private float NormalizeAngle(float angle)
+    {
+        angle %= 360f;
+        if (angle > 180f) angle -= 360f;
+        return angle;
+    }
+
+    private Quaternion ClampRotationToCourt(Quaternion targetRotation)
+    {
+        Vector3 euler = targetRotation.eulerAngles;
+
+        float clampRotation = NormalizeAngle(euler.y);
+
+        if (side == CourtSide.Right)
+        {
+            // Right side: -90 to +90
+            clampRotation = Mathf.Clamp(clampRotation, -70f, 70f);
+        }
+        else
+        {
+            // Left side: centered around 180
+            clampRotation = Mathf.Clamp(clampRotation, 80f, 260f);
+        }
+
+        return Quaternion.Euler(0f, clampRotation, 0f);
+    }
+
+
     void Start()
     {
         animator = GetComponent<Animator>();
         ballController = ball.GetComponent<Ballcontroller>();
     }
 
+    void UpdatePrediction()
+    {
+        if (predictionLocked) return;
+        Rigidbody rb = ballController.rb;
+
+        // Only predict if ball is moving toward my side
+        bool ballComingToMe =
+            (side == CourtSide.Left && ballController.rightSide) ||
+            (side == CourtSide.Right && ballController.leftSide);
+
+        if (!ballComingToMe)
+        {
+            hasPrediction = false;
+            return;
+        }
+
+        // // Only predict if ball is in the air and moving
+        // if (rb.linearVelocity.magnitude < 0.1f)
+        // {
+        //     hasPrediction = false;
+        //     return;
+        // }
+
+        // // Simple forward prediction
+        // float predictionTime = 0.6f; // tweak later
+        // predictedLandingPoint = ball.transform.position + rb.linearVelocity * predictionTime;
+
+        // // Keep on ground
+        // predictedLandingPoint.y = transform.position.y;
+
+        // // Clamp to my court side
+        // if (side == CourtSide.Left)
+        //     predictedLandingPoint.z = Mathf.Min(predictedLandingPoint.z, 0f);
+        // else
+        //     predictedLandingPoint.z = Mathf.Max(predictedLandingPoint.z, 0f);
+
+        // hasPrediction = true;
+
+        float tBounce = TimeToGroundBounce(rb);
+        if (tBounce <= 0f)
+        {
+            hasPrediction = false;
+            return;
+        }
+
+        // 2️⃣ First bounce position
+        Vector3 firstBounce =
+            ball.transform.position +
+            rb.linearVelocity * tBounce +
+            0.5f * Physics.gravity * tBounce * tBounce;
+
+        // 3️⃣ Simulate bounce damping (same as real physics)
+        Vector3 postBounceVelocity = rb.linearVelocity;
+        // postBounceVelocity.y *= 0.7f;
+        postBounceVelocity.y = Mathf.Abs(postBounceVelocity.y) * 0.7f;
+
+
+        // 4️⃣ Predict AFTER bounce (strike zone)
+        float strikeTime = 0.35f; // time NPC “expects” to hit after bounce
+        Vector3 strikePos = firstBounce + postBounceVelocity * strikeTime + 0.5f * Physics.gravity * strikeTime * strikeTime;
+        strikePos.y = transform.position.y;
+
+        predictedLandingPoint.y = transform.position.y;
+
+
+        // 5️⃣ Clamp to court side
+        if (side == CourtSide.Left)
+            predictedLandingPoint.z = Mathf.Min(predictedLandingPoint.z, 0f);
+        else
+            predictedLandingPoint.z = Mathf.Max(predictedLandingPoint.z, 0f);
+
+        hasPrediction = true;
+        predictionLocked = true;
+    }
 
     void Move()
     {
@@ -111,13 +231,28 @@ public class NpcMovement : MonoBehaviour
             return;
         }
 
+        if (myZone != ballController.currentZone)
+        {
+            moveSpeed = 2.1f;
+        }
+        else { moveSpeed = 3.5f; }
+        ;
+
         Vector3 dir = moveDirection.normalized;
         transform.position += dir * moveSpeed * Time.deltaTime;
 
-        // Smooth rotation
+        //old:
+        // transform.rotation = Quaternion.Slerp(
+        //     transform.rotation,
+        //     Quaternion.LookRotation(dir),
+        //     Time.deltaTime * 8f
+        // );
+        Quaternion targetRot = Quaternion.LookRotation(dir);
+        targetRot = ClampRotationToCourt(targetRot);
+
         transform.rotation = Quaternion.Slerp(
             transform.rotation,
-            Quaternion.LookRotation(dir),
+            targetRot,
             Time.deltaTime * 8f
         );
 
@@ -146,7 +281,7 @@ public class NpcMovement : MonoBehaviour
         }
         else if (localBallPos.x < 0)
         {
-            swingRotation = Quaternion.LookRotation(dirToBall) * Quaternion.Euler(0, -22f, 0);
+            swingRotation = Quaternion.LookRotation(dirToBall) * Quaternion.Euler(0, -45f, 0);
             swingType = "Backhand";
         }
         else
@@ -218,7 +353,37 @@ public class NpcMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        target = ball.transform.position;
+        //target = ball.transform.position;
+        UpdatePrediction();
+
+        // bool ballOnMySide =
+        //     (side == CourtSide.Left && ballController.leftSide) ||
+        //     (side == CourtSide.Right && ballController.rightSide);
+
+        // if (ballOnMySide && !predictionLocked || !hasPrediction)
+        // {
+        //     target = ball.transform.position;
+        // }
+        // else
+        // {
+        //     target = predictedLandingPoint;
+        // }
+
+        bool ballOnMySide =
+            (side == CourtSide.Left && ballController.leftSide) ||
+            (side == CourtSide.Right && ballController.rightSide);
+
+        // Use predictedLandingPoint only if ball is still coming
+        if (!ballOnMySide && hasPrediction)
+        {
+            target = predictedLandingPoint; // go to predicted strike spot
+        }
+        else
+        {
+            target = ball.transform.position; // ball is on my side → chase normally
+            predictionLocked = false;          // unlock for next shot
+        }
+
 
         if (ballInRange && !isSwinging)
         {
