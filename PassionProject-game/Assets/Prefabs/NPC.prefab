@@ -905,8 +905,7 @@ MonoBehaviour:
   myZone: 0
   lastBallZone: 0
   hasPrediction: 0
-  predictionLocked: 0
-  zPredictionOffset: 10
+  zPredictionOffset: 3
 --- !u!136 &3468862400131682710
 CapsuleCollider:
   m_ObjectHideFlags: 0

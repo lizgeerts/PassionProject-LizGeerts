@@ -1,4 +1,5 @@
 using System;
+using NUnit.Framework;
 using NUnit.Framework.Internal;
 using UnityEditor.ShaderGraph.Internal;
 using UnityEngine;
@@ -49,23 +50,9 @@ public class NpcMovement : MonoBehaviour
     [Header("Ball Prediction")]
     private Vector3 predictedLandingPoint;
     public bool hasPrediction = false;
-    public bool predictionLocked = false;
     public float zPredictionOffset = 0.8f;
 
 
-    private float TimeToGroundBounce(Rigidbody rb)
-    {
-        float y = rb.position.y;
-        float vy = rb.linearVelocity.y;
-        float g = Physics.gravity.y;
-
-        // Solve: y + vy*t + 0.5*g*t^2 = groundHeight (≈0)
-        float discriminant = vy * vy - 2f * g * y;
-
-        if (discriminant < 0f) return -1f;
-
-        return (-vy - Mathf.Sqrt(discriminant)) / g;
-    }
     private float NormalizeAngle(float angle)
     {
         angle %= 360f;
@@ -98,11 +85,6 @@ public class NpcMovement : MonoBehaviour
     {
         animator = GetComponent<Animator>();
         ballController = ball.GetComponent<Ballcontroller>();
-    }
-
-    private bool IsPredictionInMyZone()
-    {
-        return hasPrediction && ballController.currentZone == myZone;
     }
 
     void UpdatePrediction()
@@ -401,14 +383,13 @@ public class NpcMovement : MonoBehaviour
             (side == CourtSide.Right && ballController.rightSide);
 
         // Use predictedLandingPoint only if ball is still coming
-        if (!ballOnMySide && IsPredictionInMyZone())
+        if (!ballOnMySide && hasPrediction || myZone == ballController.currentZone && hasPrediction)
         {
             target = predictedLandingPoint; // go to predicted strike spot
         }
         else
         {
             target = ball.transform.position; // ball is on my side → chase normally
-            predictionLocked = false;          // unlock for next shot
         }
 
 

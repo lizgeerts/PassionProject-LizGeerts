@@ -48,7 +48,6 @@ public class NpcHitsystem : MonoBehaviour
         if (hitSensor.BallInHitCircle)
         {
             Debug.Log("Ball in hit range");
-            NPCscript.predictionLocked = false;
             NPCscript.hasPrediction = false;
         }
 

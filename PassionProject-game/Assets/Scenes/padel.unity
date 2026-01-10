@@ -807,6 +807,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 107296919}
     - target: {fileID: 8625715497906410865, guid: 7c611317ec9f54c42b559e15f68c2f6d, type: 3}
+      propertyPath: net
+      value: 
+      objectReference: {fileID: 2156458619879678860}
+    - target: {fileID: 8625715497906410865, guid: 7c611317ec9f54c42b559e15f68c2f6d, type: 3}
       propertyPath: ball
       value: 
       objectReference: {fileID: 107296913}
@@ -826,6 +830,10 @@ PrefabInstance:
       propertyPath: teammate
       value: 
       objectReference: {fileID: 157606833}
+    - target: {fileID: 8625715497906410865, guid: 7c611317ec9f54c42b559e15f68c2f6d, type: 3}
+      propertyPath: ballController
+      value: 
+      objectReference: {fileID: 1591196729588191270, guid: 13c69c3bf7e58467087392e1826d22d0, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -945,6 +953,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 107296919}
     - target: {fileID: 8625715497906410865, guid: 7c611317ec9f54c42b559e15f68c2f6d, type: 3}
+      propertyPath: net
+      value: 
+      objectReference: {fileID: 2156458619879678860}
+    - target: {fileID: 8625715497906410865, guid: 7c611317ec9f54c42b559e15f68c2f6d, type: 3}
       propertyPath: ball
       value: 
       objectReference: {fileID: 107296913}
@@ -968,6 +980,10 @@ PrefabInstance:
       propertyPath: teammate
       value: 
       objectReference: {fileID: 1378813850}
+    - target: {fileID: 8625715497906410865, guid: 7c611317ec9f54c42b559e15f68c2f6d, type: 3}
+      propertyPath: ballController
+      value: 
+      objectReference: {fileID: 1591196729588191270, guid: 13c69c3bf7e58467087392e1826d22d0, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -3311,6 +3327,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 107296919}
     - target: {fileID: 8625715497906410865, guid: 7c611317ec9f54c42b559e15f68c2f6d, type: 3}
+      propertyPath: net
+      value: 
+      objectReference: {fileID: 2156458619879678860}
+    - target: {fileID: 8625715497906410865, guid: 7c611317ec9f54c42b559e15f68c2f6d, type: 3}
       propertyPath: ball
       value: 
       objectReference: {fileID: 107296913}
@@ -3330,6 +3350,10 @@ PrefabInstance:
       propertyPath: teammate
       value: 
       objectReference: {fileID: 1047302187}
+    - target: {fileID: 8625715497906410865, guid: 7c611317ec9f54c42b559e15f68c2f6d, type: 3}
+      propertyPath: ballController
+      value: 
+      objectReference: {fileID: 1591196729588191270, guid: 13c69c3bf7e58467087392e1826d22d0, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -3870,6 +3894,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 107296919}
     - target: {fileID: 8625715497906410865, guid: 7c611317ec9f54c42b559e15f68c2f6d, type: 3}
+      propertyPath: net
+      value: 
+      objectReference: {fileID: 2156458619879678860}
+    - target: {fileID: 8625715497906410865, guid: 7c611317ec9f54c42b559e15f68c2f6d, type: 3}
       propertyPath: ball
       value: 
       objectReference: {fileID: 107296913}
@@ -3893,6 +3921,10 @@ PrefabInstance:
       propertyPath: lastBallZone
       value: 3
       objectReference: {fileID: 0}
+    - target: {fileID: 8625715497906410865, guid: 7c611317ec9f54c42b559e15f68c2f6d, type: 3}
+      propertyPath: ballController
+      value: 
+      objectReference: {fileID: 1591196729588191270, guid: 13c69c3bf7e58467087392e1826d22d0, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
