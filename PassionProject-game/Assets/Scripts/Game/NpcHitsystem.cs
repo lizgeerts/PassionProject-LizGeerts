@@ -72,9 +72,8 @@ public class NpcHitsystem : MonoBehaviour
 
         if (!hasHitThisSwing && hitWindowOpen)
         {
+            ball.RegisterFirstHit(); //set has served to true
             ball.bounceCount = 0;
-            ball.bounceTreshold = 1;
-
             Debug.Log("HIT!");
             canLaunch = true;
             hasHitThisSwing = true;
@@ -88,6 +87,7 @@ public class NpcHitsystem : MonoBehaviour
     {
         timer += 1;
         // Debug.Log(timer);
+
         if (timer >= timerTreshold && !hasLaunched)
         {
             Debug.Log("launched");

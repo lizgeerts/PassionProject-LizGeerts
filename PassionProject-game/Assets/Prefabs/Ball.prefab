@@ -130,6 +130,11 @@ MonoBehaviour:
   serveSpeed: 5
   hitForce: 5
   lastHitDirection: {x: 0, y: 0, z: 0}
+  leftSide: 0
+  rightSide: 0
+  bounceCount: 0
+  NpcHitScript: {fileID: 3113496068355747493, guid: 7c611317ec9f54c42b559e15f68c2f6d, type: 3}
+  currentZone: 0
 --- !u!54 &4575153597277776291
 Rigidbody:
   m_ObjectHideFlags: 0

@@ -274,7 +274,7 @@ public class NpcMovement : MonoBehaviour
         {
             direction = (horizontalMovement < 0f) ? 1 : (horizontalMovement > 0f ? -1 : 0);
         }
-        Debug.Log(direction);
+       // Debug.Log(direction);
 
         animator.SetFloat("Direction", direction);
     }

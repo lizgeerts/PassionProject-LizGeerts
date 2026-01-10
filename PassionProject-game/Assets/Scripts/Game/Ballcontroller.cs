@@ -1,3 +1,4 @@
+using NUnit.Framework;
 using UnityEngine;
 
 public class Ballcontroller : MonoBehaviour
@@ -13,7 +14,7 @@ public class Ballcontroller : MonoBehaviour
     public bool rightSide = false;
 
     public int bounceCount = 0;
-    public float bounceTreshold = 3;
+    public NpcHitsystem NpcHitScript;
 
     public enum CourtZone
     {
@@ -24,6 +25,15 @@ public class Ballcontroller : MonoBehaviour
     }
 
     public CourtZone currentZone;
+
+    public bool hasServed { get; private set; } = false;
+    public void RegisterFirstHit()
+    {
+        if (hasServed) return;
+
+        hasServed = true;
+        Debug.Log("FIRST HIT OF RALLY");
+    }
 
     public void Serve(Vector3 direction)
     {
@@ -36,13 +46,17 @@ public class Ballcontroller : MonoBehaviour
     {
         if (collision.collider.CompareTag("Floor"))
         {
+            // Debug.Log(hasServed);
             // Debug.Log("Ball hit floor");
-            lastHitDirection = rb.linearVelocity.normalized;
-            bounceCount++;
-            if (bounceCount == bounceTreshold) //after serving
+            if (hasServed)
             {
-                ApplyFirstBounceDamping();
+                bounceCount++;
+                if (bounceCount == 1)
+                {
+                    ApplyFirstBounceDamping();
+                }
             }
+            lastHitDirection = rb.linearVelocity.normalized;
         }
         else if (collision.collider.CompareTag("Cage"))
         {

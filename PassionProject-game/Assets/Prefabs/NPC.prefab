@@ -941,13 +941,14 @@ MonoBehaviour:
   hitSensor: {fileID: 3494271777791854904}
   hitWindowOpen: 0
   animationStarted: 0
-  ball: {fileID: 0}
+  ball: {fileID: 1591196729588191270, guid: 13c69c3bf7e58467087392e1826d22d0, type: 3}
   NPCscript: {fileID: 8625715497906410865}
   hitPoint: {fileID: 4349123870896737022}
   racketCollider: {fileID: 8757970397132625537}
   timerTreshold: 20
   hitForce: 13
   upFactor: 0.3
+  hasServed: 0
 --- !u!1 &2500320972902131490
 GameObject:
   m_ObjectHideFlags: 0
