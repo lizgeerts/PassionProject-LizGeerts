@@ -46,11 +46,16 @@ public class NpcMovement : MonoBehaviour
     private float timerTreshold = 0f;
     private bool isMoving = false;
     public Ballcontroller.CourtZone lastBallZone;
+    private float homeX;
+
 
     [Header("Ball Prediction")]
     private Vector3 predictedLandingPoint;
     public bool hasPrediction = false;
     public float zPredictionOffset = 0.8f;
+
+    [Header("Zone Limits")]
+    public float maxZoneDepth = 1.2f;
 
 
     private float NormalizeAngle(float angle)
@@ -85,6 +90,7 @@ public class NpcMovement : MonoBehaviour
     {
         animator = GetComponent<Animator>();
         ballController = ball.GetComponent<Ballcontroller>();
+        homeX = transform.position.x; // store start x pos
     }
 
     void UpdatePrediction()
@@ -204,6 +210,16 @@ public class NpcMovement : MonoBehaviour
         Vector3 dir = moveDirection.normalized;
         transform.position += dir * moveSpeed * Time.deltaTime;
 
+        Vector3 pos = transform.position;
+
+        // clamp relative to starting position
+        pos.x = Mathf.Clamp(
+            pos.x,
+            homeX - maxZoneDepth,
+            homeX + maxZoneDepth
+        );
+
+        transform.position = pos;
 
         // transform.rotation = Quaternion.Slerp(
         //     transform.rotation,
@@ -384,6 +400,7 @@ public class NpcMovement : MonoBehaviour
 
         // Use predictedLandingPoint only if ball is still coming
         if (!ballOnMySide && hasPrediction || myZone == ballController.currentZone && hasPrediction)
+        
         {
             target = predictedLandingPoint; // go to predicted strike spot
         }
