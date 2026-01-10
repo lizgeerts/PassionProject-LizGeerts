@@ -56,6 +56,13 @@ public class NpcHitsystem : MonoBehaviour
             PerformHit();
         }
 
+        // if(ball.bounceCount == 2 && NPCscript.ballInRange && ball.hasServed)
+        // {
+        //     PerformHit();
+        // }
+        //if the ball has bounced 2 times and at the same time is in range and
+        //serving was done, then also perform a hit
+
         if (canLaunch)
         {
             FlyUp();

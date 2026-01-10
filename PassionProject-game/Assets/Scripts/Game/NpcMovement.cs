@@ -20,7 +20,7 @@ public class NpcMovement : MonoBehaviour
 
 
     private Animator animator;
-    private bool ballInRange = false;
+    public bool ballInRange = false;
 
     public Transform hitPoint;
     public Transform net;
@@ -104,9 +104,9 @@ public class NpcMovement : MonoBehaviour
             return;
         }
 
-        //Only predict if ball is in the air and moving 
+        //Only predict if ball is moving 
 
-        if (rb.linearVelocity.magnitude < 0.1f && rb.transform.position.y > 0.5f)
+        if (rb.linearVelocity.magnitude < 0.1f)
         {
             hasPrediction = false;
             return;
@@ -121,7 +121,7 @@ public class NpcMovement : MonoBehaviour
         if (side == CourtSide.Left)
         {
             predictedLandingPoint.z = Mathf.Min(predictedLandingPoint.z, 0f);
-            predictedLandingPoint.z += zPredictionOffset;
+            predictedLandingPoint.z += zPredictionOffset; //add small offset, so they are behind the ball, not on it
         }
         else
         {
@@ -226,6 +226,7 @@ public class NpcMovement : MonoBehaviour
         //     Quaternion.LookRotation(dir),
         //     Time.deltaTime * 8f
         // );
+        //good:
         Quaternion targetRot = Quaternion.LookRotation(dir);
         targetRot = ClampRotationToCourt(targetRot);
 
@@ -241,10 +242,11 @@ public class NpcMovement : MonoBehaviour
         int direction = 0;
 
         if (side == CourtSide.Left)
+        //runleft = -1, runright = 1
         {
-            direction = (horizontalMovement > 0f) ? 1 : (horizontalMovement < 0f ? -1 : 0);
+            direction = (horizontalMovement > 0f) ? -1 : (horizontalMovement < 0f ? 1 : 0);
         }
-        else // left side
+        else // right side
         {
             direction = (horizontalMovement < 0f) ? 1 : (horizontalMovement > 0f ? -1 : 0);
         }
@@ -400,7 +402,7 @@ public class NpcMovement : MonoBehaviour
 
         // Use predictedLandingPoint only if ball is still coming
         if (!ballOnMySide && hasPrediction || myZone == ballController.currentZone && hasPrediction)
-        
+
         {
             target = predictedLandingPoint; // go to predicted strike spot
         }

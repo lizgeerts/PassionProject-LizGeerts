@@ -898,6 +898,7 @@ MonoBehaviour:
   NpcHitScript: {fileID: 3113496068355747493}
   moveSpeed: 3
   stopDistance: 1.2
+  ballInRange: 0
   hitPoint: {fileID: 4349123870896737022}
   net: {fileID: 0}
   side: 0
@@ -905,7 +906,7 @@ MonoBehaviour:
   myZone: 0
   lastBallZone: 0
   hasPrediction: 0
-  zPredictionOffset: 1
+  zPredictionOffset: 15
   maxZoneDepth: 2.4
 --- !u!136 &3468862400131682710
 CapsuleCollider:

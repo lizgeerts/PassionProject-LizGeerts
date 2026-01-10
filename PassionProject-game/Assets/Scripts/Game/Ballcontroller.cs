@@ -16,6 +16,11 @@ public class Ballcontroller : MonoBehaviour
     public int bounceCount = 0;
     public NpcHitsystem NpcHitScript;
 
+
+    public Transform leftNpc;
+    public Transform rightNpc;
+    public float zoneAssistStrength = 1.5f;
+
     public enum CourtZone
     {
         Box1,
@@ -25,6 +30,17 @@ public class Ballcontroller : MonoBehaviour
     }
 
     public CourtZone currentZone;
+
+    [Header("NPC References")]
+    public Transform NPC1;
+    public Transform NPC2;
+    public Transform NPC3;
+    public Transform NPC4;
+
+
+    [Header("Ball Nudge Settings")]
+    public float nudgeStrength = 1.5f; // tweak this
+    private bool hasNudgedThisZone = false;
 
     public bool hasServed { get; private set; } = false;
     public void RegisterFirstHit()
@@ -96,6 +112,11 @@ public class Ballcontroller : MonoBehaviour
         {
             currentZone = box.zone;
             // Debug.Log("Ball entered zone: " + currentZone);
+            hasNudgedThisZone = false;
+            if (hasServed)
+            {
+                NudgeTowardNPC();
+            }
         }
     }
 
@@ -114,6 +135,38 @@ public class Ballcontroller : MonoBehaviour
     }
 
     // Update is called once per frame
+
+    private void NudgeTowardNPC()
+    {
+        if (hasNudgedThisZone) return;
+
+
+        Transform targetNPC = null;
+
+        // Decide which NPC should get the nudge
+        switch (currentZone)
+        {
+            case CourtZone.Box1: targetNPC = NPC1; break;
+            case CourtZone.Box2: targetNPC = NPC2; break;
+            case CourtZone.Box3: targetNPC = NPC3; break;
+            case CourtZone.Box4: targetNPC = NPC4; break;
+        }
+
+        if (targetNPC == null) return;
+
+        Vector3 dir = (targetNPC.position - transform.position).normalized;
+
+        // Only nudge in x and z, keep y velocity intact
+        Vector3 newVelocity = rb.linearVelocity;
+        newVelocity.x += dir.x * nudgeStrength;
+        newVelocity.z += dir.z * nudgeStrength;
+        rb.linearVelocity = newVelocity;
+
+        hasNudgedThisZone = true; // only once per zone entry
+        Debug.Log("nudging towards" + targetNPC);
+    }
+
+
     void Update()
     {
 
