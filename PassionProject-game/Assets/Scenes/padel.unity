@@ -858,6 +858,10 @@ PrefabInstance:
       propertyPath: npc4
       value: 
       objectReference: {fileID: 1047302187}
+    - target: {fileID: 3113496068355747493, guid: 7c611317ec9f54c42b559e15f68c2f6d, type: 3}
+      propertyPath: targetNPC
+      value: 
+      objectReference: {fileID: 1047302187}
     - target: {fileID: 8625715497906410865, guid: 7c611317ec9f54c42b559e15f68c2f6d, type: 3}
       propertyPath: net
       value: 
@@ -1024,6 +1028,10 @@ PrefabInstance:
       propertyPath: hitForce
       value: 11
       objectReference: {fileID: 0}
+    - target: {fileID: 3113496068355747493, guid: 7c611317ec9f54c42b559e15f68c2f6d, type: 3}
+      propertyPath: targetNPC
+      value: 
+      objectReference: {fileID: 724771347}
     - target: {fileID: 8625715497906410865, guid: 7c611317ec9f54c42b559e15f68c2f6d, type: 3}
       propertyPath: net
       value: 
@@ -3414,6 +3422,10 @@ PrefabInstance:
       propertyPath: npc4
       value: 
       objectReference: {fileID: 1047302187}
+    - target: {fileID: 3113496068355747493, guid: 7c611317ec9f54c42b559e15f68c2f6d, type: 3}
+      propertyPath: targetNPC
+      value: 
+      objectReference: {fileID: 157606833}
     - target: {fileID: 8625715497906410865, guid: 7c611317ec9f54c42b559e15f68c2f6d, type: 3}
       propertyPath: net
       value: 
@@ -3997,6 +4009,10 @@ PrefabInstance:
       propertyPath: npc4
       value: 
       objectReference: {fileID: 1047302187}
+    - target: {fileID: 3113496068355747493, guid: 7c611317ec9f54c42b559e15f68c2f6d, type: 3}
+      propertyPath: targetNPC
+      value: 
+      objectReference: {fileID: 1378813850}
     - target: {fileID: 8625715497906410865, guid: 7c611317ec9f54c42b559e15f68c2f6d, type: 3}
       propertyPath: net
       value: 

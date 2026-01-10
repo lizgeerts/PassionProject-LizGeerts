@@ -25,6 +25,8 @@ public class NpcHitsystem : MonoBehaviour
 
     [Header("Other NPCs")]
     public Transform targetNPC;
+    public enum CourtSide { left, right}
+    public CourtSide swingSide;
 
     public Transform GetActiveHitPoint()
     {
@@ -81,6 +83,10 @@ public class NpcHitsystem : MonoBehaviour
 
         if (!hasHitThisSwing && hitWindowOpen)
         {
+            swingSide = (activeHitPoint.position.z >= 10f)
+                ? CourtSide.left
+                : CourtSide.right;
+
             ball.RegisterFirstHit(); //set has served to true
             ball.bounceCount = 0;
             Debug.Log("HIT!");
@@ -131,35 +137,7 @@ public class NpcHitsystem : MonoBehaviour
 
 
 
-    // void FlyUp()
-    // {
-    //     timer += 1;
 
-    //     if (timer >= timerTreshold && !hasLaunched)
-    //     {
-    //         Rigidbody rb = ball.rb;
-    //         Transform activeHitPoint = GetActiveHitPoint();
-
-    //         // Determine which NPC to aim at
-    //         Vector3 targetPosition = GetTargetNpcPosition();
-
-    //         // Compute direction from hit point to target NPC
-    //         Vector3 shotDir = targetPosition - activeHitPoint.position;
-
-    //         // Add a vertical component for the arc
-    //         shotDir.y += upFactor;
-
-    //         shotDir.Normalize();
-
-    //         // Reset velocities and apply the launch
-    //         rb.linearVelocity = Vector3.zero;
-    //         rb.angularVelocity = Vector3.zero;
-    //         rb.linearVelocity = shotDir * hitForce;
-
-    //         canLaunch = false;
-    //         hasLaunched = true;
-    //     }
-    // }
     void FlyUp()
     {
         timer += 1;
@@ -176,6 +154,7 @@ public class NpcHitsystem : MonoBehaviour
             Vector3 shotDir = targetPosition - activeHitPoint.position;
 
             // Add a vertical component for the arc
+
             shotDir.y += upFactor;
 
             shotDir.Normalize();
@@ -192,26 +171,7 @@ public class NpcHitsystem : MonoBehaviour
 
 
 
-    // Vector3 GetTargetNpcPosition()
-    // {
-    //     // Assuming you have references to all NPCs (assigned in inspector)
-    //     if (NPCscript.side == NpcMovement.CourtSide.Left)
-    //     {
-    //         // Left NPCs: aim at corresponding right NPC
-    //         if (NPCscript.myZone == Ballcontroller.CourtZone.Box1)
-    //             return npc4.position;
-    //         else // Box2
-    //             return npc3.position;
-    //     }
-    //     else
-    //     {
-    //         // Right NPCs: aim at corresponding left NPC
-    //         if (NPCscript.myZone == Ballcontroller.CourtZone.Box3)
-    //             return npc2.position;
-    //         else // Box4
-    //             return npc1.position;
-    //     }
-    // }
+
 
 
     public void startSwing()
