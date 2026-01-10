@@ -791,8 +791,8 @@ SphereCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Radius: 1.3409748
-  m_Center: {x: -0.06057763, y: -0.115778565, z: -0.04951191}
+  m_Radius: 1.4710497
+  m_Center: {x: 0.06949723, y: -0.115778565, z: -0.04951191}
 --- !u!1 &2419692040608269825
 GameObject:
   m_ObjectHideFlags: 0
@@ -894,19 +894,22 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::NPCcontroller
   ball: {fileID: 0}
-  ballController: {fileID: 0}
+  ballController: {fileID: 1591196729588191270, guid: 13c69c3bf7e58467087392e1826d22d0, type: 3}
   NpcHitScript: {fileID: 3113496068355747493}
   moveSpeed: 3
   stopDistance: 1.2
+  animator: {fileID: 0}
   ballInRange: 0
   hitPoint: {fileID: 4349123870896737022}
   net: {fileID: 0}
   side: 0
   swingType: 
-  myZone: 0
-  lastBallZone: 0
+  myZone: 3
+  isMoving: 0
+  lastBallZone: 3
+  homeX: 0
   hasPrediction: 0
-  zPredictionOffset: 15
+  zPredictionOffset: 1
   maxZoneDepth: 2.4
 --- !u!136 &3468862400131682710
 CapsuleCollider:
@@ -946,14 +949,18 @@ MonoBehaviour:
   hitSensor: {fileID: 3494271777791854904}
   hitWindowOpen: 0
   animationStarted: 0
-  ball: {fileID: 1591196729588191270, guid: 13c69c3bf7e58467087392e1826d22d0, type: 3}
+  ball: {fileID: 0}
   NPCscript: {fileID: 8625715497906410865}
   hitPoint: {fileID: 4349123870896737022}
   racketCollider: {fileID: 8757970397132625537}
   timerTreshold: 20
   hitForce: 10
-  upFactor: 0.2
+  upFactor: 0.3
   hasLaunched: 0
+  npc1: {fileID: 0}
+  npc2: {fileID: 0}
+  npc3: {fileID: 0}
+  npc4: {fileID: 0}
 --- !u!1 &2500320972902131490
 GameObject:
   m_ObjectHideFlags: 0
@@ -1324,10 +1331,10 @@ CapsuleCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.0056374967
-  m_Height: 0.011275004
+  m_Radius: 0.006020096
+  m_Height: 0.012082475
   m_Direction: 1
-  m_Center: {x: 0.00007044436, y: -0.000707617, z: 0.00015806429}
+  m_Center: {x: 0.0000658834, y: -0.00049290067, z: 0.0001580642}
 --- !u!114 &3494271777791854904
 MonoBehaviour:
   m_ObjectHideFlags: 0

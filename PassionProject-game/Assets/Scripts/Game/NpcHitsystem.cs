@@ -23,6 +23,9 @@ public class NpcHitsystem : MonoBehaviour
     public bool hasLaunched = false;
     private bool canLaunch = false;
 
+    [Header("Other NPCs")]
+    public Transform targetNPC;
+
     public Transform GetActiveHitPoint()
     {
         if (NPCscript.swingType == "Backhand")
@@ -89,40 +92,127 @@ public class NpcHitsystem : MonoBehaviour
     }
 
 
+    // void FlyUp()
+    // {
+    //     timer += 1;
+    //     // Debug.Log(timer);
+
+    //     if (timer >= timerTreshold && !hasLaunched)
+    //     {
+    //         Debug.Log("launched");
+    //         Rigidbody rb = ball.rb;
+
+    //         Transform activeHitPoint = GetActiveHitPoint();
+
+    //         Vector3 shotDir = activeHitPoint.forward;
+    //         shotDir += Vector3.up * upFactor;
+    //         shotDir.Normalize();
+
+    //         rb.linearVelocity = Vector3.zero;
+    //         rb.angularVelocity = Vector3.zero;
+    //         rb.linearVelocity = shotDir * hitForce;
+    //         //rb.AddForce(shotDir * hitForce, ForceMode.VelocityChange);
+    //         // Transform activeHitPoint = GetActiveHitPoint();
+
+    //         // Vector3 dir = (ball.transform.position - activeHitPoint.position).normalized;
+    //         // dir += Vector3.up * upFactor;
+
+    //         // Vector3 shotDir = dir.normalized;
+
+    //         // rb.linearVelocity = Vector3.zero;
+    //         // rb.AddForce(shotDir * hitForce, ForceMode.VelocityChange);
+
+
+    //         canLaunch = false;
+    //         hasLaunched = true;
+    //     }
+    // }
+
+
+
+
+    // void FlyUp()
+    // {
+    //     timer += 1;
+
+    //     if (timer >= timerTreshold && !hasLaunched)
+    //     {
+    //         Rigidbody rb = ball.rb;
+    //         Transform activeHitPoint = GetActiveHitPoint();
+
+    //         // Determine which NPC to aim at
+    //         Vector3 targetPosition = GetTargetNpcPosition();
+
+    //         // Compute direction from hit point to target NPC
+    //         Vector3 shotDir = targetPosition - activeHitPoint.position;
+
+    //         // Add a vertical component for the arc
+    //         shotDir.y += upFactor;
+
+    //         shotDir.Normalize();
+
+    //         // Reset velocities and apply the launch
+    //         rb.linearVelocity = Vector3.zero;
+    //         rb.angularVelocity = Vector3.zero;
+    //         rb.linearVelocity = shotDir * hitForce;
+
+    //         canLaunch = false;
+    //         hasLaunched = true;
+    //     }
+    // }
     void FlyUp()
     {
         timer += 1;
-        // Debug.Log(timer);
 
         if (timer >= timerTreshold && !hasLaunched)
         {
-            Debug.Log("launched");
             Rigidbody rb = ball.rb;
-
             Transform activeHitPoint = GetActiveHitPoint();
 
-            Vector3 shotDir = activeHitPoint.forward;
-            shotDir += Vector3.up * upFactor;
+            // Determine which NPC to aim at
+            Vector3 targetPosition = targetNPC.position;
+
+            // Compute direction from hit point to target NPC
+            Vector3 shotDir = targetPosition - activeHitPoint.position;
+
+            // Add a vertical component for the arc
+            shotDir.y += upFactor;
+
             shotDir.Normalize();
 
+            // Reset velocities and apply the launch
             rb.linearVelocity = Vector3.zero;
             rb.angularVelocity = Vector3.zero;
-            rb.AddForce(shotDir * hitForce, ForceMode.VelocityChange);//
-            // Transform activeHitPoint = GetActiveHitPoint();
-
-            // Vector3 dir = (ball.transform.position - activeHitPoint.position).normalized;
-            // dir += Vector3.up * upFactor;
-
-            // Vector3 shotDir = dir.normalized;
-
-            // rb.linearVelocity = Vector3.zero;
-            // rb.AddForce(shotDir * hitForce, ForceMode.VelocityChange);
-
+            rb.linearVelocity = shotDir * hitForce;
 
             canLaunch = false;
             hasLaunched = true;
         }
     }
+
+
+
+    // Vector3 GetTargetNpcPosition()
+    // {
+    //     // Assuming you have references to all NPCs (assigned in inspector)
+    //     if (NPCscript.side == NpcMovement.CourtSide.Left)
+    //     {
+    //         // Left NPCs: aim at corresponding right NPC
+    //         if (NPCscript.myZone == Ballcontroller.CourtZone.Box1)
+    //             return npc4.position;
+    //         else // Box2
+    //             return npc3.position;
+    //     }
+    //     else
+    //     {
+    //         // Right NPCs: aim at corresponding left NPC
+    //         if (NPCscript.myZone == Ballcontroller.CourtZone.Box3)
+    //             return npc2.position;
+    //         else // Box4
+    //             return npc1.position;
+    //     }
+    // }
+
 
     public void startSwing()
     {

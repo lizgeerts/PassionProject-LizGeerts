@@ -134,7 +134,15 @@ MonoBehaviour:
   rightSide: 0
   bounceCount: 0
   NpcHitScript: {fileID: 3113496068355747493, guid: 7c611317ec9f54c42b559e15f68c2f6d, type: 3}
+  leftNpc: {fileID: 0}
+  rightNpc: {fileID: 0}
+  zoneAssistStrength: 1.5
   currentZone: 0
+  NPC1: {fileID: 0}
+  NPC2: {fileID: 0}
+  NPC3: {fileID: 0}
+  NPC4: {fileID: 0}
+  nudgeStrength: 4
 --- !u!54 &4575153597277776291
 Rigidbody:
   m_ObjectHideFlags: 0

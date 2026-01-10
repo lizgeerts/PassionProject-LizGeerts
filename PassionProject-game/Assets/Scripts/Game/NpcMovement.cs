@@ -19,7 +19,7 @@ public class NpcMovement : MonoBehaviour
     public float stopDistance = 1.2f;
 
 
-    private Animator animator;
+    public Animator animator;
     public bool ballInRange = false;
 
     public Transform hitPoint;
@@ -44,9 +44,9 @@ public class NpcMovement : MonoBehaviour
     private Vector3 moveDirection;
     private float timer = 0f;
     private float timerTreshold = 0f;
-    private bool isMoving = false;
+    public bool isMoving = false;
     public Ballcontroller.CourtZone lastBallZone;
-    private float homeX;
+    public float homeX;
 
 
     [Header("Ball Prediction")]

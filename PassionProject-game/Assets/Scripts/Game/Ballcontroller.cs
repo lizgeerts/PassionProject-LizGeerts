@@ -42,13 +42,13 @@ public class Ballcontroller : MonoBehaviour
     public float nudgeStrength = 1.5f; // tweak this
     private bool hasNudgedThisZone = false;
 
-    public bool hasServed { get; private set; } = false;
+    public bool hasServed { get; set; } = false;
+
     public void RegisterFirstHit()
     {
         if (hasServed) return;
 
         hasServed = true;
-        Debug.Log("FIRST HIT OF RALLY");
     }
 
     public void Serve(Vector3 direction)
@@ -136,35 +136,79 @@ public class Ballcontroller : MonoBehaviour
 
     // Update is called once per frame
 
+    // private void NudgeTowardNPC()
+    // {
+    //     if (hasNudgedThisZone) return;
+
+
+    //     Transform targetNPC = null;
+
+    //     // Decide which NPC should get the nudge
+    //     switch (currentZone)
+    //     {
+    //         case CourtZone.Box1: targetNPC = NPC1; break;
+    //         case CourtZone.Box2: targetNPC = NPC2; break;
+    //         case CourtZone.Box3: targetNPC = NPC3; break;
+    //         case CourtZone.Box4: targetNPC = NPC4; break;
+    //     }
+
+    //     if (targetNPC == null) return;
+
+    //     Vector3 dir = (targetNPC.position - transform.position).normalized;
+
+    //     // Only nudge in x and z, keep y velocity intact
+    //     Vector3 newVelocity = rb.linearVelocity;
+    //     newVelocity.x += dir.x * nudgeStrength;
+    //     newVelocity.z += dir.z * nudgeStrength;
+    //     rb.linearVelocity = newVelocity;
+
+    //     hasNudgedThisZone = true; // only once per zone entry
+    //     Debug.Log("nudging towards" + targetNPC);
+    // }
     private void NudgeTowardNPC()
     {
         if (hasNudgedThisZone) return;
-
 
         Transform targetNPC = null;
 
         // Decide which NPC should get the nudge
         switch (currentZone)
         {
-            case CourtZone.Box1: targetNPC = NPC1; break;
-            case CourtZone.Box2: targetNPC = NPC2; break;
-            case CourtZone.Box3: targetNPC = NPC3; break;
-            case CourtZone.Box4: targetNPC = NPC4; break;
+            case CourtZone.Box1: targetNPC = NPC4; break;
+            case CourtZone.Box2: targetNPC = NPC3; break;
+            case CourtZone.Box3: targetNPC = NPC2; break;
+            case CourtZone.Box4: targetNPC = NPC1; break;
         }
 
         if (targetNPC == null) return;
 
-        Vector3 dir = (targetNPC.position - transform.position).normalized;
+        // Only nudge if ball is on the opposite side of the target NPC
+        bool targetOnLeft = targetNPC.position.z < 0f;
+        bool ballOnLeft = transform.position.z < 0f;
 
-        // Only nudge in x and z, keep y velocity intact
+        if (ballOnLeft == targetOnLeft)
+        {
+            // Ball is on the same side → no nudge
+            return;
+        }
+
+        // Direction to NPC
+        Vector3 dir = (targetNPC.position - transform.position);
+        dir.y = 0f; // keep Y unchanged
+        dir.Normalize();
+
+        // Apply smaller proportional nudge instead of full nudge
+        float adjustedNudge = nudgeStrength * 0.5f; // tweak multiplier for more subtle effect
         Vector3 newVelocity = rb.linearVelocity;
-        newVelocity.x += dir.x * nudgeStrength;
-        newVelocity.z += dir.z * nudgeStrength;
+        newVelocity.x += dir.x * adjustedNudge;
+        newVelocity.z += dir.z * adjustedNudge;
+
         rb.linearVelocity = newVelocity;
 
         hasNudgedThisZone = true; // only once per zone entry
-        Debug.Log("nudging towards" + targetNPC);
+        Debug.Log("Nudging toward " + targetNPC.name);
     }
+
 
 
     void Update()
