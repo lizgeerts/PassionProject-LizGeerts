@@ -11,8 +11,8 @@ public class NpcMovement : MonoBehaviour
     public GameObject ball;
     private Vector3 target;
 
-    private Ballcontroller ballController;
-
+    public Ballcontroller ballController;
+    public NpcHitsystem NpcHitScript;
 
     public float moveSpeed = 3f;
     public float stopDistance = 1.2f;
@@ -22,6 +22,7 @@ public class NpcMovement : MonoBehaviour
     private bool ballInRange = false;
 
     public Transform hitPoint;
+    public Transform net;
 
     public enum CourtSide { Left, Right };
     public CourtSide side;
@@ -49,6 +50,7 @@ public class NpcMovement : MonoBehaviour
     private Vector3 predictedLandingPoint;
     public bool hasPrediction = false;
     public bool predictionLocked = false;
+    public float zPredictionOffset = 0.8f;
 
 
     private float TimeToGroundBounce(Rigidbody rb)
@@ -98,79 +100,49 @@ public class NpcMovement : MonoBehaviour
         ballController = ball.GetComponent<Ballcontroller>();
     }
 
+    private bool IsPredictionInMyZone()
+    {
+        return hasPrediction && ballController.currentZone == myZone;
+    }
+
     void UpdatePrediction()
     {
-        if (predictionLocked) return;
-        Rigidbody rb = ballController.rb;
+        Rigidbody rb = ballController.rb; // Only predict if ball is moving toward my side 
 
-        // Only predict if ball is moving toward my side
-        bool ballComingToMe =
-            (side == CourtSide.Left && ballController.rightSide) ||
-            (side == CourtSide.Right && ballController.leftSide);
-
+        bool ballComingToMe = (side == CourtSide.Left && ballController.rightSide) || (side == CourtSide.Right && ballController.leftSide);
         if (!ballComingToMe)
         {
             hasPrediction = false;
             return;
         }
 
-        // // Only predict if ball is in the air and moving
-        // if (rb.linearVelocity.magnitude < 0.1f)
-        // {
-        //     hasPrediction = false;
-        //     return;
-        // }
+        //Only predict if ball is in the air and moving 
 
-        // // Simple forward prediction
-        // float predictionTime = 0.6f; // tweak later
-        // predictedLandingPoint = ball.transform.position + rb.linearVelocity * predictionTime;
-
-        // // Keep on ground
-        // predictedLandingPoint.y = transform.position.y;
-
-        // // Clamp to my court side
-        // if (side == CourtSide.Left)
-        //     predictedLandingPoint.z = Mathf.Min(predictedLandingPoint.z, 0f);
-        // else
-        //     predictedLandingPoint.z = Mathf.Max(predictedLandingPoint.z, 0f);
-
-        // hasPrediction = true;
-
-        float tBounce = TimeToGroundBounce(rb);
-        if (tBounce <= 0f)
+        if (rb.linearVelocity.magnitude < 0.1f && rb.transform.position.y > 0.5f)
         {
             hasPrediction = false;
             return;
         }
 
-        // 2️⃣ First bounce position
-        Vector3 firstBounce =
-            ball.transform.position +
-            rb.linearVelocity * tBounce +
-            0.5f * Physics.gravity * tBounce * tBounce;
-
-        // 3️⃣ Simulate bounce damping (same as real physics)
-        Vector3 postBounceVelocity = rb.linearVelocity;
-        // postBounceVelocity.y *= 0.7f;
-        postBounceVelocity.y = Mathf.Abs(postBounceVelocity.y) * 0.7f;
-
-
-        // 4️⃣ Predict AFTER bounce (strike zone)
-        float strikeTime = 0.35f; // time NPC “expects” to hit after bounce
-        Vector3 strikePos = firstBounce + postBounceVelocity * strikeTime + 0.5f * Physics.gravity * strikeTime * strikeTime;
-        strikePos.y = transform.position.y;
-
+        // Simple forward prediction 
+        float predictionTime = 0.6f; // tweak later 
+        predictedLandingPoint = ball.transform.position + rb.linearVelocity * predictionTime; // Keep on ground 
         predictedLandingPoint.y = transform.position.y;
 
-
-        // 5️⃣ Clamp to court side
+        // Clamp to my court side 
         if (side == CourtSide.Left)
+        {
             predictedLandingPoint.z = Mathf.Min(predictedLandingPoint.z, 0f);
+            predictedLandingPoint.z += zPredictionOffset;
+        }
         else
+        {
             predictedLandingPoint.z = Mathf.Max(predictedLandingPoint.z, 0f);
+            predictedLandingPoint.z -= zPredictionOffset;
+        }
 
         hasPrediction = true;
-        predictionLocked = true;
+
     }
 
     void Move()
@@ -227,9 +199,13 @@ public class NpcMovement : MonoBehaviour
     {
         if (!isMoving || moveDirection.magnitude < 0.05f)
         {
+
+            Vector3 netDir = (net.position - transform.position);
+            netDir.y = 0;
+
             transform.rotation = Quaternion.Slerp(
                  transform.rotation,
-                 Quaternion.LookRotation(transform.forward),
+                 Quaternion.LookRotation(netDir),
                  Time.deltaTime * 8f
              );
             animator.SetFloat("Direction", 0); // idle
@@ -274,7 +250,7 @@ public class NpcMovement : MonoBehaviour
         {
             direction = (horizontalMovement < 0f) ? 1 : (horizontalMovement > 0f ? -1 : 0);
         }
-       // Debug.Log(direction);
+        // Debug.Log(direction);
 
         animator.SetFloat("Direction", direction);
     }
@@ -425,7 +401,7 @@ public class NpcMovement : MonoBehaviour
             (side == CourtSide.Right && ballController.rightSide);
 
         // Use predictedLandingPoint only if ball is still coming
-        if (!ballOnMySide && hasPrediction)
+        if (!ballOnMySide && IsPredictionInMyZone())
         {
             target = predictedLandingPoint; // go to predicted strike spot
         }
@@ -436,7 +412,7 @@ public class NpcMovement : MonoBehaviour
         }
 
 
-        if (ballInRange && !isSwinging)
+        if (ballInRange && !isSwinging || ballController.bounceCount == 1 && myZone == ballController.currentZone)
         {
             TrySwing();
         }

@@ -894,15 +894,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::NPCcontroller
   ball: {fileID: 0}
+  ballController: {fileID: 0}
+  NpcHitScript: {fileID: 3113496068355747493}
   moveSpeed: 3
   stopDistance: 1.2
   hitPoint: {fileID: 4349123870896737022}
+  net: {fileID: 0}
   side: 0
   swingType: 
   myZone: 0
   lastBallZone: 0
   hasPrediction: 0
   predictionLocked: 0
+  zPredictionOffset: 10
 --- !u!136 &3468862400131682710
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -946,9 +950,9 @@ MonoBehaviour:
   hitPoint: {fileID: 4349123870896737022}
   racketCollider: {fileID: 8757970397132625537}
   timerTreshold: 20
-  hitForce: 13
-  upFactor: 0.3
-  hasServed: 0
+  hitForce: 10
+  upFactor: 0.2
+  hasLaunched: 0
 --- !u!1 &2500320972902131490
 GameObject:
   m_ObjectHideFlags: 0

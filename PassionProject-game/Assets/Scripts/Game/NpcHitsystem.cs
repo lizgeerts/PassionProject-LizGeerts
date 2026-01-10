@@ -20,7 +20,7 @@ public class NpcHitsystem : MonoBehaviour
     public float timerTreshold = 50f;
     public float hitForce = 5;
     public float upFactor = 0.3f;
-    private bool hasLaunched = false;
+    public bool hasLaunched = false;
     private bool canLaunch = false;
 
     public Transform GetActiveHitPoint()
