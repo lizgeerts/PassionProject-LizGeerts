@@ -117,7 +117,7 @@ public class NpcHitsystem : MonoBehaviour
 
             Vector3 forward = activeHitPoint.forward;
             Vector3 targetPos = targetNPC.position;
-            targetPos.y += 5f;
+            targetPos.y += 1000f;
             Vector3 toTarget = targetPos - activeHitPoint.position;
             toTarget.y = 0f;
             toTarget.Normalize();
@@ -126,7 +126,7 @@ public class NpcHitsystem : MonoBehaviour
             Vector3 shotDir = Vector3.Lerp(forward, toTarget, aimBias);
 
             shotDir += Vector3.up * upFactor;
-            shotDir.Normalize();
+           // shotDir.Normalize();
 
 
             rb.linearVelocity = Vector3.zero;
