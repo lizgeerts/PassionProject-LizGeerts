@@ -791,8 +791,8 @@ SphereCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Radius: 1.7464108
-  m_Center: {x: 0.10547137, y: -0.115778565, z: -0.04951191}
+  m_Radius: 1.5617143
+  m_Center: {x: 0.07932603, y: -0.115778565, z: -0.04951191}
 --- !u!1 &2419692040608269825
 GameObject:
   m_ObjectHideFlags: 0
@@ -959,7 +959,8 @@ MonoBehaviour:
   hitForce: 5
   upFactor: 8
   hasLaunched: 0
-  targetNPC: {fileID: 0}
+  targetNPCs: []
+  randomTarget: 0
   swingSide: 0
 --- !u!1 &2500320972902131490
 GameObject:
