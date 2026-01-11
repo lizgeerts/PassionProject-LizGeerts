@@ -97,57 +97,58 @@ public class NpcHitsystem : MonoBehaviour
         }
     }
 
+    //almost:
 
-    void FlyUp()
-    {
-        timer += 1;
-        // Debug.Log(timer);
+    // void FlyUp()
+    // {
+    //     timer += 1;
+    //     // Debug.Log(timer);
 
-        if (timer >= timerTreshold && !hasLaunched)
-        {
-            Debug.Log("launched");
-            Rigidbody rb = ball.rb;
+    //     if (timer >= timerTreshold && !hasLaunched)
+    //     {
+    //         Debug.Log("launched");
+    //         Rigidbody rb = ball.rb;
 
-            Transform activeHitPoint = GetActiveHitPoint();
-            // Vector3 targetPos = targetNPC.position;
-            // targetPos.y += 5f;
-            // Vector3 shotDir = activeHitPoint.forward;
-            // shotDir += Vector3.up * upFactor;
-            // shotDir.Normalize();
+    //         Transform activeHitPoint = GetActiveHitPoint();
+    //         // Vector3 targetPos = targetNPC.position;
+    //         // targetPos.y += 5f;
+    //         // Vector3 shotDir = activeHitPoint.forward;
+    //         // shotDir += Vector3.up * upFactor;
+    //         // shotDir.Normalize();
 
-            Vector3 forward = activeHitPoint.forward;
-            Vector3 targetPos = targetNPC.position;
-            targetPos.y += 1000f;
-            Vector3 toTarget = targetPos - activeHitPoint.position;
-            toTarget.y = 0f;
-            toTarget.Normalize();
+    //         Vector3 forward = activeHitPoint.forward;
+    //         Vector3 targetPos = targetNPC.position;
+    //          targetPos.y += 1000f;
+    //         Vector3 toTarget = targetPos - activeHitPoint.position;
+    //         toTarget.y = 0f;
+    //         toTarget.Normalize();
 
-            float aimBias = 0.8f; // 0 = pure forward, 1 = pure target
-            Vector3 shotDir = Vector3.Lerp(forward, toTarget, aimBias);
+    //         float aimBias = 0.8f; // 0 = pure forward, 1 = pure target
+    //         Vector3 shotDir = Vector3.Lerp(forward, toTarget, aimBias);
 
-            shotDir += Vector3.up * upFactor;
-           // shotDir.Normalize();
-
-
-            rb.linearVelocity = Vector3.zero;
-            rb.angularVelocity = Vector3.zero;
-            rb.linearVelocity = shotDir * hitForce;
-            //rb.AddForce(shotDir * hitForce, ForceMode.VelocityChange);
-            // Transform activeHitPoint = GetActiveHitPoint();
-
-            // Vector3 dir = (ball.transform.position - activeHitPoint.position).normalized;
-            // dir += Vector3.up * upFactor;
-
-            // Vector3 shotDir = dir.normalized;
-
-            // rb.linearVelocity = Vector3.zero;
-            // rb.AddForce(shotDir * hitForce, ForceMode.VelocityChange);
+    //         shotDir += Vector3.up * upFactor;
+    //         // shotDir.Normalize();
 
 
-            canLaunch = false;
-            hasLaunched = true;
-        }
-    }
+    //         rb.linearVelocity = Vector3.zero;
+    //         rb.angularVelocity = Vector3.zero;
+    //         rb.linearVelocity = shotDir * hitForce;
+    //         //rb.AddForce(shotDir * hitForce, ForceMode.VelocityChange);
+    //         // Transform activeHitPoint = GetActiveHitPoint();
+
+    //         // Vector3 dir = (ball.transform.position - activeHitPoint.position).normalized;
+    //         // dir += Vector3.up * upFactor;
+
+    //         // Vector3 shotDir = dir.normalized;
+
+    //         // rb.linearVelocity = Vector3.zero;
+    //         // rb.AddForce(shotDir * hitForce, ForceMode.VelocityChange);
+
+
+    //         canLaunch = false;
+    //         hasLaunched = true;
+    //     }
+    // }
 
 
 
@@ -215,40 +216,40 @@ public class NpcHitsystem : MonoBehaviour
     //     }
     // }
 
-    // void FlyUp()
-    // {
-    //     timer += 1;
+    void FlyUp()
+    {
+        timer += 1;
 
-    //     if (timer >= timerTreshold && !hasLaunched)
-    //     {
-    //         Rigidbody rb = ball.rb;
-    //         Transform hit = GetActiveHitPoint();
+        if (timer >= timerTreshold && !hasLaunched)
+        {
+            Debug.Log("launched");
+            Rigidbody rb = ball.rb;
+            Transform activeHitPoint = GetActiveHitPoint();
 
-    //         // 1️⃣ Horizontal direction toward target NPC
-    //         Vector3 targetPos = targetNPC.position;
-    //         targetPos.y += 1f;
-    //         Vector3 horizontalDir = targetPos - hit.position;
-    //         horizontalDir.y = 0f;
-    //         horizontalDir.Normalize();
+            // horizontal direction toward target NPC
+            Vector3 targetPos = targetNPC.position;
+            Vector3 horizontalDir = targetPos - activeHitPoint.position;
+            horizontalDir.y = 0f;   
+            horizontalDir.Normalize();
 
-    //         // 2️⃣ Horizontal velocity
-    //         float horizontalSpeed = hitForce;
-    //         Vector3 velocity = horizontalDir * horizontalSpeed;
+            // horizontal speed = swing hardness
+            Vector3 velocity = horizontalDir * hitForce;
 
-    //         // 3️⃣ Vertical velocity = ARC CONTROL
-    //         velocity.y = hitForce * upFactor;
+            // Vertical speed = arc height 
+            velocity.y = upFactor;
 
-    //         // 4️⃣ Apply clean velocity
-    //         rb.linearVelocity = Vector3.zero;
-    //         rb.angularVelocity = Vector3.zero;
-    //         rb.linearVelocity = velocity;
+            // launch
+            rb.linearVelocity = Vector3.zero;
+            rb.angularVelocity = Vector3.zero;
+            rb.linearVelocity = velocity;
 
-    //         Debug.Log($"Launch velocity = {rb.linearVelocity}");
+            Debug.Log($"Launch velocity = {rb.linearVelocity}");
 
-    //         canLaunch = false;
-    //         hasLaunched = true;
-    //     }
-    // }
+            canLaunch = false;
+            hasLaunched = true;
+        }
+    }
+
 
 
     public void startSwing()

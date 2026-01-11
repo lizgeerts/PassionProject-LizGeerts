@@ -791,8 +791,8 @@ SphereCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Radius: 1.4710497
-  m_Center: {x: 0.06949723, y: -0.115778565, z: -0.04951191}
+  m_Radius: 1.7464108
+  m_Center: {x: 0.10547137, y: -0.115778565, z: -0.04951191}
 --- !u!1 &2419692040608269825
 GameObject:
   m_ObjectHideFlags: 0
@@ -911,7 +911,7 @@ MonoBehaviour:
   homeX: 0
   homePos: {x: 0, y: 0, z: 0}
   hasPrediction: 0
-  zPredictionOffset: 5
+  zPredictionOffset: 10
   maxZoneDepth: 2.4
 --- !u!136 &3468862400131682710
 CapsuleCollider:
@@ -956,8 +956,8 @@ MonoBehaviour:
   hitPoint: {fileID: 4349123870896737022}
   racketCollider: {fileID: 8757970397132625537}
   timerTreshold: 20
-  hitForce: 10
-  upFactor: 0.2
+  hitForce: 5
+  upFactor: 8
   hasLaunched: 0
   targetNPC: {fileID: 0}
   swingSide: 0
