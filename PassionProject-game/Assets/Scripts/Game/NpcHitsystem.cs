@@ -25,8 +25,8 @@ public class NpcHitsystem : MonoBehaviour
 
     [Header("Other NPCs")]
     public Transform targetNPC;
-    public enum CourtSide { left, right }
-    public CourtSide swingSide;
+    // public enum CourtSide { left, right }
+    public NpcMovement.CourtSide swingSide;
 
     public Transform GetActiveHitPoint()
     {
@@ -83,9 +83,7 @@ public class NpcHitsystem : MonoBehaviour
 
         if (!hasHitThisSwing && hitWindowOpen)
         {
-            swingSide = (activeHitPoint.position.z >= 10f)
-                ? CourtSide.left
-                : CourtSide.right;
+            swingSide = NPCscript.side;
 
             ball.RegisterFirstHit(); //set has served to true
             ball.bounceCount = 0;
