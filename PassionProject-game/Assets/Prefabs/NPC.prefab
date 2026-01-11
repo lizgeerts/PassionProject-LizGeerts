@@ -823,7 +823,7 @@ Transform:
   m_GameObject: {fileID: 2419692040608269825}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -9.459162, y: 0.34999996, z: 7.8922024}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -896,6 +896,7 @@ MonoBehaviour:
   ball: {fileID: 0}
   ballController: {fileID: 1591196729588191270, guid: 13c69c3bf7e58467087392e1826d22d0, type: 3}
   NpcHitScript: {fileID: 3113496068355747493}
+  ResetScript: {fileID: 0}
   moveSpeed: 3
   stopDistance: 1.2
   animator: {fileID: 0}
@@ -908,8 +909,9 @@ MonoBehaviour:
   isMoving: 0
   lastBallZone: 3
   homeX: 0
+  homePos: {x: 0, y: 0, z: 0}
   hasPrediction: 0
-  zPredictionOffset: 1
+  zPredictionOffset: 5
   maxZoneDepth: 2.4
 --- !u!136 &3468862400131682710
 CapsuleCollider:
@@ -954,10 +956,11 @@ MonoBehaviour:
   hitPoint: {fileID: 4349123870896737022}
   racketCollider: {fileID: 8757970397132625537}
   timerTreshold: 20
-  hitForce: 11
-  upFactor: 0
+  hitForce: 10
+  upFactor: 0.2
   hasLaunched: 0
   targetNPC: {fileID: 0}
+  swingSide: 0
 --- !u!1 &2500320972902131490
 GameObject:
   m_ObjectHideFlags: 0

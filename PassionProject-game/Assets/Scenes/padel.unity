@@ -306,6 +306,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 95eafdd6096a84f4ea87acad06ff1da7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Ballcontroller
+--- !u!4 &107296924 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 2912248973140763896, guid: 13c69c3bf7e58467087392e1826d22d0, type: 3}
+  m_PrefabInstance: {fileID: 150427135}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &141077874
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -887,6 +892,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 157606833}
     - target: {fileID: 8625715497906410865, guid: 7c611317ec9f54c42b559e15f68c2f6d, type: 3}
+      propertyPath: ResetScript
+      value: 
+      objectReference: {fileID: 1874049529}
+    - target: {fileID: 8625715497906410865, guid: 7c611317ec9f54c42b559e15f68c2f6d, type: 3}
       propertyPath: ballController
       value: 
       objectReference: {fileID: 1591196729588191270, guid: 13c69c3bf7e58467087392e1826d22d0, type: 3}
@@ -1060,6 +1069,10 @@ PrefabInstance:
       propertyPath: teammate
       value: 
       objectReference: {fileID: 1378813850}
+    - target: {fileID: 8625715497906410865, guid: 7c611317ec9f54c42b559e15f68c2f6d, type: 3}
+      propertyPath: ResetScript
+      value: 
+      objectReference: {fileID: 1874049529}
     - target: {fileID: 8625715497906410865, guid: 7c611317ec9f54c42b559e15f68c2f6d, type: 3}
       propertyPath: ballController
       value: 
@@ -2986,8 +2999,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 10.330376, y: 4.3147516, z: 8.167302}
-  m_Center: {x: 5.0293255, y: 1.8265972, z: 3.075992}
+  m_Size: {x: 10.330376, y: 5.7726173, z: 8.167302}
+  m_Center: {x: 5.0293255, y: 2.55553, z: 3.075992}
 --- !u!1001 &1362253509
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3451,6 +3464,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1047302187}
     - target: {fileID: 8625715497906410865, guid: 7c611317ec9f54c42b559e15f68c2f6d, type: 3}
+      propertyPath: ResetScript
+      value: 
+      objectReference: {fileID: 1874049529}
+    - target: {fileID: 8625715497906410865, guid: 7c611317ec9f54c42b559e15f68c2f6d, type: 3}
       propertyPath: ballController
       value: 
       objectReference: {fileID: 1591196729588191270, guid: 13c69c3bf7e58467087392e1826d22d0, type: 3}
@@ -3573,6 +3590,17 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7c1e30c6900f746f097e4bce1004578d, type: 3}
+--- !u!114 &1708306611 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8625715497906410865, guid: 7c611317ec9f54c42b559e15f68c2f6d, type: 3}
+  m_PrefabInstance: {fileID: 436309711}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 09a14fc47d17b403fadcd9b717e991a2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::NPCcontroller
 --- !u!1001 &1718949974
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3764,8 +3792,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 10.282318, y: 4.1420655, z: 8.11734}
-  m_Center: {x: 4.9750557, y: 1.7777476, z: 3.0625553}
+  m_Size: {x: 10.282318, y: 5.692318, z: 8.11734}
+  m_Center: {x: 4.9750557, y: 2.552874, z: 3.0625553}
 --- !u!1001 &1828152729
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4026,6 +4054,10 @@ PrefabInstance:
       value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 8625715497906410865, guid: 7c611317ec9f54c42b559e15f68c2f6d, type: 3}
+      propertyPath: ResetScript
+      value: 
+      objectReference: {fileID: 1874049529}
+    - target: {fileID: 8625715497906410865, guid: 7c611317ec9f54c42b559e15f68c2f6d, type: 3}
       propertyPath: lastBallZone
       value: 3
       objectReference: {fileID: 0}
@@ -4071,8 +4103,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c4b80e5ce0feb4458802a4951737d56d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ResetGame
-  ball: {fileID: 107296919}
+  ballScript: {fileID: 107296919}
+  ball: {fileID: 107296924}
   maxBouncesPerSide: 3
+  NPC: {fileID: 1378813850}
+  NPCscript: {fileID: 1708306611}
 --- !u!4 &1874049530
 Transform:
   m_ObjectHideFlags: 0

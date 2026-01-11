@@ -9,6 +9,7 @@ public class Ballcontroller : MonoBehaviour
     public float serveSpeed = 5;
     public float hitForce = 5;
     public Vector3 lastHitDirection;
+    public Vector3 homePos;
 
     public bool leftSide = false;
     public bool rightSide = false;
@@ -131,7 +132,7 @@ public class Ballcontroller : MonoBehaviour
 
     void Start()
     {
-
+        homePos = transform.position;
     }
 
     // Update is called once per frame

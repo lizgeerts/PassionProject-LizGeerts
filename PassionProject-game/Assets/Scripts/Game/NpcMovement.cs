@@ -14,6 +14,7 @@ public class NpcMovement : MonoBehaviour
 
     public Ballcontroller ballController;
     public NpcHitsystem NpcHitScript;
+    public ResetGame ResetScript;
 
     public float moveSpeed = 3f;
     public float stopDistance = 1.2f;
@@ -47,6 +48,7 @@ public class NpcMovement : MonoBehaviour
     public bool isMoving = false;
     public Ballcontroller.CourtZone lastBallZone;
     public float homeX;
+    public Vector3 homePos;
 
 
     [Header("Ball Prediction")]
@@ -90,7 +92,8 @@ public class NpcMovement : MonoBehaviour
     {
         animator = GetComponent<Animator>();
         ballController = ball.GetComponent<Ballcontroller>();
-        homeX = transform.position.x; // store start x pos
+        homePos = transform.position; // store start x pos
+        homeX = transform.position.x;
     }
 
     void UpdatePrediction()
