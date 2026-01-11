@@ -41,7 +41,7 @@ public class Ballcontroller : MonoBehaviour
 
     [Header("Ball Nudge Settings")]
     public float nudgeStrength = 1.5f; // tweak this
-    private bool hasNudgedThisZone = false;
+    //private bool hasNudgedThisZone = false;
 
     public bool hasServed { get; set; } = false;
 
@@ -113,7 +113,7 @@ public class Ballcontroller : MonoBehaviour
         {
             currentZone = box.zone;
             // Debug.Log("Ball entered zone: " + currentZone);
-            hasNudgedThisZone = false;
+           // hasNudgedThisZone = false;
             if (hasServed)
             {
               //  NudgeTowardNPC();

@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.Rendering.Universal;
 
@@ -25,6 +26,8 @@ public class NpcHitsystem : MonoBehaviour
 
     [Header("Other NPCs")]
     public Transform targetNPC;
+    public Transform[] targetNPCs;
+    public int randomTarget;
     // public enum CourtSide { left, right }
     public NpcMovement.CourtSide swingSide;
 
@@ -214,6 +217,13 @@ public class NpcHitsystem : MonoBehaviour
     //     }
     // }
 
+    private Transform chooseTarget()
+    {
+        randomTarget = UnityEngine.Random.Range(0, 2);
+        Transform newTarget = targetNPCs[randomTarget];
+
+        return newTarget;
+    }
     void FlyUp()
     {
         timer += 1;
@@ -225,9 +235,9 @@ public class NpcHitsystem : MonoBehaviour
             Transform activeHitPoint = GetActiveHitPoint();
 
             // horizontal direction toward target NPC
-            Vector3 targetPos = targetNPC.position;
+            Vector3 targetPos = chooseTarget().position;
             Vector3 horizontalDir = targetPos - activeHitPoint.position;
-            horizontalDir.y = 0f;   
+            horizontalDir.y = 0f;
             horizontalDir.Normalize();
 
             // horizontal speed = swing hardness
@@ -247,6 +257,40 @@ public class NpcHitsystem : MonoBehaviour
             hasLaunched = true;
         }
     }
+
+    // void FlyUp()
+    // {
+    //     timer += 1;
+
+    //     if (timer >= timerTreshold && !hasLaunched)
+    //     {
+    //         Debug.Log("launched");
+    //         Rigidbody rb = ball.rb;
+    //         Transform activeHitPoint = GetActiveHitPoint();
+
+    //         // horizontal direction toward target NPC
+    //         Vector3 targetPos = targetNPC.position;
+    //         Vector3 horizontalDir = targetPos - activeHitPoint.position;
+    //         horizontalDir.y = 0f;
+    //         horizontalDir.Normalize();
+
+    //         // horizontal speed = swing hardness
+    //         Vector3 velocity = horizontalDir * hitForce;
+
+    //         // Vertical speed = arc height 
+    //         velocity.y = upFactor;
+
+    //         // launch
+    //         rb.linearVelocity = Vector3.zero;
+    //         rb.angularVelocity = Vector3.zero;
+    //         rb.linearVelocity = velocity;
+
+    //         Debug.Log($"Launch velocity = {rb.linearVelocity}");
+
+    //         canLaunch = false;
+    //         hasLaunched = true;
+    //     }
+    // }
 
 
 
