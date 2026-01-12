@@ -70,7 +70,10 @@ public class NpcHitsystem : MonoBehaviour
         }
         //if the ball has bounced 2 times and at the same time is in range and
         //serving was done, then also perform a hit
+    }
 
+    void FixedUpdate()
+    {
         if (canLaunch)
         {
             FlyUp();

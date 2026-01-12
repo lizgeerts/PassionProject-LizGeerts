@@ -40,5 +40,6 @@ public class ResetGame : MonoBehaviour
         // Option 2: if you want to reset ball/NPC positions without reloading scene,
         // you can implement a ResetPositions() method instead
     }
+
 }
 

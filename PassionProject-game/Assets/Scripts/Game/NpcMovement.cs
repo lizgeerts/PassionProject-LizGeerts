@@ -114,7 +114,7 @@ public class NpcMovement : MonoBehaviour
 
         if (rb.linearVelocity.magnitude < 0.1f)
         {
-           // hasPrediction = false;
+            // hasPrediction = false;
             return;
         }
 
@@ -204,7 +204,7 @@ public class NpcMovement : MonoBehaviour
                  Quaternion.LookRotation(netDir),
                  Time.deltaTime * 8f
              );
-            
+
             animator.SetFloat("Direction", 0); // idle
             return;
         }
@@ -230,11 +230,6 @@ public class NpcMovement : MonoBehaviour
 
         transform.position = pos;
 
-        // transform.rotation = Quaternion.Slerp(
-        //     transform.rotation,
-        //     Quaternion.LookRotation(dir),
-        //     Time.deltaTime * 8f
-        // );
         //good:
         Quaternion targetRot = Quaternion.LookRotation(dir);
         targetRot = ClampRotationToCourt(targetRot);
@@ -395,7 +390,7 @@ public class NpcMovement : MonoBehaviour
             hasPrediction = false;
             predictionLock = false;
         }
-        
+
         //target = ball.transform.position;
         UpdatePrediction();
         //Debug.Log("I npc " + gameObject.name + " prediction =" + hasPrediction);
