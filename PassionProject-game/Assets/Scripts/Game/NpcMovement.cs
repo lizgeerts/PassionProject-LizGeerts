@@ -385,6 +385,7 @@ public class NpcMovement : MonoBehaviour
     {
         //target = ball.transform.position;
         UpdatePrediction();
+        Debug.Log("I npc " + gameObject.name + " prediction =" + hasPrediction);
 
         // bool ballOnMySide =
         //     (side == CourtSide.Left && ballController.leftSide) ||

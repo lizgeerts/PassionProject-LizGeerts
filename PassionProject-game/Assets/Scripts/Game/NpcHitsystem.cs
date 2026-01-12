@@ -64,7 +64,7 @@ public class NpcHitsystem : MonoBehaviour
             PerformHit();
         }
 
-        if(ball.bounceCount == 2 && NPCscript.ballInRange && ball.hasServed)
+        if (ball.bounceCount == 2 && hitSensor.BallInHitCircle && ball.hasServed)
         {
             PerformHit();
         }
@@ -122,6 +122,13 @@ public class NpcHitsystem : MonoBehaviour
             horizontalDir.Normalize();
 
             // horizontal speed = swing hardness
+            if (NPCscript.swingType == "Backhand")
+            {
+                hitForce = 5;
+                upFactor = 7;
+            }
+            else { hitForce = 5; upFactor = 8; }
+
             Vector3 velocity = horizontalDir * hitForce;
 
             // Vertical speed = arc height 
