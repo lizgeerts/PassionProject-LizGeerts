@@ -520,6 +520,8 @@ GameObject:
   m_Component:
   - component: {fileID: 6412139666888758}
   - component: {fileID: 5927217159541423448}
+  - component: {fileID: 2719253431445379969}
+  - component: {fileID: 4722442904892776649}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -566,6 +568,30 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &2719253431445379969
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2516790503248948639}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 634923c1c5b8f49839f7a36326fa7a8e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerMovement
+--- !u!114 &4722442904892776649
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2516790503248948639}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e903faf0db9ea4de7b6e578e8fda06e5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerHit
 --- !u!1 &2609220775858131384
 GameObject:
   m_ObjectHideFlags: 0

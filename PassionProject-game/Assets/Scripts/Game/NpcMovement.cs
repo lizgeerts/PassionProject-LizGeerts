@@ -380,23 +380,28 @@ public class NpcMovement : MonoBehaviour
         }
     }
 
+    private bool BallIsComingToMe()
+    {
+        return (side == CourtSide.Left && NpcHitScript.swingSide == CourtSide.Right)
+            || (side == CourtSide.Right && NpcHitScript.swingSide == CourtSide.Left);
+    }
 
+    private bool BallOnMySide()
+    {
+        return (side == CourtSide.Left && ballController.leftSide)
+            || (side == CourtSide.Right && ballController.rightSide);
+    }
     // Update is called once per frame
 
-    void FixedUpdate()
+    void Update()
     {
         if (ballController.bounceCount >= 1)
         {
             hasPrediction = false;
             predictionLock = false;
         }
-    }
-
-    void Update()
-    {
 
         UpdatePrediction();
-
 
         if (hasPrediction)
         {
@@ -424,5 +429,38 @@ public class NpcMovement : MonoBehaviour
             RotateSwing();
         }
     }
+
+    // void Update()
+    // {
+
+    //     UpdatePrediction();
+
+
+    //     if (hasPrediction)
+    //     {
+    //         target = predictedLandingPoint;
+    //     }
+    //     else
+    //     {
+    //         target = ball.transform.position;
+    //     }
+
+
+    //     if (ballInRange && !isSwinging || ballController.bounceCount == 1 && myZone == ballController.currentZone)
+    //     {
+    //         TrySwing();
+    //     }
+
+    //     if (!isSwinging)
+    //     {
+    //         Move();
+    //         MoveTowardBall();
+    //     }
+
+    //     if (isSwinging)
+    //     {
+    //         RotateSwing();
+    //     }
+    // }
 }
 
