@@ -191,6 +191,8 @@ public class NpcMovement : MonoBehaviour
 
     void MoveTowardBall()
     {
+        if (isSwinging) return;
+
         if (!isMoving || moveDirection.magnitude < 0.05f)
         {
 
@@ -328,7 +330,7 @@ public class NpcMovement : MonoBehaviour
     void TrySwing()
     {
         if (Time.time - lastSwingTime < swingCooldown) return;
-
+        animator.SetFloat("Direction", 0f);
         preSwingRotation = transform.rotation; //store rotation
         DetermineSwingTrigger();
 
@@ -393,6 +395,7 @@ public class NpcMovement : MonoBehaviour
             hasPrediction = false;
             predictionLock = false;
         }
+        
         //target = ball.transform.position;
         UpdatePrediction();
         //Debug.Log("I npc " + gameObject.name + " prediction =" + hasPrediction);
