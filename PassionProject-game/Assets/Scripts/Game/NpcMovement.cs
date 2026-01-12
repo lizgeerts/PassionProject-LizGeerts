@@ -8,7 +8,6 @@ using UnityEngine.AI;
 
 public class NpcMovement : MonoBehaviour
 {
-
     public GameObject ball;
     private Vector3 target;
 
@@ -55,6 +54,7 @@ public class NpcMovement : MonoBehaviour
     private Vector3 predictedLandingPoint;
     public bool hasPrediction = false;
     public float zPredictionOffset = 0.8f;
+    public bool predictionLock = false;
 
     [Header("Zone Limits")]
     public float maxZoneDepth = 1.2f;
@@ -98,12 +98,15 @@ public class NpcMovement : MonoBehaviour
 
     void UpdatePrediction()
     {
+        if (predictionLock) return;
+
         Rigidbody rb = ballController.rb; // Only predict if ball is moving toward my side 
 
-        bool ballComingToMe = (side == CourtSide.Left && ballController.rightSide) || (side == CourtSide.Right && ballController.leftSide);
+        bool ballComingToMe = (side == CourtSide.Left && NpcHitScript.swingSide == CourtSide.Right)
+                               || (side == CourtSide.Right && NpcHitScript.swingSide == CourtSide.Left);
         if (!ballComingToMe)
         {
-            hasPrediction = false;
+            //hasPrediction = false;
             return;
         }
 
@@ -111,7 +114,7 @@ public class NpcMovement : MonoBehaviour
 
         if (rb.linearVelocity.magnitude < 0.1f)
         {
-            hasPrediction = false;
+           // hasPrediction = false;
             return;
         }
 
@@ -133,7 +136,7 @@ public class NpcMovement : MonoBehaviour
         }
 
         hasPrediction = true;
-
+        predictionLock = true;
     }
 
     void Move()
@@ -199,6 +202,7 @@ public class NpcMovement : MonoBehaviour
                  Quaternion.LookRotation(netDir),
                  Time.deltaTime * 8f
              );
+            
             animator.SetFloat("Direction", 0); // idle
             return;
         }
@@ -383,9 +387,15 @@ public class NpcMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+
+        if (ballController.bounceCount >= 1)
+        {
+            hasPrediction = false;
+            predictionLock = false;
+        }
         //target = ball.transform.position;
         UpdatePrediction();
-        Debug.Log("I npc " + gameObject.name + " prediction =" + hasPrediction);
+        //Debug.Log("I npc " + gameObject.name + " prediction =" + hasPrediction);
 
         // bool ballOnMySide =
         //     (side == CourtSide.Left && ballController.leftSide) ||
@@ -400,19 +410,13 @@ public class NpcMovement : MonoBehaviour
         //     target = predictedLandingPoint;
         // }
 
-        bool ballOnMySide =
-            (side == CourtSide.Left && ballController.leftSide) ||
-            (side == CourtSide.Right && ballController.rightSide);
-
-        // Use predictedLandingPoint only if ball is still coming
-        if (!ballOnMySide && hasPrediction || myZone == ballController.currentZone && hasPrediction)
-
+        if (hasPrediction)
         {
-            target = predictedLandingPoint; // go to predicted strike spot
+            target = predictedLandingPoint;
         }
         else
         {
-            target = ball.transform.position; // ball is on my side → chase normally
+            target = ball.transform.position;
         }
 
 

@@ -55,8 +55,8 @@ public class NpcHitsystem : MonoBehaviour
     {
         if (hitSensor.BallInHitCircle)
         {
-            Debug.Log("Ball in hit range");
-            NPCscript.hasPrediction = false;
+            //Debug.Log("Ball in hit range");
+           // NPCscript.hasPrediction = false;
         }
 
         if (animationStarted && hitSensor.BallInHitCircle)
@@ -90,7 +90,7 @@ public class NpcHitsystem : MonoBehaviour
 
             ball.RegisterFirstHit(); //set has served to true
             ball.bounceCount = 0;
-            Debug.Log("HIT!");
+           // Debug.Log("HIT!");
             canLaunch = true;
             hasHitThisSwing = true;
             rb.linearVelocity = Vector3.zero;
@@ -111,7 +111,7 @@ public class NpcHitsystem : MonoBehaviour
 
         if (timer >= timerTreshold && !hasLaunched)
         {
-            Debug.Log("launched");
+           // Debug.Log("launched");
             Rigidbody rb = ball.rb;
             Transform activeHitPoint = GetActiveHitPoint();
 
@@ -139,7 +139,7 @@ public class NpcHitsystem : MonoBehaviour
             rb.angularVelocity = Vector3.zero;
             rb.linearVelocity = velocity;
 
-            Debug.Log($"Launch velocity = {rb.linearVelocity}");
+          //  Debug.Log($"Launch velocity = {rb.linearVelocity}");
 
             canLaunch = false;
             hasLaunched = true;

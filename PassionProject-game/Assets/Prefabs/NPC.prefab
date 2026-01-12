@@ -911,7 +911,8 @@ MonoBehaviour:
   homeX: 0
   homePos: {x: 0, y: 0, z: 0}
   hasPrediction: 0
-  zPredictionOffset: 3
+  zPredictionOffset: 10
+  predictionLock: 0
   maxZoneDepth: 2.4
 --- !u!136 &3468862400131682710
 CapsuleCollider:

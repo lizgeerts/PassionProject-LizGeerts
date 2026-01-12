@@ -45,6 +45,7 @@ public class Ballcontroller : MonoBehaviour
 
     public bool hasServed { get; set; } = false;
 
+
     public void RegisterFirstHit()
     {
         if (hasServed) return;
@@ -83,10 +84,6 @@ public class Ballcontroller : MonoBehaviour
         {
             Debug.Log("Ball hit glass");
 
-        }
-        else if (collision.collider.CompareTag("Racket"))
-        {
-            Debug.Log("Ball hit racket");
         }
     }
 
