@@ -167,12 +167,12 @@ public class NpcMovement : MonoBehaviour
                 (side == CourtSide.Right && ballController.rightSide))
             {
                 // Ball is on my side → move a bit longer
-                timerTreshold = UnityEngine.Random.Range(1.5f, 2.2f);
+                timerTreshold = UnityEngine.Random.Range(1.2f, 2f);
             }
             else
             {
                 // Ball is on the other side → shorter move
-                timerTreshold = UnityEngine.Random.Range(0.8f, 1.1f);
+                timerTreshold = UnityEngine.Random.Range(0.7f, 1f);
             }
         }
 
@@ -382,31 +382,21 @@ public class NpcMovement : MonoBehaviour
 
 
     // Update is called once per frame
-    void Update()
-    {
 
+    void FixedUpdate()
+    {
         if (ballController.bounceCount >= 1)
         {
             hasPrediction = false;
             predictionLock = false;
         }
+    }
 
-        //target = ball.transform.position;
+    void Update()
+    {
+
         UpdatePrediction();
-        //Debug.Log("I npc " + gameObject.name + " prediction =" + hasPrediction);
 
-        // bool ballOnMySide =
-        //     (side == CourtSide.Left && ballController.leftSide) ||
-        //     (side == CourtSide.Right && ballController.rightSide);
-
-        // if (ballOnMySide && !predictionLocked || !hasPrediction)
-        // {
-        //     target = ball.transform.position;
-        // }
-        // else
-        // {
-        //     target = predictedLandingPoint;
-        // }
 
         if (hasPrediction)
         {

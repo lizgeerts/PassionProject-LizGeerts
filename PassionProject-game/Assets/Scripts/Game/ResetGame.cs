@@ -41,5 +41,11 @@ public class ResetGame : MonoBehaviour
         // you can implement a ResetPositions() method instead
     }
 
+    void Awake()
+    {
+        Application.targetFrameRate = 60; //set framerate so that it's the same 
+        //when laptop is charging or not
+    }
+
 }
 
