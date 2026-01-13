@@ -581,6 +581,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 634923c1c5b8f49839f7a36326fa7a8e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerMovement
+  espData: {fileID: -1163255537461668440}
+  moveSpeed: 3
 --- !u!114 &4722442904892776649
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -595,6 +597,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PlayerHit
   playerAnimation: {fileID: 5927217159541423448}
   espData: {fileID: -1163255537461668440}
+  minPower: 3
+  forehandMinPitch: 20
+  forehandMaxPitch: 65
+  forehandMinRoll: -10
+  forehandMaxRoll: 50
+  backhandMinPitch: 25
+  backhandMaxPitch: 55
+  backhandMinRoll: 25
+  backhandMaxRoll: 55
+  overhandMaxPitch: 20
+  overhandMinRoll: 40
+  overhandMaxRoll: 80
+  swingCooldown: 1
 --- !u!114 &-1163255537461668440
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -607,9 +622,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e9ab49145362849f09578fd10eda9fdc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EspConnect
+  gx: 0
+  gy: 0
+  gz: 0
   pitch: 0
   roll: 0
   power: 0
+  buttonPressed: 0
 --- !u!1 &2609220775858131384
 GameObject:
   m_ObjectHideFlags: 0

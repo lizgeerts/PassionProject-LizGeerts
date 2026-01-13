@@ -2281,6 +2281,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
+    - target: {fileID: 2719253431445379969, guid: 64eb9d0f036f7408cbac68aca375d0b3, type: 3}
+      propertyPath: espData
+      value: 
+      objectReference: {fileID: 1760041384}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -3755,6 +3759,17 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7c1e30c6900f746f097e4bce1004578d, type: 3}
+--- !u!114 &1760041384 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: -1163255537461668440, guid: 64eb9d0f036f7408cbac68aca375d0b3, type: 3}
+  m_PrefabInstance: {fileID: 1080452126}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e9ab49145362849f09578fd10eda9fdc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::EspConnect
 --- !u!1001 &1805678454
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -22,6 +22,8 @@ public class EspConnect : MonoBehaviour
     private bool dataReady = false;
     private string lastLine = "";
 
+    public bool buttonPressed;
+
     IEnumerator ReadSerialCoroutine()
     {
         while (true)
@@ -31,7 +33,7 @@ public class EspConnect : MonoBehaviour
                 try
                 {
                     string line = serial.ReadLine().Trim();
-                    if (line.Contains(","))
+                   if (line.Contains(","))
                     {
                         lastLine = line;
                         dataReady = true;
@@ -80,6 +82,8 @@ public class EspConnect : MonoBehaviour
             gy = float.Parse(raw[4]);
             gz = float.Parse(raw[5]);
 
+            buttonPressed = raw[6] == "0";
+
             CalculateData();
         }
     }
@@ -95,7 +99,7 @@ public class EspConnect : MonoBehaviour
         acc_mag = Mathf.Max(0, acc_mag);
         power = Mathf.Min(10, (int)(acc_mag * 2));
 
-        // Debug.Log($"Pitch:{pitch:F1} Roll:{roll:F1} Power:{power}");
+         Debug.Log($"Pitch:{pitch:F1} Roll:{roll:F1} Power:{power}");
     }
 
     void OnApplicationQuit()
