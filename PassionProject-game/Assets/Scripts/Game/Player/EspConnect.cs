@@ -70,6 +70,7 @@ public class EspConnect : MonoBehaviour
             if (!serial.IsOpen) return;
 
             string[] raw = lastLine.Split(',');
+            if (raw.Length < 6) return;  // Skip incomplete lines
 
             ax = float.Parse(raw[0]);
             ay = float.Parse(raw[1]);

@@ -70,6 +70,7 @@ void loop() {
   Serial.print(g.gyro.x, 3); Serial.print(",");
   Serial.print(g.gyro.y, 3); Serial.print(",");
   Serial.print(g.gyro.z, 3);
+  Serial.println();
 
   delay(10);
 }
