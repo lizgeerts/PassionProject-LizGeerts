@@ -6,6 +6,7 @@ public class ResetGame : MonoBehaviour
     public Ballcontroller ballScript;        // reference to the ball
     public Transform ball;
     public int maxBouncesPerSide = 3;  // set how many bounces trigger reset
+    private int lastBounceCount = 0;
     public Transform NPC;
     public NpcMovement NPCscript;
 
@@ -13,6 +14,9 @@ public class ResetGame : MonoBehaviour
     {
         if (ballScript == null) return;
 
+        if (ballScript.bounceCount == lastBounceCount) return;
+        lastBounceCount = ballScript.bounceCount;
+        
         // 1. Ball bounced too many times on one side
         if (ballScript.leftSide && ballScript.bounceCount >= maxBouncesPerSide)
         {
@@ -39,12 +43,6 @@ public class ResetGame : MonoBehaviour
 
         // Option 2: if you want to reset ball/NPC positions without reloading scene,
         // you can implement a ResetPositions() method instead
-    }
-
-    void Awake()
-    {
-        Application.targetFrameRate = 60; //set framerate so that it's the same 
-        //when laptop is charging or not
     }
 
 }

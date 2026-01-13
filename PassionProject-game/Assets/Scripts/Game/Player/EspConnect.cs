@@ -39,7 +39,7 @@ public class EspConnect : MonoBehaviour
                 }
                 catch (TimeoutException) { }
             }
-            yield return new WaitForSeconds(0.05f);  // 20Hz → no lag!
+            yield return new WaitForSeconds(0.05f);
         }
     }
 
@@ -94,7 +94,7 @@ public class EspConnect : MonoBehaviour
         acc_mag = Mathf.Max(0, acc_mag);
         power = Mathf.Min(10, (int)(acc_mag * 2));
 
-       // Debug.Log($"Pitch:{pitch:F1} Roll:{roll:F1} Power:{power}");
+        // Debug.Log($"Pitch:{pitch:F1} Roll:{roll:F1} Power:{power}");
     }
 
     void OnApplicationQuit()

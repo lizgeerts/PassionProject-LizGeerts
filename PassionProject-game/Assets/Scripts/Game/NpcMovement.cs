@@ -9,6 +9,8 @@ using UnityEngine.AI;
 public class NpcMovement : MonoBehaviour
 {
     public GameObject ball;
+    private Transform ballTransform;
+    private Rigidbody ballRb;
     private Vector3 target;
 
     public Ballcontroller ballController;
@@ -92,6 +94,8 @@ public class NpcMovement : MonoBehaviour
     {
         animator = GetComponent<Animator>();
         ballController = ball.GetComponent<Ballcontroller>();
+        ballTransform = ball.transform;
+        ballRb = ball.GetComponent<Rigidbody>();
         homePos = transform.position; // store start x pos
         homeX = transform.position.x;
     }
@@ -99,8 +103,7 @@ public class NpcMovement : MonoBehaviour
     void UpdatePrediction()
     {
         if (predictionLock) return;
-
-        Rigidbody rb = ballController.rb; // Only predict if ball is moving toward my side 
+        // Only predict if ball is moving toward my side 
 
         bool ballComingToMe = (side == CourtSide.Left && NpcHitScript.swingSide == CourtSide.Right)
                                || (side == CourtSide.Right && NpcHitScript.swingSide == CourtSide.Left);
@@ -112,7 +115,7 @@ public class NpcMovement : MonoBehaviour
 
         //Only predict if ball is moving 
 
-        if (rb.linearVelocity.magnitude < 0.1f)
+        if (ballRb.linearVelocity.magnitude < 0.1f)
         {
             // hasPrediction = false;
             return;
@@ -120,7 +123,7 @@ public class NpcMovement : MonoBehaviour
 
         // Simple forward prediction 
         float predictionTime = 0.6f; // tweak later 
-        predictedLandingPoint = ball.transform.position + rb.linearVelocity * predictionTime; // Keep on ground 
+        predictedLandingPoint = ballTransform.position + ballRb.linearVelocity * predictionTime; // Keep on ground 
         predictedLandingPoint.y = transform.position.y;
 
         // Clamp to my court side 
@@ -395,6 +398,12 @@ public class NpcMovement : MonoBehaviour
 
     void Update()
     {
+        if (isSwinging)
+        {
+            RotateSwing();
+            return;
+        }
+
         if (ballController.bounceCount >= 1)
         {
             hasPrediction = false;
@@ -409,7 +418,7 @@ public class NpcMovement : MonoBehaviour
         }
         else
         {
-            target = ball.transform.position;
+            target = ballTransform.position;
         }
 
 
@@ -422,11 +431,6 @@ public class NpcMovement : MonoBehaviour
         {
             Move();
             MoveTowardBall();
-        }
-
-        if (isSwinging)
-        {
-            RotateSwing();
         }
     }
 
