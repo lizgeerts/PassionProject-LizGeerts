@@ -12,6 +12,10 @@ const char* password = "Throttle0-Thing3-Dollop0-Shakily5";
 
 Adafruit_MPU6050 mpu; //create sensor
 
+const int buttonPin = 4;  // the number of the pushbutton pin
+int buttonState = 0;
+
+
 //all the other serial prints are for debugging so they are now put in comments so they don't keep causing errors in the unity console.
 
 // Initialize WiFi
@@ -57,11 +61,15 @@ void setup() {
   initWiFi();
   InitMPU();
   scanI2C();
+
+  pinMode(buttonPin, INPUT);
 }
 
 void loop() {
   sensors_event_t a, g, temp;
   mpu.getEvent(&a, &g, &temp);
+
+  int button = digitalRead(buttonPin) == LOW ? 1 : 0;
 
   // all mpu data
   Serial.print(a.acceleration.x, 3); Serial.print(",");
@@ -69,8 +77,8 @@ void loop() {
   Serial.print(a.acceleration.z, 3); Serial.print(",");
   Serial.print(g.gyro.x, 3); Serial.print(",");
   Serial.print(g.gyro.y, 3); Serial.print(",");
-  Serial.print(g.gyro.z, 3);
-  Serial.println();
+  Serial.print(g.gyro.z, 3); Serial.print(",");
+  Serial.println(button);
 
   delay(10);
 }
