@@ -12,9 +12,9 @@ public class EspConnect : MonoBehaviour
     private float ay;
     private float az;
 
-    private float gx;
-    private float gy;
-    private float gz;
+    public float gx;
+    public float gy;
+    public float gz;
 
     public float pitch;
     public float roll;
