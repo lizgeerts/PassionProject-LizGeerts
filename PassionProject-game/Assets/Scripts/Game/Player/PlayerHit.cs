@@ -6,24 +6,24 @@ public class PlayerHit : MonoBehaviour
     public EspConnect espData;
 
     [Header("Swing Thresholds")]
-    public float minPower = 5;  // Power ≥5 = swing!
+    public float minPower = 3;  // Power ≥5 = swing!
 
     [Header("Forehand")]
-    public float forehandMinPitch = 10f;
+    public float forehandMinPitch = 20f;
     public float forehandMaxPitch = 65f;
-    public float forehandMinRoll = -50f;
-    public float forehandMaxRoll = 60f;
+    public float forehandMinRoll = -10f;
+    public float forehandMaxRoll = 50f;
 
     [Header("Backhand")]
-    public float backhandMinPitch = 0f;
+    public float backhandMinPitch = 25f;
     public float backhandMaxPitch = 55f;
-    public float backhandMinRoll = -20f;
-    public float backhandMaxRoll = 70f;
+    public float backhandMinRoll = 25f;
+    public float backhandMaxRoll = 55f;
 
     [Header("Overhand")]
-    public float overhandMaxPitch = 5f;   // Negative/small
-    public float overhandMinRoll = 50f;
-    public float overhandMaxRoll = 75f;
+    public float overhandMaxPitch = 20f;  
+    public float overhandMinRoll = 40f;
+    public float overhandMaxRoll = 80f;
 
     // Cooldown (prevent spam)
     float lastSwingTime = 0f;
@@ -46,7 +46,7 @@ public class PlayerHit : MonoBehaviour
         {
             playerAnimation.SetTrigger("Forehand");
             lastSwingTime = Time.time;
-          //  Debug.Log($"FOREHAND! P:{espData.pitch:F1} R:{espData.roll:F1} Power:{espData.power}");
+            //  Debug.Log($"FOREHAND! P:{espData.pitch:F1} R:{espData.roll:F1} Power:{espData.power}");
             return;
         }
 
@@ -66,8 +66,9 @@ public class PlayerHit : MonoBehaviour
         {
             playerAnimation.SetTrigger("Overhand");
             lastSwingTime = Time.time;
-           // Debug.Log($"OVERHAND! P:{espData.pitch:F1} R:{espData.roll:F1} Power:{espData.power}");
+            // Debug.Log($"OVERHAND! P:{espData.pitch:F1} R:{espData.roll:F1} Power:{espData.power}");
             return;
         }
-}
+    }
+
 }
