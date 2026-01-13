@@ -184,10 +184,4 @@ public class Ballcontroller : MonoBehaviour
     //     Debug.Log("nudging towards" + targetNPC);
     // }
 
-
-    void Update()
-    {
-
-
-    }
 }

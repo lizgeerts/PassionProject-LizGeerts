@@ -12,16 +12,18 @@ const char* password = "Throttle0-Thing3-Dollop0-Shakily5";
 
 Adafruit_MPU6050 mpu; //create sensor
 
+//all the other serial prints are for debugging so they are now put in comments so they don't keep causing errors in the unity console.
+
 // Initialize WiFi
 void initWiFi() {
   WiFi.mode(WIFI_STA);
   WiFi.begin(ssid, password);
-  Serial.print("Connecting to WiFi ..");
+  //Serial.print("Connecting to WiFi ..");
   while (WiFi.status() != WL_CONNECTED) {
-    Serial.print('.');
+  //Serial.print('.');
     delay(1000);
   }
-  Serial.println(WiFi.localIP());
+ // Serial.println(WiFi.localIP());
 }
 
 void InitMPU(){
@@ -32,20 +34,20 @@ void InitMPU(){
 
   int retries = 5;
   while (!mpu.begin() && retries > 0) {
-    Serial.println("MPU6050 not found, retrying...");
-    delay(1000);
+    //Serial.println("MPU6050 not found, retrying...");
+    delay(500);
     retries--;
   }
 
   if (retries == 0) {
-    Serial.println("MPU6050 broken? check wiring");
+    //Serial.println("MPU6050 broken? check wiring");
     while(1);
   }
 
   mpu.setAccelerometerRange(MPU6050_RANGE_8_G);
   mpu.setGyroRange(MPU6050_RANGE_500_DEG);
 
-  Serial.println("MPU6050 READY!");
+  //Serial.println("MPU6050 READY!");
 }
 
 void setup() {
@@ -67,20 +69,19 @@ void loop() {
   Serial.print(a.acceleration.z, 3); Serial.print(",");
   Serial.print(g.gyro.x, 3); Serial.print(",");
   Serial.print(g.gyro.y, 3); Serial.print(",");
-  Serial.print(g.gyro.z, 3); Serial.print(",");
-  Serial.println();
+  Serial.print(g.gyro.z, 3);
 
-  delay(200);
+  delay(10);
 }
 
 void scanI2C() { //I2C address detector -> automatically finds mpu
-  Serial.println("Scanning I2C...");
+  //Serial.println("Scanning I2C...");
   for (byte i = 8; i < 120; i++) {
     Wire.beginTransmission(i);
     if (Wire.endTransmission() == 0) {
-      Serial.printf("Device at 0x%02X\n", i);
+      //Serial.printf("Device at 0x%02X\n", i);
     }
   }
-  Serial.println("Scan done");
+  //Serial.println("Scan done");
 }
 
