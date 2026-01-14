@@ -10,7 +10,7 @@ public class PlayerMovement : MonoBehaviour
 
     void Start()
     {
-
+        
     }
 
     void Update()
@@ -18,11 +18,11 @@ public class PlayerMovement : MonoBehaviour
         if (espData.buttonPressed)
         {
             Vector3 moveDir = transform.forward * moveSpeed;
-            velocity = Vector3.Lerp(velocity, moveDir, Time.deltaTime * 10f);
+            velocity = Vector3.Lerp(velocity, moveDir, Time.deltaTime * 10f);  
         }
         else
         {
-            velocity = Vector3.Lerp(velocity, Vector3.zero, Time.deltaTime * deceleration);
+            velocity = Vector3.Lerp(velocity, Vector3.zero, Time.deltaTime * deceleration);  
         }
         transform.position += velocity * Time.deltaTime;
     }
