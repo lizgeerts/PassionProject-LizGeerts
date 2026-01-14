@@ -4,6 +4,8 @@
 
 #include <Adafruit_MPU6050.h>
 #include <Adafruit_Sensor.h>
+#include <AsyncTCP.h>
+#include <ESPAsyncWebServer.h>
 #include <Wire.h>
 #include <WiFi.h>
 
@@ -13,12 +15,25 @@
 const char* ssid = "Howest-IoT";
 const char* password = "LZe5buMyZUcDpLY";
 
-NetworkServer server(80);
+// Create AsyncWebServer object on port 80
+AsyncWebServer server(80);
+// Create an web socket Source on /ws
+AsyncWebSocket ws("/ws");
 
 Adafruit_MPU6050 mpu; //create sensor
 
 const int buttonPin = 4;  // the number of the pushbutton pin
 int buttonState = 0;
+
+sensors_event_t a, g, temp;
+
+float gyroX, gyroY, gyroZ;
+float accX, accY, accZ;
+
+//Gyroscope sensor deviation
+float gyroXerror = 0.07;
+float gyroYerror = 0.03;
+float gyroZerror = 0.01;
 
 //all the other serial prints are for debugging so they are now put in comments so they don't keep causing errors in the unity console.
 
@@ -33,7 +48,7 @@ void initWiFi() {
   }
   Serial.println(WiFi.localIP());
 
-  server.begin();
+  //server.begin();
 }
 
 void InitMPU(){
@@ -60,6 +75,7 @@ void InitMPU(){
   //Serial.println("MPU6050 READY!");
 }
 
+
 void setup() {
   Serial.begin(115200);
   while (!Serial) delay(10);
@@ -69,56 +85,47 @@ void setup() {
   scanI2C();
 
   pinMode(buttonPin, INPUT);
+
+  server.on("/", HTTP_GET, [](AsyncWebServerRequest *request) {
+  request->send(200, "text/plain", "ESP32 WebSocket running");
+  }); //just to check if it's running
+  //paste ip in browser to see
+
+  ws.onEvent([](AsyncWebSocket *server, AsyncWebSocketClient *client,
+                AwsEventType type, void *arg, uint8_t *data, size_t len) {
+    if (type == WS_EVT_CONNECT) {
+      Serial.println("WebSocket client connected");
+    }
+  });
+
+  server.addHandler(&ws);
+  server.begin();
 }
 
 void loop() {
 
-  sensors_event_t a, g, temp;
-  mpu.getEvent(&a, &g, &temp);
+ mpu.getEvent(&a, &g, &temp);
+
+  accX = a.acceleration.x;
+  accY = a.acceleration.y;
+  accZ = a.acceleration.z;
+
+  if (abs(g.gyro.x) > gyroXerror) gyroX += g.gyro.x / 50.0;
+  if (abs(g.gyro.y) > gyroYerror) gyroY += g.gyro.y / 70.0;
+  if (abs(g.gyro.z) > gyroZerror) gyroZ += g.gyro.z / 90.0;
 
   int button = digitalRead(buttonPin) == LOW ? 1 : 0;
 
-  NetworkClient client = server.accept();
-    
-  if (client) {                     // if you get a client,
-      Serial.println("New Client."); 
-      String currentLine = "";      
-      while (client.connected()) {  
-        if (client.available()) {
-          char c = client.read(); 
-          Serial.write(c); 
-          if (c == '\n') {    
-            if (currentLine.length() == 0) {
+  // CSV line
+  char csv[96];
+  snprintf(csv, sizeof(csv),
+           "%.3f,%.3f,%.3f,%.3f,%.3f,%.3f,%d",
+           accX, accY, accZ,
+           gyroX, gyroY, gyroZ,
+           button);
 
-            client.println("HTTP/1.1 200 OK");
-            client.println("Content-type:text/html");
-            client.println();
-
-            // all mpu data
-            client.print(a.acceleration.x, 3); client.print(",");
-            client.print(a.acceleration.y, 3); client.print(",");
-            client.print(a.acceleration.z, 3); client.print(",");
-            client.print(g.gyro.x, 3); client.print(",");
-            client.print(g.gyro.y, 3); client.print(",");
-            client.print(g.gyro.z, 3); client.print(",");
-            client.println(button);
-
-            client.println();
-            
-            break;
-            } else {  // if you got a newline, then clear currentLine:
-            currentLine = "";
-            } 
-          } else if (c != '\r') {  // if you got anything else but a carriage return character,
-          currentLine += c;      // add it to the end of the currentLine
-          }
-        }
-      }
-
-    client.stop();
-    Serial.println("Client Disconnected.");
-  }
-  delay(10);
+  ws.textAll(csv);   // send to Unity
+  delay(10);     
 }
 
 void scanI2C() { //I2C address detector -> automatically finds mpu
