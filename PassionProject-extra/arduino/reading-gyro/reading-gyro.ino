@@ -7,18 +7,22 @@
 #include <Wire.h>
 #include <WiFi.h>
 
-const char* ssid = "Studeka-D";
-const char* password = "Throttle0-Thing3-Dollop0-Shakily5";
+// const char* ssid = "Studeka-D";
+// const char* password = "Throttle0-Thing3-Dollop0-Shakily5";
+
+const char* ssid = "Howest-IoT";
+const char* password = "LZe5buMyZUcDpLY";
+
+NetworkServer server(80);
 
 Adafruit_MPU6050 mpu; //create sensor
 
 const int buttonPin = 4;  // the number of the pushbutton pin
 int buttonState = 0;
 
-
 //all the other serial prints are for debugging so they are now put in comments so they don't keep causing errors in the unity console.
 
-// Initialize WiFi
+//Initialize WiFi
 void initWiFi() {
   WiFi.mode(WIFI_STA);
   WiFi.begin(ssid, password);
@@ -27,7 +31,9 @@ void initWiFi() {
   //Serial.print('.');
     delay(1000);
   }
- // Serial.println(WiFi.localIP());
+  Serial.println(WiFi.localIP());
+
+  server.begin();
 }
 
 void InitMPU(){
@@ -66,20 +72,52 @@ void setup() {
 }
 
 void loop() {
+
   sensors_event_t a, g, temp;
   mpu.getEvent(&a, &g, &temp);
 
   int button = digitalRead(buttonPin) == LOW ? 1 : 0;
 
-  // all mpu data
-  Serial.print(a.acceleration.x, 3); Serial.print(",");
-  Serial.print(a.acceleration.y, 3); Serial.print(",");
-  Serial.print(a.acceleration.z, 3); Serial.print(",");
-  Serial.print(g.gyro.x, 3); Serial.print(",");
-  Serial.print(g.gyro.y, 3); Serial.print(",");
-  Serial.print(g.gyro.z, 3); Serial.print(",");
-  Serial.println(button);
+  NetworkClient client = server.accept();
+    
+  if (client) {                     // if you get a client,
+      Serial.println("New Client."); 
+      String currentLine = "";      
+      while (client.connected()) {  
+        if (client.available()) {
+          char c = client.read(); 
+          Serial.write(c); 
+          if (c == '\n') {    
+            if (currentLine.length() == 0) {
 
+            client.println("HTTP/1.1 200 OK");
+            client.println("Content-type:text/html");
+            client.println();
+
+            // all mpu data
+            client.print(a.acceleration.x, 3); client.print(",");
+            client.print(a.acceleration.y, 3); client.print(",");
+            client.print(a.acceleration.z, 3); client.print(",");
+            client.print(g.gyro.x, 3); client.print(",");
+            client.print(g.gyro.y, 3); client.print(",");
+            client.print(g.gyro.z, 3); client.print(",");
+            client.println(button);
+
+            client.println();
+            
+            break;
+            } else {  // if you got a newline, then clear currentLine:
+            currentLine = "";
+            } 
+          } else if (c != '\r') {  // if you got anything else but a carriage return character,
+          currentLine += c;      // add it to the end of the currentLine
+          }
+        }
+      }
+
+    client.stop();
+    Serial.println("Client Disconnected.");
+  }
   delay(10);
 }
 

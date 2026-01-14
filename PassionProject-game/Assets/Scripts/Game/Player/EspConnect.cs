@@ -6,7 +6,8 @@ using System.Collections;
 public class EspConnect : MonoBehaviour
 {
 
-    SerialPort serial = new SerialPort("/dev/cu.usbserial-10", 115200);
+    SerialPort serial = new SerialPort("/dev/cu.usbserial-110", 115200);
+    //check port each time you switch locations
 
     private float ax;
     private float ay;
