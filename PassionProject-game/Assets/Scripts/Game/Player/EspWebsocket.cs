@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.Globalization;
 using NativeWebSocket;
+using Config;
 
 public class EspWebsocket : MonoBehaviour
 {
@@ -17,7 +18,7 @@ public class EspWebsocket : MonoBehaviour
     // Start is called before the first frame update
     async void Start()
     {
-        websocket = new WebSocket("ws://ip adress/ws");
+        websocket = new WebSocket($"ws://{LocalConfig.ESP32_IP}/ws");
 
         websocket.OnOpen += () =>
         {
