@@ -2,7 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using System.Globalization;
 using NativeWebSocket;
 
 public class EspWebsocket : MonoBehaviour
@@ -13,6 +13,7 @@ public class EspWebsocket : MonoBehaviour
     public float ax, ay, az;
     public float gx, gy, gz;
     public bool buttonPressed;
+
     // Start is called before the first frame update
     async void Start()
     {
@@ -35,38 +36,38 @@ public class EspWebsocket : MonoBehaviour
 
         websocket.OnMessage += (bytes) =>
         {
-            Debug.Log("OnMessage!");
-            Debug.Log(bytes);
-
-            // getting the message as a string
-            // var message = System.Text.Encoding.UTF8.GetString(bytes);
-            // Debug.Log("OnMessage! " + message);
+            string msg = System.Text.Encoding.UTF8.GetString(bytes);
+            ParseData(msg);
         };
-
-        // Keep sending messages at every 0.3s
-        InvokeRepeating("SendWebSocketMessage", 0.0f, 0.3f);
 
         // waiting for messages
         await websocket.Connect();
     }
+
+
+    void ParseData(string msg)
+    {
+        string[] raw = msg.Split(',');
+
+        if (raw.Length != 7) return;
+
+        ax = float.Parse(raw[0], CultureInfo.InvariantCulture);
+        ay = float.Parse(raw[1], CultureInfo.InvariantCulture);
+        az = float.Parse(raw[2], CultureInfo.InvariantCulture);
+
+        gx = float.Parse(raw[3], CultureInfo.InvariantCulture);
+        gy = float.Parse(raw[4], CultureInfo.InvariantCulture);
+        gz = float.Parse(raw[5], CultureInfo.InvariantCulture);
+
+        buttonPressed = raw[6] == "1";
+    }
+
 
     void Update()
     {
 #if !UNITY_WEBGL || UNITY_EDITOR
         websocket.DispatchMessageQueue();
 #endif
-    }
-
-    async void SendWebSocketMessage()
-    {
-        if (websocket.State == WebSocketState.Open)
-        {
-            // Sending bytes
-            await websocket.Send(new byte[] { 10, 20, 30 });
-
-            // Sending plain text
-            await websocket.SendText("plain text message");
-        }
     }
 
     private async void OnApplicationQuit()
