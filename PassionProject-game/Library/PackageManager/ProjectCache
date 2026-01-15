@@ -5,16 +5,16 @@ m_ProjectFiles:
     m_ContentTrackingEnabled: 1
     m_ModificationDate:
       serializedVersion: 2
-      ticks: 639002814270000000
-    m_Hash: 2612855067
+      ticks: 639040868850000000
+    m_Hash: 867569937
   m_LockFileStatus:
     m_FilePath: /Users/lizgeerts/Documents/school year 3/sem1/passionProject/PassionProject-LizGeerts/PassionProject-game/Packages/packages-lock.json
     m_PathExists: 1
     m_ContentTrackingEnabled: 1
     m_ModificationDate:
       serializedVersion: 2
-      ticks: 639002814400000000
-    m_Hash: 4188978076
+      ticks: 639040868850000000
+    m_Hash: 2244213178
 m_EmbeddedPackageManifests:
   m_ManifestsStatus: {}
 m_LocalPackages:
@@ -22,6 +22,85 @@ m_LocalPackages:
 m_ProjectPath: /Users/lizgeerts/Documents/school year 3/sem1/passionProject/PassionProject-LizGeerts/PassionProject-game/Packages
 m_EditorVersion: 6000.2.12f1 (e89d5df0e333)
 m_ResolvedPackages:
+- packageId: com.endel.nativewebsocket@https://github.com/endel/NativeWebSocket.git#upm
+  testable: 0
+  isDirectDependency: 1
+  version: 1.1.5
+  source: 5
+  resolvedPath: /Users/lizgeerts/Documents/school year 3/sem1/passionProject/PassionProject-LizGeerts/PassionProject-game/Library/PackageCache/com.endel.nativewebsocket@1d8b49b3fee4
+  assetPath: Packages/com.endel.nativewebsocket
+  name: com.endel.nativewebsocket
+  displayName: Native WebSockets
+  author:
+    name: Endel Dreyer
+    email: endel.dreyer@gmail.com
+    url: https://github.com/endel/NativeWebSocket
+  category: 
+  type: 
+  description: WebSocket client for Unity - with no external dependencies (WebGL,
+    Native, Android, iOS, UWP).
+  errors: []
+  versions:
+    all: []
+    compatible: []
+    recommended: 
+    deprecated: []
+  dependencies: []
+  resolvedDependencies: []
+  keywords:
+  - websocket
+  - websockets
+  - native websocket
+  - native websockets
+  registry:
+    id: main
+    name: 
+    url: https://packages.unity.com
+    scopes: []
+    isDefault: 1
+    capabilities: 7
+    configSource: 0
+    compliance:
+      status: 0
+      violations: []
+  hideInEditor: 1
+  entitlements:
+    licensingModel: 0
+  isAssetStorePackage: 0
+  datePublishedTicks: 0
+  documentationUrl: 
+  hasRepository: 1
+  repository:
+    type: git
+    url: https://github.com/endel/NativeWebSocket.git
+    revision: 
+    path: 
+  unityLifecycle:
+    version: 
+    nextVersion: 
+    recommendedVersion: 
+    isDeprecated: 0
+    deprecationMessage: 
+    isDiscoverable: 0
+  isDeprecated: 0
+  deprecationMessage: 
+  git:
+    hash: 1d8b49b3fee41c09a98141f1f1a5e4db47e14229
+    revision: upm
+  upmReserved: 
+  assetStore:
+    productId: 
+  fingerprint: 1d8b49b3fee41c09a98141f1f1a5e4db47e14229
+  editorCompatibility:
+    compatibilityLevel: 0
+    minimumPackageVersion: 
+    minimumUnityVersion: 2019.1.0a1
+  compliance:
+    status: 0
+    violation:
+      scopePatternExpression: 
+      message: 
+      readMoreLink: 
 - packageId: com.unity.ai.navigation@2.0.9
   testable: 0
   isDirectDependency: 1
@@ -261,9 +340,11 @@ m_ResolvedPackages:
     - 2.10.0
     - 2.10.1
     - 2.10.2
+    - 2.11.2
     compatible:
     - 2.10.1
     - 2.10.2
+    - 2.11.2
     recommended: 2.10.2
     deprecated: []
   dependencies: []
@@ -540,9 +621,11 @@ m_ResolvedPackages:
     - 2.0.22
     - 2.0.23
     - 2.0.25
+    - 2.0.26
     compatible:
     - 2.0.25
-    recommended: 2.0.25
+    - 2.0.26
+    recommended: 2.0.26
     deprecated: []
   dependencies:
   - name: com.unity.test-framework
@@ -687,11 +770,13 @@ m_ResolvedPackages:
     - 1.15.0
     - 1.16.0
     - 1.17.0
+    - 1.18.0
     compatible:
     - 1.14.2
     - 1.15.0
     - 1.16.0
     - 1.17.0
+    - 1.18.0
     recommended: 1.14.2
     deprecated: []
   dependencies:
@@ -1193,9 +1278,11 @@ m_ResolvedPackages:
     - 1.8.7
     - 1.8.8
     - 1.8.9
+    - 1.8.10
     compatible:
     - 1.8.9
-    recommended: 1.8.9
+    - 1.8.10
+    recommended: 1.8.10
     deprecated: []
   dependencies:
   - name: com.unity.modules.audio
@@ -4960,10 +5047,12 @@ m_ResolvedPackages:
     - 1.8.24
     - 1.8.25
     - 1.8.26
+    - 1.8.27
     compatible:
     - 1.8.25
     - 1.8.26
-    recommended: 1.8.26
+    - 1.8.27
+    recommended: 1.8.27
     deprecated: []
   dependencies:
   - name: com.unity.mathematics
@@ -5235,10 +5324,12 @@ m_ResolvedPackages:
     - 2.6.0-pre.4
     - 2.6.2
     - 2.6.3
+    - 2.6.4
     compatible:
     - 2.6.2
     - 2.6.3
-    recommended: 2.6.3
+    - 2.6.4
+    recommended: 2.6.4
     deprecated: []
   dependencies:
   - name: com.unity.burst
