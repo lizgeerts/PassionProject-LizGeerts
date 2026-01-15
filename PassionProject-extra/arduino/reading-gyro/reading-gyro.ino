@@ -9,11 +9,11 @@
 #include <Wire.h>
 #include <WiFi.h>
 
-// const char* ssid = "Studeka-D";
-// const char* password = "Throttle0-Thing3-Dollop0-Shakily5";
+const char* ssid = "name";
+const char* password = "password";
 
-const char* ssid = "Howest-IoT";
-const char* password = "LZe5buMyZUcDpLY";
+// const char* ssid = "name";
+// const char* password = "password";
 
 // Create AsyncWebServer object on port 80
 AsyncWebServer server(80);
