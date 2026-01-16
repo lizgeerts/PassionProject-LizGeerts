@@ -7,7 +7,7 @@ public class PlayerHit : MonoBehaviour
     //public EspConnect espData; => if using via cable not wifi
 
     [Header("Swing Thresholds")]
- 
+
 
     [Header("Forehand")]
 
@@ -29,7 +29,7 @@ public class PlayerHit : MonoBehaviour
 
     void Update()
     {   // Power check + cooldown
-
+        //Debug.Log("testing out main branch");
     }
 
 }
