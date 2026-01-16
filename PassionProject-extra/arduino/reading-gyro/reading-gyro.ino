@@ -8,17 +8,15 @@
 #include <ESPAsyncWebServer.h>
 #include <Wire.h>
 #include <WiFi.h>
+#include <WiFiUdp.h>
+
 
 const char* ssid = "name";
 const char* password = "password";
 
-// const char* ssid = "name";
-// const char* password = "password";
-
-// Create AsyncWebServer object on port 80
-AsyncWebServer server(80);
-// Create an web socket Source on /ws
-AsyncWebSocket ws("/ws");
+WiFiUDP udp;
+const char* remoteIP = "ip"; // wifi ip adress
+const int remotePort = 5005;  
 
 Adafruit_MPU6050 mpu; //create sensor
 
@@ -37,18 +35,20 @@ float gyroZerror = 0.01;
 
 //all the other serial prints are for debugging so they are now put in comments so they don't keep causing errors in the unity console.
 
+unsigned long lastSend = 0;
+const int sendInterval = 20;
+
 //Initialize WiFi
 void initWiFi() {
   WiFi.mode(WIFI_STA);
   WiFi.begin(ssid, password);
-  //Serial.print("Connecting to WiFi ..");
+  WiFi.setSleep(false);
+  Serial.print("Connecting to WiFi ..");
   while (WiFi.status() != WL_CONNECTED) {
-  //Serial.print('.');
+  Serial.print('.');
     delay(1000);
   }
   Serial.println(WiFi.localIP());
-
-  //server.begin();
 }
 
 void InitMPU(){
@@ -71,7 +71,6 @@ void InitMPU(){
 
   mpu.setAccelerometerRange(MPU6050_RANGE_8_G);
   mpu.setGyroRange(MPU6050_RANGE_500_DEG);
-
   //Serial.println("MPU6050 READY!");
 }
 
@@ -85,47 +84,33 @@ void setup() {
   scanI2C();
 
   pinMode(buttonPin, INPUT);
-
-  server.on("/", HTTP_GET, [](AsyncWebServerRequest *request) {
-  request->send(200, "text/plain", "ESP32 WebSocket running");
-  }); //just to check if it's running
-  //paste ip in browser to see
-
-  ws.onEvent([](AsyncWebSocket *server, AsyncWebSocketClient *client,
-                AwsEventType type, void *arg, uint8_t *data, size_t len) {
-    if (type == WS_EVT_CONNECT) {
-      Serial.println("WebSocket client connected");
-    }
-  });
-
-  server.addHandler(&ws);
-  server.begin();
 }
 
 void loop() {
+  unsigned long now = millis();
+  if (now - lastSend >= sendInterval) {
+    lastSend = now;
 
- mpu.getEvent(&a, &g, &temp);
+    mpu.getEvent(&a, &g, &temp);
 
-  accX = a.acceleration.x;
-  accY = a.acceleration.y;
-  accZ = a.acceleration.z;
+    accX = a.acceleration.x;
+    accY = a.acceleration.y;
+    accZ = a.acceleration.z;
 
-  if (abs(g.gyro.x) > gyroXerror) gyroX += g.gyro.x / 50.0;
-  if (abs(g.gyro.y) > gyroYerror) gyroY += g.gyro.y / 70.0;
-  if (abs(g.gyro.z) > gyroZerror) gyroZ += g.gyro.z / 90.0;
+    if (abs(g.gyro.x) > gyroXerror) gyroX += g.gyro.x / 50.0;
+    if (abs(g.gyro.y) > gyroYerror) gyroY += g.gyro.y / 70.0;
+    if (abs(g.gyro.z) > gyroZerror) gyroZ += g.gyro.z / 90.0;
 
-  int button = digitalRead(buttonPin) == LOW ? 1 : 0;
+    int button = digitalRead(buttonPin) == LOW ? 0 : 1;
 
-  // CSV line
-  char csv[96];
-  snprintf(csv, sizeof(csv),
-           "%.3f,%.3f,%.3f,%.3f,%.3f,%.3f,%d",
-           accX, accY, accZ,
-           gyroX, gyroY, gyroZ,
-           button);
+    char csv[96];
+    snprintf(csv, sizeof(csv), "%.3f,%.3f,%.3f,%.3f,%.3f,%.3f,%d",
+                 accX, accY, accZ, gyroX, gyroY, gyroZ, button);
 
-  ws.textAll(csv);   // send to Unity
-  delay(10);     
+    udp.beginPacket(remoteIP, remotePort);
+    udp.write((uint8_t*)csv, strlen(csv));
+    udp.endPacket();
+  }
 }
 
 void scanI2C() { //I2C address detector -> automatically finds mpu
