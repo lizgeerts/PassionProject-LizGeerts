@@ -5,7 +5,7 @@ m_ProjectFiles:
     m_ContentTrackingEnabled: 1
     m_ModificationDate:
       serializedVersion: 2
-      ticks: 639002814270000000
+      ticks: 639041586020000000
     m_Hash: 2612855067
   m_LockFileStatus:
     m_FilePath: /Users/lizgeerts/Documents/school year 3/sem1/passionProject/PassionProject-LizGeerts/PassionProject-game/Packages/packages-lock.json
@@ -13,7 +13,7 @@ m_ProjectFiles:
     m_ContentTrackingEnabled: 1
     m_ModificationDate:
       serializedVersion: 2
-      ticks: 639002814400000000
+      ticks: 639041586020000000
     m_Hash: 4188978076
 m_EmbeddedPackageManifests:
   m_ManifestsStatus: {}
@@ -261,9 +261,11 @@ m_ResolvedPackages:
     - 2.10.0
     - 2.10.1
     - 2.10.2
+    - 2.11.2
     compatible:
     - 2.10.1
     - 2.10.2
+    - 2.11.2
     recommended: 2.10.2
     deprecated: []
   dependencies: []
@@ -540,9 +542,11 @@ m_ResolvedPackages:
     - 2.0.22
     - 2.0.23
     - 2.0.25
+    - 2.0.26
     compatible:
     - 2.0.25
-    recommended: 2.0.25
+    - 2.0.26
+    recommended: 2.0.26
     deprecated: []
   dependencies:
   - name: com.unity.test-framework
@@ -687,11 +691,13 @@ m_ResolvedPackages:
     - 1.15.0
     - 1.16.0
     - 1.17.0
+    - 1.18.0
     compatible:
     - 1.14.2
     - 1.15.0
     - 1.16.0
     - 1.17.0
+    - 1.18.0
     recommended: 1.14.2
     deprecated: []
   dependencies:
@@ -1193,9 +1199,11 @@ m_ResolvedPackages:
     - 1.8.7
     - 1.8.8
     - 1.8.9
+    - 1.8.10
     compatible:
     - 1.8.9
-    recommended: 1.8.9
+    - 1.8.10
+    recommended: 1.8.10
     deprecated: []
   dependencies:
   - name: com.unity.modules.audio
@@ -4960,10 +4968,12 @@ m_ResolvedPackages:
     - 1.8.24
     - 1.8.25
     - 1.8.26
+    - 1.8.27
     compatible:
     - 1.8.25
     - 1.8.26
-    recommended: 1.8.26
+    - 1.8.27
+    recommended: 1.8.27
     deprecated: []
   dependencies:
   - name: com.unity.mathematics
@@ -5235,10 +5245,12 @@ m_ResolvedPackages:
     - 2.6.0-pre.4
     - 2.6.2
     - 2.6.3
+    - 2.6.4
     compatible:
     - 2.6.2
     - 2.6.3
-    recommended: 2.6.3
+    - 2.6.4
+    recommended: 2.6.4
     deprecated: []
   dependencies:
   - name: com.unity.burst
