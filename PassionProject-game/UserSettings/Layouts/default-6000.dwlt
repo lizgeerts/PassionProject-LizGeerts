@@ -899,9 +899,9 @@ MonoBehaviour:
     speed: 2
     m_Value: {x: 0.01975661, y: 0.97975904, z: -0.1556006, w: 0.12440261}
   m_Size:
-    m_Target: 1.4424341
+    m_Target: 1.4220136
     speed: 2
-    m_Value: 1.685767
+    m_Value: 1.4220136
   m_Ortho:
     m_Target: 0
     speed: 2
