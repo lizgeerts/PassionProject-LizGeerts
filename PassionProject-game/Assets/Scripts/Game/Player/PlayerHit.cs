@@ -24,7 +24,6 @@ public class PlayerHit : MonoBehaviour
 
     void Start()
     {
-
     }
 
     void Update()
