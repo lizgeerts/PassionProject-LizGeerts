@@ -1246,6 +1246,57 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2554c8a03120d43ac826892bab387996, type: 3}
+--- !u!1 &619954531
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 619954533}
+  - component: {fileID: 619954532}
+  m_Layer: 0
+  m_Name: EspConnect
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &619954532
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 619954531}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7fe9f77b4b29545e0b6974b8e5ac71f6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::EspWebsocket
+  ax: 0
+  ay: 0
+  az: 0
+  gx: 0
+  gy: 0
+  gz: 0
+  buttonPressed: 0
+--- !u!4 &619954533
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 619954531}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -2.23984, y: 1.21442, z: 2.05663}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &696409283
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2281,10 +2332,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
-    - target: {fileID: 2719253431445379969, guid: 64eb9d0f036f7408cbac68aca375d0b3, type: 3}
-      propertyPath: espData
-      value: 
-      objectReference: {fileID: 1760041384}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -3759,17 +3806,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7c1e30c6900f746f097e4bce1004578d, type: 3}
---- !u!114 &1760041384 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: -1163255537461668440, guid: 64eb9d0f036f7408cbac68aca375d0b3, type: 3}
-  m_PrefabInstance: {fileID: 1080452126}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e9ab49145362849f09578fd10eda9fdc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::EspConnect
 --- !u!1001 &1805678454
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4882,3 +4918,4 @@ SceneRoots:
   - {fileID: 1865460265}
   - {fileID: 1874049530}
   - {fileID: 1080452126}
+  - {fileID: 619954533}

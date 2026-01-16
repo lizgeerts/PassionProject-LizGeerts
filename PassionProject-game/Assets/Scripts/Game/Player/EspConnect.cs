@@ -3,6 +3,9 @@ using System.IO.Ports;
 using System;
 using System.Collections;
 
+//The code to connect with esp32 via cable (not wifi!)
+//at the moment not in use
+//to use this, attach to the player prefab 
 public class EspConnect : MonoBehaviour
 {
 
@@ -16,10 +19,6 @@ public class EspConnect : MonoBehaviour
     public float gx;
     public float gy;
     public float gz;
-
-    public float pitch;
-    public float roll;
-    public int power;
     private bool dataReady = false;
     private string lastLine = "";
 
@@ -34,7 +33,7 @@ public class EspConnect : MonoBehaviour
                 try
                 {
                     string line = serial.ReadLine().Trim();
-                   if (line.Contains(","))
+                    if (line.Contains(","))
                     {
                         lastLine = line;
                         dataReady = true;
@@ -85,22 +84,7 @@ public class EspConnect : MonoBehaviour
 
             buttonPressed = raw[6] == "0";
 
-            CalculateData();
         }
-    }
-
-    void CalculateData()
-    {
-        // Pitch/Roll
-        pitch = Mathf.Atan2(ax, Mathf.Sqrt(ay * ay + az * az)) * Mathf.Rad2Deg - 12f;
-        roll = Mathf.Atan2(ay, Mathf.Sqrt(ax * ax + az * az)) * Mathf.Rad2Deg - 1f;
-
-        // Swing speed/power
-        float acc_mag = Mathf.Sqrt(ax * ax + ay * ay + az * az) - 9.8f;
-        acc_mag = Mathf.Max(0, acc_mag);
-        power = Mathf.Min(10, (int)(acc_mag * 2));
-
-         Debug.Log($"Pitch:{pitch:F1} Roll:{roll:F1} Power:{power}");
     }
 
     void OnApplicationQuit()
