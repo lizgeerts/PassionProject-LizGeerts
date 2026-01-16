@@ -28,6 +28,8 @@
 # Visual Studio cache directory
 .vs/
 
+/PassionProject-game/Assets/Config/LocalConfig.cs
+
 # Gradle cache directory
 .gradle/
 
