@@ -5,7 +5,7 @@ m_ProjectFiles:
     m_ContentTrackingEnabled: 1
     m_ModificationDate:
       serializedVersion: 2
-      ticks: 639040868850000000
+      ticks: 639041587030000000
     m_Hash: 867569937
   m_LockFileStatus:
     m_FilePath: /Users/lizgeerts/Documents/school year 3/sem1/passionProject/PassionProject-LizGeerts/PassionProject-game/Packages/packages-lock.json
@@ -13,7 +13,7 @@ m_ProjectFiles:
     m_ContentTrackingEnabled: 1
     m_ModificationDate:
       serializedVersion: 2
-      ticks: 639040868850000000
+      ticks: 639041587030000000
     m_Hash: 2244213178
 m_EmbeddedPackageManifests:
   m_ManifestsStatus: {}
