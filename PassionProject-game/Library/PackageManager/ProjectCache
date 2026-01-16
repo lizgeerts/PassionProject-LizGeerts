@@ -5,26 +5,16 @@ m_ProjectFiles:
     m_ContentTrackingEnabled: 1
     m_ModificationDate:
       serializedVersion: 2
-<<<<<<< HEAD
-      ticks: 639041586020000000
-    m_Hash: 2612855067
-=======
-      ticks: 639040868850000000
+      ticks: 639041587030000000
     m_Hash: 867569937
->>>>>>> dev
   m_LockFileStatus:
     m_FilePath: /Users/lizgeerts/Documents/school year 3/sem1/passionProject/PassionProject-LizGeerts/PassionProject-game/Packages/packages-lock.json
     m_PathExists: 1
     m_ContentTrackingEnabled: 1
     m_ModificationDate:
       serializedVersion: 2
-<<<<<<< HEAD
-      ticks: 639041586020000000
-    m_Hash: 4188978076
-=======
-      ticks: 639040868850000000
+      ticks: 639041587030000000
     m_Hash: 2244213178
->>>>>>> dev
 m_EmbeddedPackageManifests:
   m_ManifestsStatus: {}
 m_LocalPackages:
