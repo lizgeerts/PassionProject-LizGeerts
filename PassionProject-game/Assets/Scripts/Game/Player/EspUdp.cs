@@ -32,6 +32,7 @@ public class EspUdp : MonoBehaviour
     void ReceiveLoop()
     {
         IPEndPoint remoteEP = new IPEndPoint(IPAddress.Any, listenPort);
+        Debug.Log($"Listening to info from {IPAddress.Any}");
 
         while (running)
         {
