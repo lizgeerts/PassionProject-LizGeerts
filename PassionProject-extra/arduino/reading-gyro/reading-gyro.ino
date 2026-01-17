@@ -10,12 +10,11 @@
 #include <WiFi.h>
 #include <WiFiUdp.h>
 
-
-const char* ssid = "name";
-const char* password = "password";
+const char* ssid = "phoneLiz";
+const char* password = "03056366855804472133";
 
 WiFiUDP udp;
-const char* remoteIP = "ip"; // wifi ip adress
+const char* remoteIP = "10.124.62.36"; // wifi ip adress
 const int remotePort = 5005;  
 
 Adafruit_MPU6050 mpu; //create sensor
