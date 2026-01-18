@@ -26,7 +26,7 @@ int valueY = 0; // to store the Y-axis value
 
 //wifi:
 const char* ssid = "name";
-const char* password = "password";
+const char* password = "wifipassword";
 
 WiFiUDP udp;
 const char* remoteIP = "pc-ip"; // wifi ip adress from pc
@@ -42,14 +42,14 @@ float accX, accY, accZ;
 int direction; //joystick
 
 //Gyroscope sensor deviation
-float gyroXerror = 0.07;
-float gyroYerror = 0.03;
-float gyroZerror = 0.01;
+float gyroXerror = 0.06;
+float gyroYerror = 0.02;
+float gyroZerror = 0.03;
 
 //all the other serial prints are for debugging so they are now put in comments so they don't keep causing errors in the unity console.
 
 unsigned long lastSend = 0;
-const int sendInterval = 30;
+const int sendInterval = 40;
 
 //Initialize WiFi
 void initWiFi() {
@@ -70,7 +70,7 @@ void InitMPU(){
   Wire.begin(21, 22);
   pinMode(21, INPUT_PULLUP);  // Internal pull-ups
   pinMode(22, INPUT_PULLUP);
-  Wire.setClock(100000);  // Slow I2C: 100kHz
+  Wire.setClock(400000);  // fast I2C: 400kHz
 
   int retries = 5;
   while (!mpu.begin() && retries > 0) {
@@ -128,9 +128,13 @@ void loop() {
     accY = a.acceleration.y;
     accZ = a.acceleration.z;
 
-    if (abs(g.gyro.x) > gyroXerror) gyroX += g.gyro.x / 50.0;
-    if (abs(g.gyro.y) > gyroYerror) gyroY += g.gyro.y / 70.0;
-    if (abs(g.gyro.z) > gyroZerror) gyroZ += g.gyro.z / 90.0;
+    // if (abs(g.gyro.x) > gyroXerror) gyroX += g.gyro.x / 50.0;
+    // if (abs(g.gyro.y) > gyroYerror) gyroY += g.gyro.y / 70.0;
+    // if (abs(g.gyro.z) > gyroZerror) gyroZ += g.gyro.z / 90.0;
+
+    gyroX = g.gyro.x += gyroXerror;
+    gyroY = g.gyro.y += gyroYerror;
+    gyroZ = g.gyro.z += gyroZerror;
 
     char csv[96];
     snprintf(csv, sizeof(csv), "%.3f,%.3f,%.3f,%.3f,%.3f,%.3f,%d",
