@@ -18,7 +18,8 @@ public class EspUdp : MonoBehaviour
     // data
     public float ax, ay, az;
     public float gx, gy, gz;
-    public int button;
+    public int joystickDir;
+
 
     void Start()
     {
@@ -31,7 +32,7 @@ public class EspUdp : MonoBehaviour
         receiveThread = new Thread(ReceiveLoop);
         receiveThread.IsBackground = true;
         receiveThread.Start();
-       // Debug.Log("test");
+        Debug.Log("test");
     }
 
     void ReceiveLoop()
@@ -71,9 +72,9 @@ public class EspUdp : MonoBehaviour
         float.TryParse(parts[4], out gy);
         float.TryParse(parts[5], out gz);
 
-        int.TryParse(parts[6], out button);
+        int.TryParse(parts[6], out joystickDir);
 
-        Debug.Log($"ax:{ax} ay:{ay} az:{az} gx:{gx} gy:{gy} gz:{gz}");
+        Debug.Log($"ax:{ax} ay:{ay} az:{az} gx:{gx} gy:{gy} gz:{gz}, dir:{joystickDir}");
     }
 
     // void OnApplicationQuit()
