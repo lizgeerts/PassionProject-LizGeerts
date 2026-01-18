@@ -29,7 +29,7 @@ const char* ssid = "name";
 const char* password = "password";
 
 WiFiUDP udp;
-const char* remoteIP = "ip"; // wifi ip adress from pc
+const char* remoteIP = "pc-ip"; // wifi ip adress from pc
 const int remotePort = 5005;  
 
 //mpu:
@@ -109,6 +109,7 @@ void setup() {
 void loop() {
     // Reconnect WiFi if dropped
    if (WiFi.status() != WL_CONNECTED) {
+      digitalWrite(LED_PIN, LOW);
       initWiFi();
       udp.stop();
       delay(500);
