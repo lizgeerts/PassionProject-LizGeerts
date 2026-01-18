@@ -22,17 +22,21 @@ public class EspUdp : MonoBehaviour
 
     void Start()
     {
-        udpClient = new UdpClient(listenPort);
+        udpClient = new UdpClient();
+        udpClient.Client.SetSocketOption(SocketOptionLevel.Socket, SocketOptionName.ReuseAddress, true);
+        udpClient.Client.Bind(new IPEndPoint(IPAddress.Any, listenPort));
+
         running = true;
+
         receiveThread = new Thread(ReceiveLoop);
         receiveThread.IsBackground = true;
         receiveThread.Start();
+       // Debug.Log("test");
     }
 
     void ReceiveLoop()
     {
         IPEndPoint remoteEP = new IPEndPoint(IPAddress.Any, listenPort);
-        Debug.Log($"Listening to info from {IPAddress.Any}");
 
         while (running)
         {
@@ -49,7 +53,7 @@ public class EspUdp : MonoBehaviour
             }
             catch (Exception)
             {
-                // Do not spam console
+                // socket closed → exit thread
             }
         }
     }
@@ -69,16 +73,34 @@ public class EspUdp : MonoBehaviour
 
         int.TryParse(parts[6], out button);
 
-        Debug.Log($"ax:{ax} ay:{ay} az:{az} gx:{gx} gy:{gy} gz:{gz} button:{button}");
+        Debug.Log($"ax:{ax} ay:{ay} az:{az} gx:{gx} gy:{gy} gz:{gz}");
     }
 
-    void OnApplicationQuit()
+    // void OnApplicationQuit()
+    // {
+    //     running = false;
+    //     if (receiveThread != null && receiveThread.IsAlive)
+    //         receiveThread.Join();
+    //     if (udpClient != null) udpClient.Close();
+    // }
+
+    void OnDisable()
     {
         running = false;
-        if (receiveThread != null && receiveThread.IsAlive)
-            receiveThread.Join();
-        if (udpClient != null) udpClient.Close();
+
+        if (udpClient != null)
+        {
+            udpClient.Close();
+            udpClient = null;
+        }
+
+        if (receiveThread != null)
+        {
+            receiveThread.Abort();
+            receiveThread = null;
+        }
     }
+
 
     void Update()
     {

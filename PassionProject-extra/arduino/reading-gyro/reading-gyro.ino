@@ -10,11 +10,13 @@
 #include <WiFi.h>
 #include <WiFiUdp.h>
 
-const char* ssid = "phoneLiz";
-const char* password = "03056366855804472133";
+#define LED_PIN 2
+
+const char* ssid = "wifi-name";
+const char* password = "wifi-password";
 
 WiFiUDP udp;
-const char* remoteIP = "10.124.62.36"; // wifi ip adress
+const char* remoteIP = "pc-ip"; // wifi ip adress from pc
 const int remotePort = 5005;  
 
 Adafruit_MPU6050 mpu; //create sensor
@@ -35,7 +37,7 @@ float gyroZerror = 0.01;
 //all the other serial prints are for debugging so they are now put in comments so they don't keep causing errors in the unity console.
 
 unsigned long lastSend = 0;
-const int sendInterval = 20;
+const int sendInterval = 30;
 
 //Initialize WiFi
 void initWiFi() {
@@ -48,7 +50,9 @@ void initWiFi() {
     delay(1000);
   }
   Serial.println(WiFi.localIP());
+  digitalWrite(LED_PIN, HIGH);
 }
+
 
 void InitMPU(){
   Wire.begin(21, 22);
@@ -76,16 +80,31 @@ void InitMPU(){
 
 void setup() {
   Serial.begin(115200);
-  while (!Serial) delay(10);
+
+ pinMode(LED_PIN, OUTPUT);
+ digitalWrite(LED_PIN, LOW);
 
   initWiFi();
+  delay(1000);
+
+  udp.begin(remotePort);
+
   InitMPU();
   scanI2C();
 
   pinMode(buttonPin, INPUT);
+
 }
 
 void loop() {
+    // Reconnect WiFi if dropped
+   if (WiFi.status() != WL_CONNECTED) {
+      initWiFi();
+      udp.stop();
+      delay(500);
+      udp.begin(remotePort);
+   }
+
   unsigned long now = millis();
   if (now - lastSend >= sendInterval) {
     lastSend = now;
