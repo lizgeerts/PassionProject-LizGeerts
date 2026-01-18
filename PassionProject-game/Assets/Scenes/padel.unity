@@ -4898,7 +4898,7 @@ MonoBehaviour:
   gx: 0
   gy: 0
   gz: 0
-  button: 0
+  joystickDir: 0
 --- !u!1001 &643121147
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -8072,10 +8072,34 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    - target: {fileID: 4564521976551054375, guid: 64eb9d0f036f7408cbac68aca375d0b3, type: 3}
+      propertyPath: espData
+      value: 
+      objectReference: {fileID: 619954534}
+    - target: {fileID: 4564521976551054375, guid: 64eb9d0f036f7408cbac68aca375d0b3, type: 3}
+      propertyPath: moveSpeed
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4564521976551054375, guid: 64eb9d0f036f7408cbac68aca375d0b3, type: 3}
+      propertyPath: controller
+      value: 
+      objectReference: {fileID: 1388849400}
+    - target: {fileID: 4564521976551054375, guid: 64eb9d0f036f7408cbac68aca375d0b3, type: 3}
+      propertyPath: playerAnimation
+      value: 
+      objectReference: {fileID: 1388849398}
+    - target: {fileID: 4732381757680774748, guid: 64eb9d0f036f7408cbac68aca375d0b3, type: 3}
+      propertyPath: espData
+      value: 
+      objectReference: {fileID: 619954534}
+    m_RemovedComponents:
+    - {fileID: -3557916759371322812, guid: 64eb9d0f036f7408cbac68aca375d0b3, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 2516790503248948639, guid: 64eb9d0f036f7408cbac68aca375d0b3, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1388849400}
   m_SourcePrefab: {fileID: 100100000, guid: 64eb9d0f036f7408cbac68aca375d0b3, type: 3}
 --- !u!1001 &1081539716
 PrefabInstance:
@@ -10483,6 +10507,41 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 679381761947722824, guid: 7c611317ec9f54c42b559e15f68c2f6d, type: 3}
   m_PrefabInstance: {fileID: 436309711}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1388849395 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2516790503248948639, guid: 64eb9d0f036f7408cbac68aca375d0b3, type: 3}
+  m_PrefabInstance: {fileID: 1080452126}
+  m_PrefabAsset: {fileID: 0}
+--- !u!95 &1388849398 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 5927217159541423448, guid: 64eb9d0f036f7408cbac68aca375d0b3, type: 3}
+  m_PrefabInstance: {fileID: 1080452126}
+  m_PrefabAsset: {fileID: 0}
+--- !u!143 &1388849400
+CharacterController:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1388849395}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Height: 2
+  m_Radius: 0.5
+  m_SlopeLimit: 45
+  m_StepOffset: 0.3
+  m_SkinWidth: 0.08
+  m_MinMoveDistance: 0.001
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1001 &1412111744
 PrefabInstance:
   m_ObjectHideFlags: 0
