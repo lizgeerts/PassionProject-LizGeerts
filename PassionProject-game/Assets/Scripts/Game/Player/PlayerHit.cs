@@ -33,7 +33,7 @@ public class PlayerHit : MonoBehaviour
             TriggerSwing(ax, ay, az, gx, gy, gz);
         }
 
-        // end of swing (reset)
+        // end of swing : (reset)
         if (swingActive && swingEnergy < resetThreshold)
         {
             swingActive = false;
@@ -51,14 +51,14 @@ public class PlayerHit : MonoBehaviour
         if (ay >= -8 && ay < 3 && gy > -2)
         {
             playerAnimation.SetTrigger("Forehand");
-            Debug.Log($"FOREHAND (ay:{ay:F2} gy:{gy:F2})");
+            Debug.Log($"forehand (ay:{ay:F2} gy:{gy:F2})");
             return;
         }
 
         if (ay > -7)
         {
             playerAnimation.SetTrigger("Backhand");
-            Debug.Log($"BACKHAND (ay:{ay:F2})");
+            Debug.Log($"backhand (ay:{ay:F2})");
             return;
         }
 
@@ -66,7 +66,7 @@ public class PlayerHit : MonoBehaviour
         if (ax > 10 && (Mathf.Abs(gy) > 3 || ay > 2))
         {
             playerAnimation.SetTrigger("Overhand");
-            Debug.Log($"OVERHAND (ax:{ax:F2} ay:{ay:F2})");
+            Debug.Log($"overhand (ax:{ax:F2} ay:{ay:F2})");
             return;
         }
     }

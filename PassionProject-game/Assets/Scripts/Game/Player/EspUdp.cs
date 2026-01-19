@@ -78,13 +78,6 @@ public class EspUdp : MonoBehaviour
         //Debug.Log($" ax:{ax} ay:{ay} az:{az} gx:{gx} gy:{gy} gz:{gz}, dir:{joystickDir}");
     }
 
-    // void OnApplicationQuit()
-    // {
-    //     running = false;
-    //     if (receiveThread != null && receiveThread.IsAlive)
-    //         receiveThread.Join();
-    //     if (udpClient != null) udpClient.Close();
-    // }
 
     void OnDisable()
     {
