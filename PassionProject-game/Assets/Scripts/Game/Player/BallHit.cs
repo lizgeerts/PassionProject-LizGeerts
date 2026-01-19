@@ -1,32 +1,3 @@
-// using System;
-// using UnityEngine;
-
-// public class BallHit : MonoBehaviour
-// {
-//     public Transform racketCube;
-//     public EspUdp espData;
-
-//     Vector3 angles;
-
-
-//     void Start()
-//     {
-//         angles = Vector3.zero;
-//     }
-
-//     // Update is called once per frame
-//     void Update()
-//     {
-
-//         angles.x += espData.gx * Mathf.Rad2Deg * Time.deltaTime;
-//         angles.y += espData.gy * Mathf.Rad2Deg * Time.deltaTime;
-//         angles.z += espData.gz * Mathf.Rad2Deg * Time.deltaTime;
-
-//         racketCube.rotation = Quaternion.Euler(angles);
-
-//     }
-// }
-
 using System;
 using UnityEngine;
 
@@ -42,9 +13,6 @@ public class BallHit : MonoBehaviour
     float swingEnergy;
 
     [Header("Ball Physics")]
-    public float maxSpeed = 15f;           // Max ball speed
-    public float netHeight = 1.5f;         // Net height
-    public float courtLength = 10f;        // Distance to other side
     public Vector3 baseLaunchDirection = new Vector3(0, 0.3f, 1f);  // Forward + slight arc
 
 
@@ -64,17 +32,6 @@ public class BallHit : MonoBehaviour
     {
         if (other.CompareTag("Ball") && swingActive)
         {
-            // if (swingActive)
-            // {
-            //     // // Apply force to the ball
-            //     // Vector3 swingDirection = new Vector3(espData.gx, espData.gy, espData.gz).normalized;
-            //     // float swingStrength = swingEnergy / 2f; // You can adjust this value for more or less force
-            //     // Vector3 force = swingDirection * swingStrength;
-
-            //     // ballRigidbody.AddForce(force, ForceMode.Impulse);
-            //     // Debug.Log($"Ball hit! Applied force: {force}");
-            //     //HitBall();
-            // }
             HitBall();
         }
     }

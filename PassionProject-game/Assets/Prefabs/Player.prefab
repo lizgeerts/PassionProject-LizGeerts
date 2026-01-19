@@ -734,13 +734,13 @@ CharacterController:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Height: 2
-  m_Radius: 0.5
+  m_Height: 1.72
+  m_Radius: 0.13
   m_SlopeLimit: 45
   m_StepOffset: 0.3
   m_SkinWidth: 0.08
   m_MinMoveDistance: 0.001
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Center: {x: 0.05, y: -0.16, z: 0}
 --- !u!114 &4812114451671487272
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -757,9 +757,6 @@ MonoBehaviour:
   ballRigidbody: {fileID: 0}
   playerCollider: {fileID: 2017338220183377203}
   playerHitScript: {fileID: 0}
-  maxSpeed: 15
-  netHeight: 1.5
-  courtLength: 10
   baseLaunchDirection: {x: 0, y: 0.3, z: 1}
 --- !u!136 &2017338220183377203
 CapsuleCollider:
@@ -780,10 +777,10 @@ CapsuleCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 1.1949203
-  m_Height: 2.92644
-  m_Direction: 1
-  m_Center: {x: 0.19361663, y: 0.10372102, z: 0}
+  m_Radius: 1.1030242
+  m_Height: 2.2578773
+  m_Direction: 2
+  m_Center: {x: 0.16865349, y: 0.28616548, z: 0.103728294}
 --- !u!1 &2609220775858131384
 GameObject:
   m_ObjectHideFlags: 0

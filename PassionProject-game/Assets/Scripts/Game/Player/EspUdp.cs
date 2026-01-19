@@ -75,7 +75,7 @@ public class EspUdp : MonoBehaviour
         int.TryParse(parts[6], out joystickDir);
 
         //Debug.Log($"timestamp:{Time.time} ax:{ax} ay:{ay} az:{az} gx:{gx} gy:{gy} gz:{gz}, dir:{joystickDir}");
-        Debug.Log($" ax:{ax} ay:{ay} az:{az} gx:{gx} gy:{gy} gz:{gz}, dir:{joystickDir}");
+        //Debug.Log($" ax:{ax} ay:{ay} az:{az} gx:{gx} gy:{gy} gz:{gz}, dir:{joystickDir}");
     }
 
     // void OnApplicationQuit()
