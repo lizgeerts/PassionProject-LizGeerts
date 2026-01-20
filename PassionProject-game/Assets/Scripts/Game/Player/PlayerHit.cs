@@ -9,10 +9,12 @@ public class PlayerHit : MonoBehaviour
     public float resetThreshold = 4f;
     public bool swingActive = false;
     public float swingEnergy;
+    private float rotation;
 
     void Update()
     {
         DetectSwing();
+        RotatePlayer();
     }
 
     void DetectSwing()
@@ -25,7 +27,7 @@ public class PlayerHit : MonoBehaviour
         float az = espData.az;
 
         swingEnergy = Mathf.Abs(gx) + Mathf.Abs(gy) + Mathf.Abs(gz);
-       // Debug.Log(swingEnergy);
+        // Debug.Log(swingEnergy);
 
         if (!swingActive && swingEnergy > swingThreshold)
         {
@@ -37,6 +39,7 @@ public class PlayerHit : MonoBehaviour
         if (swingActive && swingEnergy < resetThreshold)
         {
             swingActive = false;
+            rotation = 0f;
         }
     }
 
@@ -52,6 +55,7 @@ public class PlayerHit : MonoBehaviour
         {
             playerAnimation.SetTrigger("Forehand");
             Debug.Log($"forehand (ay:{ay:F2} gy:{gy:F2})");
+            rotation = 45f;
             return;
         }
 
@@ -59,6 +63,7 @@ public class PlayerHit : MonoBehaviour
         {
             playerAnimation.SetTrigger("Backhand");
             Debug.Log($"backhand (ay:{ay:F2})");
+            rotation = -45f;
             return;
         }
 
@@ -67,6 +72,7 @@ public class PlayerHit : MonoBehaviour
         {
             playerAnimation.SetTrigger("Overhand");
             Debug.Log($"overhand (ax:{ax:F2} ay:{ay:F2})");
+            rotation = 35f;
             return;
         }
     }
@@ -74,8 +80,7 @@ public class PlayerHit : MonoBehaviour
     private void RotatePlayer()
     {
         //rotate player when swinging
-        
-        
+        transform.rotation = Quaternion.Euler(0, rotation, 0);
     }
 }
 

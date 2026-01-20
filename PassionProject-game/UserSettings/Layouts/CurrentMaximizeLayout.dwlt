@@ -24,7 +24,7 @@ MonoBehaviour:
   m_MinSize: {x: 300, y: 100}
   m_MaxSize: {x: 24288, y: 16192}
   vertical: 0
-  controlID: 7158
+  controlID: 12116
   draggingID: 0
 --- !u!114 &2
 MonoBehaviour:
@@ -151,7 +151,7 @@ MonoBehaviour:
   m_MinSize: {x: 200, y: 100}
   m_MaxSize: {x: 16192, y: 16192}
   vertical: 1
-  controlID: 7159
+  controlID: 12117
   draggingID: 0
 --- !u!114 &4
 MonoBehaviour:
@@ -177,7 +177,7 @@ MonoBehaviour:
   m_MinSize: {x: 200, y: 50}
   m_MaxSize: {x: 16192, y: 8096}
   vertical: 0
-  controlID: 7160
+  controlID: 12118
   draggingID: 0
 --- !u!114 &5
 MonoBehaviour:
@@ -198,8 +198,8 @@ MonoBehaviour:
     y: 0
     width: 347.5
     height: 490
-  m_MinSize: {x: 201, y: 226}
-  m_MaxSize: {x: 4001, y: 4026}
+  m_MinSize: {x: 200, y: 200}
+  m_MaxSize: {x: 4000, y: 4000}
   m_ActualView: {fileID: 6}
   m_Panes:
   - {fileID: 6}
@@ -865,9 +865,9 @@ MonoBehaviour:
   m_AudioPlay: 0
   m_DebugDrawModesUseInteractiveLightBakingData: 0
   m_Position:
-    m_Target: {x: 0.24913958, y: -4.2412853, z: 19.587177}
+    m_Target: {x: 11.86989, y: -8.946059, z: 0.35805768}
     speed: 2
-    m_Value: {x: 0.24913958, y: -4.2412853, z: 19.587177}
+    m_Value: {x: 11.86989, y: -8.946059, z: 0.35805768}
   m_RenderMode: 0
   m_CameraMode:
     drawMode: 0
@@ -913,13 +913,13 @@ MonoBehaviour:
     m_GridAxis: 1
     m_gridOpacity: 1
   m_Rotation:
-    m_Target: {x: 0.22966646, y: 0.07896178, z: -0.018711673, w: 0.96997046}
+    m_Target: {x: 0.22412214, y: 0.69677275, z: -0.245707, w: 0.6356731}
     speed: 2
-    m_Value: {x: 0.22964644, y: 0.078954905, z: -0.018710043, w: 0.96988595}
+    m_Value: {x: 0.2241025, y: 0.6967117, z: -0.24568547, w: 0.63561743}
   m_Size:
-    m_Target: 11.94601
+    m_Target: 12.143932
     speed: 2
-    m_Value: 11.94601
+    m_Value: 12.143932
   m_Ortho:
     m_Target: 0
     speed: 2
@@ -1131,8 +1131,8 @@ MonoBehaviour:
     y: 490
     width: 1120
     height: 269
-  m_MinSize: {x: 101, y: 126}
-  m_MaxSize: {x: 4001, y: 4026}
+  m_MinSize: {x: 100, y: 100}
+  m_MaxSize: {x: 4000, y: 4000}
   m_ActualView: {fileID: 13}
   m_Panes:
   - {fileID: 12}
@@ -1260,9 +1260,9 @@ MonoBehaviour:
       m_Icon: {fileID: 0}
       m_ResourceFile: 
   m_ListAreaState:
-    m_SelectedInstanceIDs: 
-    m_LastClickedInstanceID: 0
-    m_HadKeyboardFocusLastEvent: 1
+    m_SelectedInstanceIDs: c8b30000
+    m_LastClickedInstanceID: 46024
+    m_HadKeyboardFocusLastEvent: 0
     m_ExpandedInstanceIDs: c62300002a3d020000000000daae0000505301007a72020080720200
     m_RenameOverlay:
       m_UserAcceptedRename: 0
