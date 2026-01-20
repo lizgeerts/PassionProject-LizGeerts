@@ -15977,6 +15977,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e9e1ca8c1cd6647e08a14d1636585f0c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PointSystem
+  ballScript: {fileID: 107296919}
+  team1SetText: {fileID: 729393243}
+  team2SetText: {fileID: 574764715}
+  team1GameText: {fileID: 943708436}
+  team2GameText: {fileID: 1382127274}
 --- !u!1 &1878619333
 GameObject:
   m_ObjectHideFlags: 0
