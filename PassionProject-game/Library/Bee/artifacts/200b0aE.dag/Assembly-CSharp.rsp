@@ -450,6 +450,7 @@
 "Assets/Scripts/Game/Player/EspUdp.cs"
 "Assets/Scripts/Game/Player/PlayerHit.cs"
 "Assets/Scripts/Game/Player/PlayerMovement.cs"
+"Assets/Scripts/Game/PointSystem.cs"
 "Assets/Scripts/Game/ResetGame.cs"
 "Assets/Scripts/Main Menu/MainMenu.cs"
 -langversion:9.0
