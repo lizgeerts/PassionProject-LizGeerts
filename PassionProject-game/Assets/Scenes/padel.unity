@@ -4915,7 +4915,7 @@ GameObject:
   - component: {fileID: 638603127}
   - component: {fileID: 638603126}
   - component: {fileID: 638603128}
-  - component: {fileID: 638603129}
+  - component: {fileID: 638603131}
   - component: {fileID: 638603130}
   m_Layer: 0
   m_Name: PlayerCamera
@@ -4975,7 +4975,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 638603123}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.087856375, y: 0, z: 0, w: 0.99613315}
+  m_LocalRotation: {x: 0.16442677, y: 0.011870346, z: -0.0019788824, w: 0.98631585}
   m_LocalPosition: {x: -2.74, y: 2.09, z: 1.99}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -5001,19 +5001,6 @@ MonoBehaviour:
     RotationDamping: {x: 0.2, y: 0.2, z: 1}
     QuaternionDamping: 1
   FollowOffset: {x: 0, y: 1.16, z: -1.8}
---- !u!114 &638603129
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 638603123}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1e8b78ac948f05a46a6d8339a503172b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Unity.Cinemachine::Unity.Cinemachine.CinemachineHardLookAt
-  LookAtOffset: {x: 0, y: 0.84, z: 0}
 --- !u!114 &638603130
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5028,6 +5015,35 @@ MonoBehaviour:
   m_EditorClassIdentifier: Unity.Cinemachine::Unity.Cinemachine.CinemachineConfiner3D
   BoundingVolume: {fileID: 862843769}
   SlowingDistance: 0
+--- !u!114 &638603131
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 638603123}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f38bda98361e1de48a4ca2bd86ea3c17, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.Cinemachine::Unity.Cinemachine.CinemachineRotationComposer
+  Composition:
+    ScreenPosition: {x: 0, y: 0}
+    DeadZone:
+      Enabled: 0
+      Size: {x: 0.2, y: 0.2}
+    HardLimits:
+      Enabled: 0
+      Size: {x: 0.8, y: 0.8}
+      Offset: {x: 0, y: 0}
+  CenterOnActivate: 1
+  TargetOffset: {x: 0.04, y: 0.59, z: 0}
+  Damping: {x: 0.5, y: 0.5}
+  Lookahead:
+    Enabled: 0
+    Time: 0
+    Smoothing: 0
+    IgnoreY: 0
 --- !u!1001 &643121147
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -6358,8 +6374,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 10.638724, y: 5.544799, z: 8.099108}
-  m_Center: {x: 4.819362, y: 2.272399, z: 2.9990573}
+  m_Size: {x: 10.638724, y: 5.544799, z: 7.922077}
+  m_Center: {x: 4.819362, y: 2.272399, z: 2.910542}
 --- !u!1001 &872142114
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -7169,8 +7185,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 961739749}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.087856375, y: 0, z: 0, w: 0.99613315}
-  m_LocalPosition: {x: -2.74, y: 2.09, z: 1.99}
+  m_LocalRotation: {x: 0.16442679, y: 0.011870348, z: -0.0019788821, w: 0.9863159}
+  m_LocalPosition: {x: -2.7400002, y: 2.09, z: 2.1284177}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

@@ -9,6 +9,8 @@ public class PlayerMovement : MonoBehaviour
     public float moveSpeed = 3f;
 
     private bool lastRunLeft;
+    private bool isMoving;
+    float animationDir;
 
     void Start()
     {
@@ -20,7 +22,7 @@ public class PlayerMovement : MonoBehaviour
         Vector3 move = Vector3.zero;
 
         int dir = espData.joystickDir;
-        bool isMoving = false;
+        isMoving = false;
 
         switch (dir)
         {
@@ -42,14 +44,35 @@ public class PlayerMovement : MonoBehaviour
                 }
         }
 
-        float animationDir = 0f;
+        animationDir = 0f;
         if (isMoving)
         {
             animationDir = lastRunLeft ? 1 : -1;
         }
+        RotatePlayer();
 
         playerAnimation.SetFloat("Direction", animationDir);
 
         controller.Move(move * moveSpeed * Time.deltaTime);
+    }
+
+    private void RotatePlayer()
+    {
+        //rotate player when moving
+        if (isMoving)
+        {
+            if (animationDir == 1)
+            {
+                transform.rotation = Quaternion.Euler(0, -15, 0);
+            }
+            else if (animationDir == -1)
+            {
+                transform.rotation = Quaternion.Euler(0, 15, 0);
+            }
+        }
+        else
+        {
+            transform.rotation = Quaternion.Euler(0, 0, 0);
+        }
     }
 }
