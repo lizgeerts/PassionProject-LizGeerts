@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public class PlayerHit : MonoBehaviour
@@ -5,8 +6,8 @@ public class PlayerHit : MonoBehaviour
     public Animator playerAnimation;
     public EspUdp espData;
 
-    public float swingThreshold = 7f;   // tune this
-    public float resetThreshold = 4f;
+    private float swingThreshold;
+    private float resetThreshold;
     public bool swingActive = false;
     public float swingEnergy;
     private float rotation;
@@ -26,8 +27,21 @@ public class PlayerHit : MonoBehaviour
         float ay = espData.ay;
         float az = espData.az;
 
+        if (Math.Abs(ax) > 7) //overhand or forehand
+        {
+            swingThreshold = 8f;
+            resetThreshold = 4f;
+        }
+        else if (Math.Abs(ay) > 7) //overhand
+        {
+            swingThreshold = 4f;
+            resetThreshold = 2f;
+        }
+
         swingEnergy = Mathf.Abs(gx) + Mathf.Abs(gy) + Mathf.Abs(gz);
         // Debug.Log(swingEnergy);
+        Debug.Log($"Thres: {swingThreshold}");
+
 
         if (!swingActive && swingEnergy > swingThreshold)
         {
@@ -50,8 +64,8 @@ public class PlayerHit : MonoBehaviour
         playerAnimation.ResetTrigger("Overhand");
 
 
-        // PRIORITY 2: FOREHAND (moderate ay with positive gy)
-        if (ay >= -8 && ay < 3 && gy > -2)
+        // forehand ax = ± 10, ay = ± 2, az = ± 0.5
+        if (ax >= 8)
         {
             playerAnimation.SetTrigger("Forehand");
             Debug.Log($"forehand (ay:{ay:F2} gy:{gy:F2})");
@@ -59,7 +73,8 @@ public class PlayerHit : MonoBehaviour
             return;
         }
 
-        if (ay > -7)
+        // backhand ax = ± -10, ay = ± 2, az = ± 0.5
+        if (ax <= -8)
         {
             playerAnimation.SetTrigger("Backhand");
             Debug.Log($"backhand (ay:{ay:F2})");
@@ -67,8 +82,8 @@ public class PlayerHit : MonoBehaviour
             return;
         }
 
-        // PRIORITY 3: OVERHAND (wild motion)
-        if (ax > 10 && (Mathf.Abs(gy) > 3 || ay > 2))
+        // overhand ax = ± 1, ay = ± 10, az = ± 1
+        if (ay >= 8)
         {
             playerAnimation.SetTrigger("Overhand");
             Debug.Log($"overhand (ax:{ax:F2} ay:{ay:F2})");
@@ -80,7 +95,7 @@ public class PlayerHit : MonoBehaviour
     private void RotatePlayer()
     {
         //rotate player when swinging
-        transform.rotation = Quaternion.Euler(0, rotation, 0);
+        // transform.rotation = Quaternion.Euler(0, rotation, 0);
     }
 }
 
