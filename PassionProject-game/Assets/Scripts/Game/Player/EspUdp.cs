@@ -23,6 +23,7 @@ public class EspUdp : MonoBehaviour
 
     void Start()
     {
+        Debug.Log("test");
         udpClient = new UdpClient();
         udpClient.Client.SetSocketOption(SocketOptionLevel.Socket, SocketOptionName.ReuseAddress, true);
         udpClient.Client.Bind(new IPEndPoint(IPAddress.Any, listenPort));
@@ -32,7 +33,6 @@ public class EspUdp : MonoBehaviour
         receiveThread = new Thread(ReceiveLoop);
         receiveThread.IsBackground = true;
         receiveThread.Start();
-        Debug.Log("test");
     }
 
     void ReceiveLoop()

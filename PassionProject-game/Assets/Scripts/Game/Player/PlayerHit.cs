@@ -40,7 +40,7 @@ public class PlayerHit : MonoBehaviour
 
         swingEnergy = Mathf.Abs(gx) + Mathf.Abs(gy) + Mathf.Abs(gz);
         // Debug.Log(swingEnergy);
-        Debug.Log($"Thres: {swingThreshold}");
+        //Debug.Log($"Thres: {swingThreshold}");
 
 
         if (!swingActive && swingEnergy > swingThreshold)
@@ -96,6 +96,7 @@ public class PlayerHit : MonoBehaviour
     {
         //rotate player when swinging
         // transform.rotation = Quaternion.Euler(0, rotation, 0);
+      //  Debug.Log("rotation");
     }
 }
 
