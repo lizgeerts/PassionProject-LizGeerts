@@ -36,10 +36,10 @@ public class ResetGame : MonoBehaviour
 
     private void ResetCourt()
     {
-        Debug.Log("Resetting game!");
+        //Debug.Log("Resetting game!");
   
         // Option 1: reload the current scene
-        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        //SceneManager.LoadScene(SceneManager.GetActiveScene().name);
 
         // Option 2: if you want to reset ball/NPC positions without reloading scene,
         // you can implement a ResetPositions() method instead

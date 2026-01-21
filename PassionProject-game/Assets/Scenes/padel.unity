@@ -9348,6 +9348,30 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 28796724319170843, guid: 64eb9d0f036f7408cbac68aca375d0b3, type: 3}
+      propertyPath: m_Size.x
+      value: 2.1996396
+      objectReference: {fileID: 0}
+    - target: {fileID: 28796724319170843, guid: 64eb9d0f036f7408cbac68aca375d0b3, type: 3}
+      propertyPath: m_Size.y
+      value: 1.8493949
+      objectReference: {fileID: 0}
+    - target: {fileID: 28796724319170843, guid: 64eb9d0f036f7408cbac68aca375d0b3, type: 3}
+      propertyPath: m_Size.z
+      value: 1.6250348
+      objectReference: {fileID: 0}
+    - target: {fileID: 28796724319170843, guid: 64eb9d0f036f7408cbac68aca375d0b3, type: 3}
+      propertyPath: m_Center.x
+      value: 0.117236376
+      objectReference: {fileID: 0}
+    - target: {fileID: 28796724319170843, guid: 64eb9d0f036f7408cbac68aca375d0b3, type: 3}
+      propertyPath: m_Center.y
+      value: 0.20084924
+      objectReference: {fileID: 0}
+    - target: {fileID: 28796724319170843, guid: 64eb9d0f036f7408cbac68aca375d0b3, type: 3}
+      propertyPath: m_Center.z
+      value: 0.62714314
+      objectReference: {fileID: 0}
     - target: {fileID: 2017338220183377203, guid: 64eb9d0f036f7408cbac68aca375d0b3, type: 3}
       propertyPath: m_Enabled
       value: 1
@@ -15982,6 +16006,7 @@ MonoBehaviour:
   team2SetText: {fileID: 574764715}
   team1GameText: {fileID: 943708436}
   team2GameText: {fileID: 1382127274}
+  pointAdded: 0
 --- !u!1 &1878619333
 GameObject:
   m_ObjectHideFlags: 0

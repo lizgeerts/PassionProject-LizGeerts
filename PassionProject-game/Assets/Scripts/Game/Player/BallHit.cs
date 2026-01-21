@@ -30,7 +30,7 @@ public class BallHit : MonoBehaviour
 
     void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Ball") && swingActive)
+        if (other.CompareTag("Ball") )
         //if the ball is in the capsule collider of the player and the player is swinging 
         //then launch the ball
         {
