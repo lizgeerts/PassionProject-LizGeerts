@@ -67,7 +67,7 @@ public class PointSystem : MonoBehaviour
 
     void UpdateGamePointsTeam2()
     {
-        team2GameText.GetComponent<TextMeshProUGUI>().SetText(setPoints[setPointsIndexTeam2].ToString());
+        team2SetText.GetComponent<TextMeshProUGUI>().SetText(setPoints[setPointsIndexTeam2].ToString());
         if (setPointsIndexTeam2 == 3)
         {
             setPointsIndexTeam1 = 0;

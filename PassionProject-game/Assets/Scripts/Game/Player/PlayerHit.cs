@@ -213,36 +213,40 @@
 // }
 
 
-using System;
-using UnityEditorInternal;
 using UnityEngine;
 
 public class PlayerHit : MonoBehaviour
 {
+    [Header("References")]
     public Animator playerAnimation;
     public EspUdp espData;
 
+    [Header("Swing Detection")]
     private float swingThreshold = 7f;
-    private float resetThreshold;
     public bool swingActive = false;
-    public bool isSwinging = false;
     public float timer;
     public float swingEnergy;
-    private float rotation;
     private bool collecting;
     private float windowTimer;
     private float sumAx, sumAy, sumAz;
+    float peakAx, peakAy, peakAz;
 
-    private float swingCooldown = 0.8f;
-
+    [Header("cooldown")]
+    private float swingCooldown = 0.75f;
     private float cooldownTimer = 0f;
     private bool inCooldown = false;
+
+    private enum SwingType { Forehand, Backhand, Overhand }
+    private SwingType swingType = SwingType.Forehand;
+    private Quaternion swingRotation;
 
     void Update()
     {
         HandleCooldown();
         DetectSwing();
-        //  RotatePlayer();
+        RotateWithSwing();
+
+        //Debug.Log($"phase: {swingPhase} swinging:{playerIsSwinging} swingtype:{swingType}");
     }
 
     void DetectSwing()
@@ -276,12 +280,17 @@ public class PlayerHit : MonoBehaviour
             sumAy += Mathf.Abs(ay);
             sumAz += Mathf.Abs(az);
 
-            if (windowTimer >= 0.400f) // 500ms window
+            peakAx = Mathf.Max(peakAx, ax);
+            peakAy = Mathf.Max(peakAy, Mathf.Abs(ay));
+            peakAz = Mathf.Max(peakAz, Mathf.Abs(az));
+
+            if (windowTimer >= 0.400f) // 400ms window
             {
                 ClassifySwing();
                 collecting = false;
                 inCooldown = true;
                 cooldownTimer = swingCooldown;
+                peakAx = peakAy = peakAz = 0f;
             }
         }
     }
@@ -292,7 +301,8 @@ public class PlayerHit : MonoBehaviour
         playerAnimation.ResetTrigger("Backhand");
         playerAnimation.ResetTrigger("Overhand");
 
-        Debug.Log($"AX:{sumAx:F1} AY:{sumAy:F1} AZ:{sumAz:F1}");
+        //  Debug.Log($"AX:{sumAx:F1} AY:{sumAy:F1} AZ:{sumAz:F1}");
+        Debug.Log($"Peak AX:{peakAx:F1} AY:{peakAy:F1} AZ:{peakAz:F1}");
         float total = sumAx + sumAy + sumAz;
 
         float axR = sumAx / total;
@@ -300,29 +310,48 @@ public class PlayerHit : MonoBehaviour
         float azR = sumAz / total;
 
         // OVERHAND: vertical dominance
-        if (azR > 0.42f )
+        if (azR > 0.40f && peakAx < 17.3f)
         {
             playerAnimation.SetTrigger("Overhand");
             Debug.Log("OVERHAND");
-            rotation = 35f;
+            swingType = SwingType.Overhand;
+            SetRotation();
             return;
         }
 
-        // FORE / BACK: horizontal dominance
         if (sumAx > sumAy * 0.85f)
         {
-            if (espData.ax > 0)
+            if (peakAx > 4f)
             {
                 playerAnimation.SetTrigger("Forehand");
                 Debug.Log("FOREHAND");
-                rotation = 45f;
+                swingType = SwingType.Forehand;
             }
-            else if (espData.ax < 0)
+            else if (peakAx < 1.5f)
             {
                 playerAnimation.SetTrigger("Backhand");
                 Debug.Log("BACKHAND");
-                rotation = -45f;
+                swingType = SwingType.Backhand;
             }
+            SetRotation();
+        }
+    }
+
+    void SetRotation()
+    {
+        switch (swingType)
+        {
+            case SwingType.Forehand:
+                swingRotation = Quaternion.Euler(0f, 45f, 0f);
+                break;
+
+            case SwingType.Backhand:
+                swingRotation = Quaternion.Euler(0f, -45f, 0f);
+                break;
+
+            case SwingType.Overhand:
+                swingRotation = Quaternion.Euler(0f, 35f, 0f);
+                break;
         }
     }
 
@@ -333,64 +362,15 @@ public class PlayerHit : MonoBehaviour
         cooldownTimer -= Time.deltaTime;
         if (cooldownTimer <= 0f)
         {
+            swingRotation = Quaternion.Euler(0f, 0f, 0f);
             inCooldown = false;
         }
     }
 
-
-    void TriggerSwing(float ax, float ay, float az, float gx, float gy, float gz)
+    void RotateWithSwing()
     {
-
-        playerAnimation.ResetTrigger("Forehand");
-        playerAnimation.ResetTrigger("Backhand");
-        playerAnimation.ResetTrigger("Overhand");
-
-        // if(Mathf.Abs(gx) + Mathf.Abs(gy) + Mathf.Abs(gz) < 10f)
-        // {
-        //     return;
-        // }
-
-        if (ay >= 6.5)
-        {
-            playerAnimation.SetTrigger("Overhand");
-            Debug.Log($"overhand (ax:{ax:F2} ay:{ay:F2} az:{az:F2})");
-            rotation = 35f;
-            return;
-        }
-
-        // if (Mathf.Abs(gx) + Mathf.Abs(gy) + Mathf.Abs(gz) < 40f)
-        // {
-        //     return;
-        // }
-
-        // forehand ax = ± 10, ay = ± 2, az = ± 0.5
-        if (ax >= 9)
-        {
-            playerAnimation.SetTrigger("Forehand");
-            Debug.Log($"forehand (ax:{ax:F2} ay:{ay:F2} az:{az:F2})");
-            rotation = 45f;
-            return;
-        }
-
-        // backhand ax = ± -10, ay = ± 2, az = ± 0.5
-        if (ax <= -9)
-        {
-            playerAnimation.SetTrigger("Backhand");
-            Debug.Log($"backhand (ax:{ax:F2} ay:{ay:F2} az:{az:F2})");
-            rotation = -45f;
-            return;
-        }
-
-        // overhand ax = ± 1, ay = ± 10, az = ± 1
-
-    }
-
-    private void RotatePlayer()
-    {
-        //rotate player when swinging
-        //Quaternion targetRotation = Quaternion.Euler(0, rotation, 0);
-        // transform.rotation =  Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * 10f);
-        transform.rotation = Quaternion.Euler(0, rotation, 0);
+       transform.rotation = swingRotation;
+        //transform.rotation = Quaternion.RotateTowards(transform.rotation, swingRotation, Time.deltaTime * 500f);
     }
 
 }
