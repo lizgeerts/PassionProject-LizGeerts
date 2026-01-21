@@ -28,7 +28,6 @@
 # Visual Studio cache directory
 .vs/
 
-/PassionProject-game/Assets/Config/LocalConfig.cs
 /PassionProject-extra/arduino/reading-gyro/keys.h
 
 # Gradle cache directory
