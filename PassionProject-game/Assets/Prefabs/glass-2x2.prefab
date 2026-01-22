@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 4387244882035069949}
   - component: {fileID: 1805560548534032357}
   - component: {fileID: 761181662996156212}
+  - component: {fileID: 982936091601562573}
   m_Layer: 0
   m_Name: glass-2x2
   m_TagString: Glass
@@ -107,6 +108,27 @@ BoxCollider:
     m_Bits: 0
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 2.2222223, y: 1.4285824, z: 4.0000005}
+  m_Center: {x: 0, y: 0.57143414, z: 0}
+--- !u!65 &982936091601562573
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8690899303992110228}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3

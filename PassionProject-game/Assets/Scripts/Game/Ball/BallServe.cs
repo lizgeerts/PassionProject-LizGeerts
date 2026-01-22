@@ -77,7 +77,7 @@ public class BallServe : MonoBehaviour
 
         groundPos = new Vector3(
             serveAnchorPos.x,
-            -0.38f, // court height
+            -0.175f, // court height
             serveAnchorPos.z
         );
 

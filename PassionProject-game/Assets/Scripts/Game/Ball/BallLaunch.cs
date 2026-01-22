@@ -150,9 +150,9 @@ public class BallLaunch : MonoBehaviour
             targetPlayer.forward * bounceForwardDistance +
             lateralOffset;
 
-        bouncePos.y = -0.173f;
+        bouncePos.y = -0.175f;
 
-        float racketForwardDistance = Random.Range(-0.8f , 1.1f);
+        float racketForwardDistance = Random.Range(-0.8f , 1.2f);
         if (RandomValue(0.35f)) //bigger chance under
         {
             randomZOffset = Random.Range(-0.15f, 0.15f); //backhand or forehand

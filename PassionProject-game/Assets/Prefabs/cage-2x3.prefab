@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 3723551799191690993}
   - component: {fileID: 577671163531953108}
   - component: {fileID: 5740379101971817321}
+  - component: {fileID: 8519985785637941848}
   m_Layer: 0
   m_Name: cage-2x3
   m_TagString: Cage
@@ -112,3 +113,24 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 2.2369566, y: 2.142868, z: 4.795685}
   m_Center: {x: -0.0073671346, y: 0.92857707, z: -0.13259888}
+--- !u!65 &8519985785637941848
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6787122810193597140}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 2.2222223, y: 2.142868, z: 4.0000005}
+  m_Center: {x: 0, y: 0.92857695, z: 0}

@@ -67,7 +67,7 @@ public class NpcHitBall : MonoBehaviour
         Vector3 ballPoint = ballLaunchScript.hitPos;
 
         // Add small random offset so NPC is not perfectly on top
-        if (ballLaunchScript.randomZOffset < 0.30f)
+        if (ballLaunchScript.randomZOffset < 0.30f) //if not overhand
         { 
             xOffset = Random.value < 0.5f ? -0.5f : 0.5f;
         }
