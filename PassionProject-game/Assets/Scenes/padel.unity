@@ -5582,7 +5582,7 @@ Transform:
   m_GameObject: {fileID: 638603123}
   serializedVersion: 2
   m_LocalRotation: {x: 0.1644268, y: 0.011870277, z: -0.0019788707, w: 0.9863159}
-  m_LocalPosition: {x: -2.74, y: 2.09, z: 1.99}
+  m_LocalPosition: {x: -2.61, y: 2.0019999, z: 1.99}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -8074,7 +8074,7 @@ Transform:
   m_GameObject: {fileID: 961739749}
   serializedVersion: 2
   m_LocalRotation: {x: 0.16442682, y: 0.01187028, z: -0.0019788712, w: 0.9863159}
-  m_LocalPosition: {x: -2.7400002, y: 2.09, z: 2.1284177}
+  m_LocalPosition: {x: -2.6100001, y: 2.0019999, z: 2.128418}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -9466,11 +9466,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 6412139666888758, guid: 64eb9d0f036f7408cbac68aca375d0b3, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -2.74
+      value: -2.61
       objectReference: {fileID: 0}
     - target: {fileID: 6412139666888758, guid: 64eb9d0f036f7408cbac68aca375d0b3, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.93
+      value: 0.842
       objectReference: {fileID: 0}
     - target: {fileID: 6412139666888758, guid: 64eb9d0f036f7408cbac68aca375d0b3, type: 3}
       propertyPath: m_LocalPosition.z
@@ -12268,7 +12268,7 @@ CharacterController:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Height: 1.73
+  m_Height: 1.61
   m_Radius: 0.23
   m_SlopeLimit: 45
   m_StepOffset: 0.3
@@ -18516,6 +18516,7 @@ MonoBehaviour:
   hitPos: {x: 0, y: 0, z: 0}
   targetPlayer: {fileID: 0}
   ballServeScript: {fileID: 4485896533445412517}
+  randomZOffset: 0
 --- !u!4 &4914635039539079028 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4914635040745044083, guid: 8d9c95ed7ffcc403aa2e5f3f40396d1c, type: 3}

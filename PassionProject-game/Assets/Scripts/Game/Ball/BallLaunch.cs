@@ -1,3 +1,4 @@
+using System.IO.Compression;
 using UnityEngine;
 
 public class BallLaunch : MonoBehaviour
@@ -61,6 +62,7 @@ public class BallLaunch : MonoBehaviour
     private bool ballOnLeftSide = false;
 
     public BallServe ballServeScript;
+    public float randomZOffset;
 
     private enum FlightPhase
     {
@@ -110,16 +112,16 @@ public class BallLaunch : MonoBehaviour
         ballServeScript.stateServe = BallServe.BallStateServe.Idle;
 
         ChooseTargetPlayer();
-        // withBounce = Random.value > 0.5f; //either with or without bounce
-        withBounce = false; //debug
+        withBounce = Random.value > 0.4f; //in padel, players often play with a bounce
+                                          //either with or without bounce
+                                          // withBounce = false; //debug
 
         startPos = transform.position;
         //timer = 0f;
 
-        CalculateTargetPositions();
-
         if (timer >= 0.25f)
         {
+            CalculateTargetPositions();
             timer = 0f;
             flightPhase = withBounce ? FlightPhase.ToBounce : FlightPhase.ToRacket;
             state = BallState.Flying;
@@ -127,22 +129,18 @@ public class BallLaunch : MonoBehaviour
         }
     }
 
-    private bool IsTargetOnLeftSide()
+    private bool RandomValue(float chance)
     {
-        // Check left-side array
-        foreach (Transform t in leftSidePlayers)
+        if (Random.value > chance)
         {
-            if (t == targetPlayer)
-                return true;
+            return true;
         }
-
-        // Otherwise it's on the right
-        return false;
+        else return false;
     }
 
     void CalculateTargetPositions()
     {
-        float xOffset = Random.Range(-2f, 2f);
+        float xOffset = Random.Range(-1.7f, 1.7f);
         Vector3 lateralOffset = targetPlayer.right * xOffset;
 
         // floor bounce point
@@ -152,13 +150,20 @@ public class BallLaunch : MonoBehaviour
             targetPlayer.forward * bounceForwardDistance +
             lateralOffset;
 
-        bouncePos.y = - 0.173f;
+        bouncePos.y = -0.173f;
 
-        float racketForwardDistance = 0.6f;
+        float racketForwardDistance = Random.Range(-0.7f , 1.1f);
+        if (RandomValue(0.4f)) //bigger chance under
+        {
+            randomZOffset = Random.Range(-0.15f, 0.15f); //backhand or forehand
+        }
+        else randomZOffset = Random.Range(0.55f, 1.05f); //overhand
+
+        Debug.Log("Z: " + randomZOffset);
         hitPos =
             targetPlayer.position +
             targetPlayer.forward * racketForwardDistance +
-            lateralOffset + Vector3.up * 0.25f;
+            lateralOffset + Vector3.up * randomZOffset;
 
     }
 

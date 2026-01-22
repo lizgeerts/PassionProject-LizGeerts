@@ -28,6 +28,7 @@ public class NpcHitBall : MonoBehaviour
     private bool hasHit = false;
     private float timer = 0f;
     public float moveTimer;
+    private float xOffset;
 
 
     void Start()
@@ -64,14 +65,17 @@ public class NpcHitBall : MonoBehaviour
     void CalculateTargetHitPos()
     {
         // Base on ball's predicted hit position
-        targetHitPos = ballLaunchScript.hitPos;
+        Vector3 ballPoint = ballLaunchScript.hitPos;
 
         // Add small random offset so NPC is not perfectly on top
-        float xOffset = Random.Range(sideOffsetRange.x, sideOffsetRange.y);
-        float zOffset = forwardOffset;
+         xOffset = Random.value < 0.5f ? -0.5f : 0.5f;
+        float zOffset = 0.3f; // Adjust this for depth
 
-        targetHitPos += transform.right * xOffset + transform.forward * zOffset;
-        targetHitPos.y = transform.position.y; // stay on ground
+        targetHitPos = new Vector3(
+        ballPoint.x + xOffset,
+        transform.position.y, // stay on ground level
+        ballPoint.z + zOffset
+        );
     }
 
 
@@ -110,9 +114,9 @@ public class NpcHitBall : MonoBehaviour
         animator.ResetTrigger("Backhand");
         animator.ResetTrigger("Overhand");
 
-        if (localBallPos.y > 1.2f)
+        if (ballLaunchScript.randomZOffset >= 0.55f)
             animator.SetTrigger("Overhand");
-        else if (localBallPos.x > 0f)
+        else if (xOffset > 0f && mySide == CourtSide.Left || xOffset < 0f && mySide == CourtSide.Right)
             animator.SetTrigger("Forehand");
         else
             animator.SetTrigger("Backhand");
@@ -125,7 +129,7 @@ public class NpcHitBall : MonoBehaviour
 
         timer += Time.deltaTime;
 
-        if(timer >= 1f)
+        if(timer >= 0.9f)
         {
             TriggerHit();
         }

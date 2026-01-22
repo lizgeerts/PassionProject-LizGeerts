@@ -652,7 +652,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 600318469723518228}
-  - component: {fileID: 7100533107291660515}
+  - component: {fileID: 2661175799251593749}
   m_Layer: 0
   m_Name: HitRange
   m_TagString: Untagged
@@ -675,8 +675,8 @@ Transform:
   m_Children: []
   m_Father: {fileID: 9184440243639593631}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!136 &7100533107291660515
-CapsuleCollider:
+--- !u!65 &2661175799251593749
+BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -693,11 +693,9 @@ CapsuleCollider:
   m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 1.10971
-  m_Height: 2.470903
-  m_Direction: 0
-  m_Center: {x: 0.03135395, y: -0.10441637, z: -0.019500732}
+  serializedVersion: 3
+  m_Size: {x: 2.172086, y: 2.1970885, z: 1.492651}
+  m_Center: {x: 0.032747626, y: 0.1889863, z: 0.2463255}
 --- !u!1 &3359311982554826147
 GameObject:
   m_ObjectHideFlags: 0
@@ -1756,11 +1754,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::NpcHitBall
   ballLaunchScript: {fileID: 0}
   animator: {fileID: 5604135242735027382}
-  npcCollider: {fileID: 7100533107291660515}
-  animationTrigger: {fileID: 0}
+  npcCollider: {fileID: 2661175799251593749}
+  mySide: 0
   moveSpeed: 3
   stopDistance: 0.2
-  forwardOffset: 0.3
+  forwardOffset: 1
   anticipation: 0.5
   sideOffsetRange: {x: -0.5, y: 0.5}
   reactionTime: 0.1
