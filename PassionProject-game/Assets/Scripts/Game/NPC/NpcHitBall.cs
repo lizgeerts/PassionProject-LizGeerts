@@ -28,7 +28,7 @@ public class NpcHitBall : MonoBehaviour
     private bool hasHit = false;
     private float timer = 0f;
     public float moveTimer;
-    private float xOffset;
+    private float xOffset = 0f;
 
 
     void Start()
@@ -64,16 +64,25 @@ public class NpcHitBall : MonoBehaviour
 
     void CalculateTargetHitPos()
     {
-        // Base on ball's predicted hit position
         Vector3 ballPoint = ballLaunchScript.hitPos;
 
         // Add small random offset so NPC is not perfectly on top
-        xOffset = Random.value < 0.5f ? -0.5f : 0.5f;
-        float zOffset = 0.3f; // Adjust this for depth
+        if (ballLaunchScript.randomZOffset < 0.30f)
+        { 
+            xOffset = Random.value < 0.5f ? -0.5f : 0.5f;
+        }
+        else if (mySide == CourtSide.Left)
+        {//if overhand, only x offset to side ball is
+            xOffset = 0.3f;
+        }
+        else xOffset = -0.3f;
+
+
+        float zOffset = 0.3f;
 
         targetHitPos = new Vector3(
         ballPoint.x + xOffset,
-        0.852f, // stay on ground level
+        0.852f, // stay on ground 
         ballPoint.z + zOffset
         );
     }
@@ -82,9 +91,13 @@ public class NpcHitBall : MonoBehaviour
 
     void MoveToTarget()
     {
-        if (hasHit) return;
+        if (hasHit)
+        {
+            animator.SetFloat("Direction", 0f);
+            return;
+        }
 
-        // Move smoothly toward target
+        // move smoothly toward target
         Vector3 moveDir = targetHitPos - transform.position;
         moveDir.y = 0; //no movemeng up 
         float distance = moveDir.magnitude;
@@ -92,6 +105,28 @@ public class NpcHitBall : MonoBehaviour
         if (distance > stopDistance)
         {
             transform.position += moveDir.normalized * moveSpeed * Time.deltaTime;
+
+            float xDiff = targetHitPos.x - transform.position.x;
+            float animDirection = 0f;
+
+            if (Mathf.Abs(xDiff) > 0.1f)
+            {
+                // For CourtSide.Right (facing Forward), positive xDiff is "Right"
+                // For CourtSide.Left (facing Back), positive xDiff is "Left"
+                animDirection = (xDiff > 0) ? 1f : -1f;
+
+                // Flip logic if they are on the Left side facing Backwards
+                if (mySide == CourtSide.Left)
+                {
+                    animDirection *= -1f;
+                }
+            }
+            animator.SetFloat("Direction", animDirection);
+        }
+        else
+        {
+            // We reached the target
+            animator.SetFloat("Direction", 0f);
         }
 
         //lock rotation and y pos, so they dont go turning and floating

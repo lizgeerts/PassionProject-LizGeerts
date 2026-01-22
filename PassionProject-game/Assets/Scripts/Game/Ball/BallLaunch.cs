@@ -112,7 +112,7 @@ public class BallLaunch : MonoBehaviour
         ballServeScript.stateServe = BallServe.BallStateServe.Idle;
 
         ChooseTargetPlayer();
-        withBounce = Random.value > 0.4f; //in padel, players often play with a bounce
+        withBounce = Random.value > 0.36f; //in padel, players often play with a bounce
                                           //either with or without bounce
                                           // withBounce = false; //debug
 
@@ -144,7 +144,7 @@ public class BallLaunch : MonoBehaviour
         Vector3 lateralOffset = targetPlayer.right * xOffset;
 
         // floor bounce point
-        float bounceForwardDistance = 2.5f;
+        float bounceForwardDistance = Random.Range(2f, 3f);
         bouncePos =
             targetPlayer.position +
             targetPlayer.forward * bounceForwardDistance +
@@ -152,8 +152,8 @@ public class BallLaunch : MonoBehaviour
 
         bouncePos.y = -0.173f;
 
-        float racketForwardDistance = Random.Range(-0.7f , 1.1f);
-        if (RandomValue(0.4f)) //bigger chance under
+        float racketForwardDistance = Random.Range(-0.8f , 1.1f);
+        if (RandomValue(0.35f)) //bigger chance under
         {
             randomZOffset = Random.Range(-0.15f, 0.15f); //backhand or forehand
         }
