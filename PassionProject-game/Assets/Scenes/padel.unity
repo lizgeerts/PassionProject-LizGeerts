@@ -9396,6 +9396,10 @@ PrefabInstance:
       propertyPath: espData
       value: 
       objectReference: {fileID: 619954534}
+    - target: {fileID: 4732381757680774748, guid: 64eb9d0f036f7408cbac68aca375d0b3, type: 3}
+      propertyPath: rotationSpeed
+      value: 0.1
+      objectReference: {fileID: 0}
     - target: {fileID: 4812114451671487272, guid: 64eb9d0f036f7408cbac68aca375d0b3, type: 3}
       propertyPath: degreeX
       value: 50
