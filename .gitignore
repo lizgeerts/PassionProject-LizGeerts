@@ -2,6 +2,9 @@
 #
 # Get latest from https://github.com/github/gitignore/blob/main/Unity.gitignore
 #
+# Unity Cache
+/PassionProject-game/Library
+/Library/
 .utmp/
 /[Ll]ibrary/
 /[Tt]emp/
@@ -11,6 +14,14 @@
 /[Ll]ogs/
 /[Uu]ser[Ss]ettings/
 *.log
+
+# Unity (PassionProject-game/)
+/PassionProject-game/Library/
+/PassionProject-game/Temp/
+/PassionProject-game/Logs/
+/PassionProject-game/UserSettings/
+/PassionProject-game/Builds/
+/PassionProject-game/[Ll]ibrary/
 
 # MemoryCaptures can get excessive in size.
 # They also could contain extremely sensitive data
