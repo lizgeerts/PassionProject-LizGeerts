@@ -7,7 +7,7 @@ public class NpcHitBall : MonoBehaviour
     public Animator animator;
     public Collider npcCollider;
 
-    public enum CourtSide { Left, Right}
+    public enum CourtSide { Left, Right }
     public CourtSide mySide;
 
     [Header("Movement")]
@@ -68,12 +68,12 @@ public class NpcHitBall : MonoBehaviour
         Vector3 ballPoint = ballLaunchScript.hitPos;
 
         // Add small random offset so NPC is not perfectly on top
-         xOffset = Random.value < 0.5f ? -0.5f : 0.5f;
+        xOffset = Random.value < 0.5f ? -0.5f : 0.5f;
         float zOffset = 0.3f; // Adjust this for depth
 
         targetHitPos = new Vector3(
         ballPoint.x + xOffset,
-        transform.position.y, // stay on ground level
+        0.852f, // stay on ground level
         ballPoint.z + zOffset
         );
     }
@@ -86,13 +86,24 @@ public class NpcHitBall : MonoBehaviour
 
         // Move smoothly toward target
         Vector3 moveDir = targetHitPos - transform.position;
-        moveDir.y = 0;
+        moveDir.y = 0; //no movemeng up 
         float distance = moveDir.magnitude;
 
         if (distance > stopDistance)
         {
             transform.position += moveDir.normalized * moveSpeed * Time.deltaTime;
         }
+
+        //lock rotation and y pos, so they dont go turning and floating
+        Vector3 currentPos = transform.position;
+        currentPos.y = 0.852f;
+        transform.position = currentPos;
+
+        if (mySide == CourtSide.Left)
+        {
+            transform.rotation = Quaternion.LookRotation(Vector3.back);
+        }
+        else { transform.rotation = Quaternion.LookRotation(Vector3.forward); }
     }
 
     private void OnTriggerEnter(Collider other)
@@ -125,11 +136,11 @@ public class NpcHitBall : MonoBehaviour
 
     void keepTrackAnimation()
     {
-        if(!hasHit) return;
+        if (!hasHit) return;
 
         timer += Time.deltaTime;
 
-        if(timer >= 0.9f)
+        if (timer >= 0.9f)
         {
             TriggerHit();
         }
