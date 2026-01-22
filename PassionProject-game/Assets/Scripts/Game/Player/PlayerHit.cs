@@ -1,218 +1,3 @@
-// using System;
-// using UnityEditorInternal;
-// using UnityEngine;
-
-// public class PlayerHit : MonoBehaviour
-// {
-//     public Animator playerAnimation;
-//     public EspUdp espData;
-
-//     private float swingThreshold = 7f;
-//     private float resetThreshold;
-//     public bool swingActive = false;
-//     public bool isSwinging = false;
-//     public float timer;
-//     public float swingEnergy;
-//     private float rotation;
-
-//     void Update()
-//     {
-//         DetectSwing();
-//         //  RotatePlayer();
-//     }
-
-//     void DetectSwing()
-//     {
-//         float gx = espData.gx;
-//         float gy = espData.gy;
-//         float gz = espData.gz;
-//         float ax = espData.ax;
-//         float ay = espData.ay;
-//         float az = espData.az;
-
-//         swingEnergy = Mathf.Abs(gx) + Mathf.Abs(gy) + Mathf.Abs(gz);
-//         bool AXisBigger = ax > ay;
-//         Debug.Log(AXisBigger);
-//         //Debug.Log(swingEnergy);
-//         //Debug.Log($"Thres: {swingThreshold}");
-
-//         if (!swingActive && swingEnergy > swingThreshold)
-//         {
-//             swingActive = true;
-//             TriggerSwing(ax, ay, az, gx, gy, gz);
-//         }
-
-//         if (swingActive)
-//         {
-//             timer += Time.deltaTime;
-//         }
-
-//         if (timer >= 0.8f) //cooldown 
-//         {
-//             swingActive = false;
-//             timer = 0f;
-//             rotation = 0f;
-//         }
-
-//         // Debug.Log(swingActive);
-
-//         if(swingEnergy > swingThreshold)
-//         {
-//             TriggerSwing(ax, ay, az, gx, gy, gz);
-//         }
-
-//         // Debug.Log("Timer " + timer);
-
-//         // end of swing : (reset)
-//         // if (swingActive && swingEnergy < resetThreshold)
-//         // {
-//         //     swingActive = false;
-//         //     rotation = 0f;
-//         // }
-//     }
-
-//     void TriggerSwing(float ax, float ay, float az, float gx, float gy, float gz)
-//     {
-
-//         playerAnimation.ResetTrigger("Forehand");
-//         playerAnimation.ResetTrigger("Backhand");
-//         playerAnimation.ResetTrigger("Overhand");
-
-
-//         // forehand ax = ± 10, ay = ± 2, az = ± 0.5
-//         if (ax >= 9)
-//         {
-//             playerAnimation.SetTrigger("Forehand");
-//             Debug.Log($"forehand (ay:{ay:F2} gy:{gy:F2})");
-//             rotation = 45f;
-//             return;
-//         }
-
-//         // backhand ax = ± -10, ay = ± 2, az = ± 0.5
-//         if (ax <= -9)
-//         {
-//             playerAnimation.SetTrigger("Backhand");
-//             Debug.Log($"backhand (ay:{ay:F2})");
-//             rotation = -45f;
-//             return;
-//         }
-
-//         // overhand ax = ± 1, ay = ± 10, az = ± 1
-//         if (ay >= 6)
-//         {
-//             playerAnimation.SetTrigger("Overhand");
-//             Debug.Log($"overhand (ax:{ax:F2} ay:{ay:F2})");
-//             rotation = 35f;
-//             return;
-//         }
-//     }
-
-//     private void RotatePlayer()
-//     {
-//         //rotate player when swinging
-//         //Quaternion targetRotation = Quaternion.Euler(0, rotation, 0);
-//         // transform.rotation =  Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * 10f);
-//         transform.rotation = Quaternion.Euler(0, rotation, 0);
-//     }
-
-// }
-
-
-// using System;
-// using UnityEditorInternal;
-// using UnityEngine;
-
-// public class PlayerHit : MonoBehaviour
-// {
-//     public Animator playerAnimation;
-//     public EspUdp espData;
-
-//     private float swingThreshold = 7f;
-//     private float resetThreshold;
-//     public bool swingActive = false;
-//     public bool isSwinging = false;
-//     public float timer;
-//     public float swingEnergy;
-//     private float rotation;
-
-//     void Update()
-//     {
-//         DetectSwing();
-//         //  RotatePlayer();
-//     }
-
-//     void DetectSwing()
-//     {
-//         float gx = espData.gx * 10f;
-//         float gy = espData.gy * 10f;
-//         float gz = espData.gz * 10f;
-//         float ax = espData.ax;
-//         float ay = espData.ay;
-//         float az = espData.az;
-
-//         swingEnergy = Mathf.Abs(gx) + Mathf.Abs(gy) + Mathf.Abs(gz);
-//         TriggerSwing(ax, ay, az, gx, gy, gz);
-
-//     }
-
-//     void TriggerSwing(float ax, float ay, float az, float gx, float gy, float gz)
-//     {
-
-//         playerAnimation.ResetTrigger("Forehand");
-//         playerAnimation.ResetTrigger("Backhand");
-//         playerAnimation.ResetTrigger("Overhand");
-
-//         // if(Mathf.Abs(gx) + Mathf.Abs(gy) + Mathf.Abs(gz) < 10f)
-//         // {
-//         //     return;
-//         // }
-
-//         if (ay >= 6.5)
-//         {
-//             playerAnimation.SetTrigger("Overhand");
-//             Debug.Log($"overhand (ax:{ax:F2} ay:{ay:F2} az:{az:F2})");
-//             rotation = 35f;
-//             return;
-//         }
-
-//         // if (Mathf.Abs(gx) + Mathf.Abs(gy) + Mathf.Abs(gz) < 40f)
-//         // {
-//         //     return;
-//         // }
-
-//         // forehand ax = ± 10, ay = ± 2, az = ± 0.5
-//         if (ax >= 9)
-//         {
-//             playerAnimation.SetTrigger("Forehand");
-//             Debug.Log($"forehand (ax:{ax:F2} ay:{ay:F2} az:{az:F2})");
-//             rotation = 45f;
-//             return;
-//         }
-
-//         // backhand ax = ± -10, ay = ± 2, az = ± 0.5
-//         if (ax <= -9)
-//         {
-//             playerAnimation.SetTrigger("Backhand");
-//             Debug.Log($"backhand (ax:{ax:F2} ay:{ay:F2} az:{az:F2})");
-//             rotation = -45f;
-//             return;
-//         }
-
-//         // overhand ax = ± 1, ay = ± 10, az = ± 1
-
-//     }
-
-//     private void RotatePlayer()
-//     {
-//         //rotate player when swinging
-//         //Quaternion targetRotation = Quaternion.Euler(0, rotation, 0);
-//         // transform.rotation =  Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * 10f);
-//         transform.rotation = Quaternion.Euler(0, rotation, 0);
-//     }
-
-// }
-
-
 using UnityEngine;
 
 public class PlayerHit : MonoBehaviour
@@ -236,8 +21,8 @@ public class PlayerHit : MonoBehaviour
     private float cooldownTimer = 0f;
     private bool inCooldown = false;
 
-    private enum SwingType { Forehand, Backhand, Overhand }
-    private SwingType swingType = SwingType.Forehand;
+    public enum SwingType { Forehand, Backhand, Overhand }
+    public SwingType swingType = SwingType.Forehand;
     private Quaternion swingRotation;
 
     void Update()
@@ -247,6 +32,7 @@ public class PlayerHit : MonoBehaviour
         RotateWithSwing();
 
         //Debug.Log($"phase: {swingPhase} swinging:{playerIsSwinging} swingtype:{swingType}");
+        // Debug.Log(swingActive);
     }
 
     void DetectSwing()
@@ -266,6 +52,7 @@ public class PlayerHit : MonoBehaviour
         // start collecting
         if (!collecting && swingEnergy > swingThreshold)
         {
+            swingActive = true;
             collecting = true;
             windowTimer = 0f;
             sumAx = sumAy = sumAz = 0f;
@@ -342,15 +129,15 @@ public class PlayerHit : MonoBehaviour
         switch (swingType)
         {
             case SwingType.Forehand:
-                swingRotation = Quaternion.Euler(0f, 45f, 0f);
+                swingRotation = Quaternion.Euler(0f, 30f, 0f);
                 break;
 
             case SwingType.Backhand:
-                swingRotation = Quaternion.Euler(0f, -45f, 0f);
+                swingRotation = Quaternion.Euler(0f, -30f, 0f);
                 break;
 
             case SwingType.Overhand:
-                swingRotation = Quaternion.Euler(0f, 35f, 0f);
+                swingRotation = Quaternion.Euler(0f, 25f, 0f);
                 break;
         }
     }
@@ -364,12 +151,13 @@ public class PlayerHit : MonoBehaviour
         {
             swingRotation = Quaternion.Euler(0f, 0f, 0f);
             inCooldown = false;
+            swingActive = false;
         }
     }
 
     void RotateWithSwing()
     {
-       transform.rotation = swingRotation;
+        // transform.rotation = swingRotation;
         //transform.rotation = Quaternion.RotateTowards(transform.rotation, swingRotation, Time.deltaTime * 500f);
     }
 
