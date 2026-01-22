@@ -3,7 +3,9 @@ using System.Net;
 using System.Net.Sockets;
 using System.Text;
 using System.Threading;
+using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class EspUdp : MonoBehaviour
 {
@@ -11,6 +13,11 @@ public class EspUdp : MonoBehaviour
     UdpClient udpClient;
     Thread receiveThread;
     bool running = false;
+    public Image ErrorScreen;
+    private float lastMessageTime = 0f;
+    public float timeout = 2.0f;
+    public GameObject MessageText;
+    public GameObject InstructionsText;
 
     string latestMessage;
     bool hasMessage = false;
@@ -19,10 +26,13 @@ public class EspUdp : MonoBehaviour
     public float ax, ay, az;
     public float gx, gy, gz;
     public int joystickDir;
+    bool noMPUData = false;
 
 
     void Start()
     {
+        lastMessageTime = Time.time;
+
         Debug.Log("test");
         udpClient = new UdpClient();
         udpClient.Client.SetSocketOption(SocketOptionLevel.Socket, SocketOptionName.ReuseAddress, true);
@@ -75,7 +85,7 @@ public class EspUdp : MonoBehaviour
         int.TryParse(parts[6], out joystickDir);
 
         //Debug.Log($"timestamp:{Time.time} ax:{ax} ay:{ay} az:{az} gx:{gx} gy:{gy} gz:{gz}, dir:{joystickDir}");
-       // Debug.Log($" ax:{ax} ay:{ay} az:{az} gx:{gx} gy:{gy} gz:{gz}, dir:{joystickDir}");
+        // Debug.Log($" ax:{ax} ay:{ay} az:{az} gx:{gx} gy:{gy} gz:{gz}, dir:{joystickDir}");
     }
 
 
@@ -109,6 +119,45 @@ public class EspUdp : MonoBehaviour
             }
         }
 
-        if (msg != null) ParseData(msg);
+        if (msg != null)
+        {
+            lastMessageTime = Time.time;
+            ParseData(msg);
+            noMPUData = ax==0 && ay ==0 && az == 0;
+        }
+
+        bool noConnection = Time.time - lastMessageTime > timeout;
+
+        if (noConnection)
+        {
+            // No connection → show connection error
+            ErrorScreen.gameObject.SetActive(true);
+            onError(false, true);
+        }
+        else if (noMPUData)
+        {
+            // Connected, but MPU not sending data → show MPU error
+            ErrorScreen.gameObject.SetActive(true);
+            onError(true, false);
+        }
+        else
+        {
+            // Everything ok → hide error
+            ErrorScreen.gameObject.SetActive(false);
+        }
+    }
+
+    void onError(bool noMPUData, bool noConnection)
+    {
+        if (noConnection)
+        {
+            MessageText.GetComponent<TextMeshProUGUI>().SetText("No connection to ESP device!");
+            InstructionsText.GetComponent<TextMeshProUGUI>().SetText("Check USB/Bluetooth and restart the game.");
+        }
+        else if (noMPUData)
+        {
+            MessageText.GetComponent<TextMeshProUGUI>().SetText("No data from MPU sensor!");
+            InstructionsText.GetComponent<TextMeshProUGUI>().SetText("Ensure the MPU is powered on and sending data.");
+        }
     }
 }
