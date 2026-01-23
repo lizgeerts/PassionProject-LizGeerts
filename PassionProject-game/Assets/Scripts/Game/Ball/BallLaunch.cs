@@ -85,6 +85,8 @@ public class BallLaunch : MonoBehaviour
 
     private ShotProfile currentShot;
 
+    float minX, minZ, maxX, maxZ;
+
 
     void Start()
     {
@@ -150,37 +152,10 @@ public class BallLaunch : MonoBehaviour
         else return false;
     }
 
-    // void CalculateTargetPositions()
-    // {
-    //     float xOffset = Random.Range(-1.7f, 1.7f);
-    //     //left or right from them
-    //     Vector3 lateralOffset = targetPlayer.right * xOffset;
-
-    //     // floor bounce point
-    //     float bounceForwardDistance = Random.Range(2f, 3f);
-    //     bouncePos =
-    //         targetPlayer.position +
-    //         targetPlayer.forward * bounceForwardDistance +
-    //         lateralOffset;
-
-    //     bouncePos.y = -0.175f;
-
-    //     float racketForwardDistance = Random.Range(-0.8f, 1.2f); //z offset
-    //     if (RandomValue(0.35f)) //bigger chance under,
-    //     { //y offset
-    //         randomYOffset = Random.Range(-0.15f, 0.15f); //backhand or forehand
-    //     }
-    //     else randomYOffset = Random.Range(0.55f, 1.05f); //overhand
-
-    //     Debug.Log("Y: " + randomYOffset);
-    //     hitPos =
-    //         targetPlayer.position +
-    //         targetPlayer.forward * racketForwardDistance +
-    //         lateralOffset + Vector3.up * randomYOffset;
-    // }
-
     void CalculateTargetPositions()
     {
+        getMinMax(); // get it once
+
         Debug.Log($"arc: {currentShot.arcMultiplier} flight:{currentShot.flightTimeMultiplier} xtrX: {currentShot.xOffset} bounce:{currentShot.forceBounce}");
 
         float baseX = Random.Range(-1.7f, 1.7f);
@@ -202,6 +177,8 @@ public class BallLaunch : MonoBehaviour
 
         bouncePos.y = -0.175f;
 
+        bouncePos = ClampToBounds(bouncePos); //clamp -> not outside zone!!
+
         if (RandomValue(0.35f) && !currentShot.goUp) //bigger chance under,
         { //y offset
             randomYOffset = Random.Range(-0.15f, 0.15f); //backhand or forehand
@@ -213,8 +190,24 @@ public class BallLaunch : MonoBehaviour
             targetPlayer.position +
             targetPlayer.forward * baseHitZ +
             lateralOffset + Vector3.up * randomYOffset;
+
+        hitPos = ClampToBounds(hitPos);
     }
 
+    private void getMinMax()
+    {
+        minX = targetPlayer.GetComponent<Clamping>().minX;
+        maxX = targetPlayer.GetComponent<Clamping>().maxX;
+        minZ = targetPlayer.GetComponent<Clamping>().minZ;
+        maxZ = targetPlayer.GetComponent<Clamping>().maxZ;
+    }
+
+    Vector3 ClampToBounds(Vector3 pos)
+    {
+        pos.x = Mathf.Clamp(pos.x, minX, maxX);
+        pos.z = Mathf.Clamp(pos.z, minZ, maxZ);
+        return pos;
+    }
 
     void UpdateFlight()
     {
@@ -310,7 +303,6 @@ public class BallLaunch : MonoBehaviour
     {
         Transform[] targets = ballOnLeftSide ? rightSidePlayers : leftSidePlayers;
         targetPlayer = targets[Random.Range(0, targets.Length)];
-        Debug.Log(targetPlayer.name);
     }
 
     ShotProfile BuildPlayerShot()
@@ -323,29 +315,26 @@ public class BallLaunch : MonoBehaviour
         switch (playerHit.swingType)
         {
             case PlayerHit.SwingType.Forehand:
-                shot.arcMultiplier = 1.4f; //higher arc
-                shot.forceBounce = Random.value > 0.36f;
+                shot.arcMultiplier = Random.Range(1.1f, 1.45f); //higher arc
+                shot.forceBounce = Random.value > 0.4f;
                 shot.xOffset = playerHit.peakAx * 0.02f;//peak is often 10 -> + 0.2f
                 break;
 
             case PlayerHit.SwingType.Backhand:
-                shot.arcMultiplier = 1f;
-                shot.forceBounce = Random.value > 0.36f;
+                shot.arcMultiplier = Random.Range(0.6f, 1f);
+                shot.forceBounce = Random.value > 0.4f;
                 shot.xOffset = playerHit.peakAx * 0.02f;
                 break;
 
             case PlayerHit.SwingType.Overhand:
                 shot.forceBounce = true;
-                shot.arcMultiplier = 1.3f;
-                shot.zOffset = 0.7f;
-
+                shot.arcMultiplier = 1f;
                 if (energy > 11f)
                 {
                     // Smash
                     shot.goUp = true; //bounce back higher
                     shot.smashFactor = Mathf.InverseLerp(11f, 16f, energy);
                     shot.arcMultiplier = 0.6f;
-                    shot.flightTimeMultiplier = 0.6f;
                 }
                 break;
         }
@@ -355,13 +344,13 @@ public class BallLaunch : MonoBehaviour
           //if hit soft -> more towards front
             shot.bounceZOffset = Random.Range(-1f, 0f);
             shot.zOffset = Random.Range(-0.6f, 0.4f);
-            shot.flightTimeMultiplier = Random.Range(0.3f, 0.7f); //faster
+            shot.flightTimeMultiplier = Random.Range(0.45f, 0.8f); //faster
         }
         else
         {
             shot.bounceZOffset = Random.Range(0f, 0.6f);
             shot.zOffset = Random.Range(-0.2f, 1.6f);
-            shot.flightTimeMultiplier = Random.Range(0.85f, 1.2f);
+            shot.flightTimeMultiplier = Random.Range(0.80f, 1.1f);
         }
 
         return shot;
@@ -373,17 +362,16 @@ public class BallLaunch : MonoBehaviour
 
         // Base values
         shot.flightTimeMultiplier = Random.Range(0.7f, 1.1f);
-        shot.arcMultiplier = 1f;
+        shot.arcMultiplier = Random.Range(0.8f, 1.4f);
         shot.zOffset = 0f;
         shot.xOffset = 0f;
         shot.bounceXOffset = 0f;
         shot.bounceZOffset = 0f;
         shot.smashFactor = 0f;
-        shot.forceBounce = Random.value > 0.36f; //in padel, players often play with a bounce
-                                                 //either with or without bounce
-                                                 // withBounce = false; //debug //if overhand do bounce
+        shot.forceBounce = Random.value > 0.4f; //in padel, players often play with a bounce
+                                                //either with or without bounce
+                                                // withBounce = false; //debug //if overhand do bounce
         shot.goUp = false;
-
         return shot;
     }
 }

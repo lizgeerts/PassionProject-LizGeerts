@@ -1643,6 +1643,7 @@ GameObject:
   - component: {fileID: 7071316911052928970}
   - component: {fileID: 228985596462913895}
   - component: {fileID: 8238025822712178510}
+  - component: {fileID: 3857436711111488176}
   m_Layer: 3
   m_Name: NPC-try
   m_TagString: Untagged
@@ -1758,11 +1759,23 @@ MonoBehaviour:
   mySide: 0
   moveSpeed: 3
   stopDistance: 0.2
-  forwardOffset: 1
-  anticipation: 0.5
-  sideOffsetRange: {x: -0.5, y: 0.5}
-  reactionTime: 0.1
   moveTimer: 0
+  minX: 0
+  maxX: 0
+  minZ: 0
+  maxZ: 0
+--- !u!114 &3857436711111488176
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6089974631403869935}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b0228276dcb754172a398fbe2f19241d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Clamping
 --- !u!1 &6123848052203256442
 GameObject:
   m_ObjectHideFlags: 0

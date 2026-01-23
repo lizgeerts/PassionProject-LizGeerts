@@ -636,6 +636,7 @@ GameObject:
   - component: {fileID: -3557916759371322812}
   - component: {fileID: 4812114451671487272}
   - component: {fileID: 28796724319170843}
+  - component: {fileID: 6888378582169832199}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -715,6 +716,10 @@ MonoBehaviour:
   swingActive: 0
   timer: 0
   swingEnergy: 0
+  peakAx: 0
+  peakAy: 0
+  peakAz: 0
+  swingType: 0
 --- !u!143 &-3557916759371322812
 CharacterController:
   m_ObjectHideFlags: 0
@@ -778,6 +783,18 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1.4729886, y: 1.6164086, z: 1.0051775}
   m_Center: {x: 0.09775567, y: 0.08435607, z: 0.3172145}
+--- !u!114 &6888378582169832199
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2516790503248948639}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b0228276dcb754172a398fbe2f19241d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Clamping
 --- !u!1 &2609220775858131384
 GameObject:
   m_ObjectHideFlags: 0

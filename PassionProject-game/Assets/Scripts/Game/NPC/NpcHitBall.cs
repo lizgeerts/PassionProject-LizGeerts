@@ -25,7 +25,6 @@ public class NpcHitBall : MonoBehaviour
     private float xOffset = 0f;
     private float zOffset = 0f;
 
-
     void Start()
     {
 
