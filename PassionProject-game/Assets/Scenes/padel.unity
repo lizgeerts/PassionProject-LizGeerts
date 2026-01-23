@@ -2931,7 +2931,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3857436711111488176, guid: 89128b3b67cbe4dfbb8d1c45e9a8521d, type: 3}
       propertyPath: minX
-      value: -0.4
+      value: -0.05
       objectReference: {fileID: 0}
     - target: {fileID: 3857436711111488176, guid: 89128b3b67cbe4dfbb8d1c45e9a8521d, type: 3}
       propertyPath: minZ
@@ -4615,7 +4615,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3857436711111488176, guid: 89128b3b67cbe4dfbb8d1c45e9a8521d, type: 3}
       propertyPath: minX
-      value: -0.37
+      value: -0.05
       objectReference: {fileID: 0}
     - target: {fileID: 3857436711111488176, guid: 89128b3b67cbe4dfbb8d1c45e9a8521d, type: 3}
       propertyPath: minZ
@@ -9851,6 +9851,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: -3557916759371322812, guid: 64eb9d0f036f7408cbac68aca375d0b3, type: 3}
+    - {fileID: 4812114451671487272, guid: 64eb9d0f036f7408cbac68aca375d0b3, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents:
@@ -16739,7 +16740,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e9e1ca8c1cd6647e08a14d1636585f0c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PointSystem
-  ballScript: {fileID: 107296919}
+  ballLaunchScript: {fileID: 4485896533445412523}
   team1SetText: {fileID: 729393243}
   team2SetText: {fileID: 574764715}
   team1GameText: {fileID: 943708436}
@@ -18736,7 +18737,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 3857436711111488176, guid: 89128b3b67cbe4dfbb8d1c45e9a8521d, type: 3}
       propertyPath: maxX
-      value: 0.4
+      value: 0.1
       objectReference: {fileID: 0}
     - target: {fileID: 3857436711111488176, guid: 89128b3b67cbe4dfbb8d1c45e9a8521d, type: 3}
       propertyPath: maxZ
@@ -18753,6 +18754,10 @@ PrefabInstance:
     - target: {fileID: 6089974631403869935, guid: 89128b3b67cbe4dfbb8d1c45e9a8521d, type: 3}
       propertyPath: m_Name
       value: NPC 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7071316911052928970, guid: 89128b3b67cbe4dfbb8d1c45e9a8521d, type: 3}
+      propertyPath: m_Constraints
+      value: 84
       objectReference: {fileID: 0}
     - target: {fileID: 8238025822712178510, guid: 89128b3b67cbe4dfbb8d1c45e9a8521d, type: 3}
       propertyPath: maxX
@@ -19056,8 +19061,10 @@ MonoBehaviour:
   hitFloatAmplitude: 0.03
   hitPos: {x: 0, y: 0, z: 0}
   targetPlayer: {fileID: 0}
+  ballOnLeftSide: 0
   ballServeScript: {fileID: 4485896533445412517}
   isItPlayerSwinging: 0
+  ballMissed: 0
 --- !u!114 &4485896533445412527
 MonoBehaviour:
   m_ObjectHideFlags: 0

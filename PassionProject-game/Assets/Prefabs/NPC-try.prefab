@@ -1716,7 +1716,7 @@ Rigidbody:
   m_UseGravity: 0
   m_IsKinematic: 0
   m_Interpolate: 1
-  m_Constraints: 80
+  m_Constraints: 116
   m_CollisionDetection: 1
 --- !u!136 &228985596462913895
 CapsuleCollider:
@@ -1760,10 +1760,6 @@ MonoBehaviour:
   moveSpeed: 3
   stopDistance: 0.2
   moveTimer: 0
-  minX: 0
-  maxX: 0
-  minZ: 0
-  maxZ: 0
 --- !u!114 &3857436711111488176
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1776,6 +1772,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b0228276dcb754172a398fbe2f19241d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Clamping
+  minX: 0
+  maxX: 0
+  minZ: 0
+  maxZ: 0
 --- !u!1 &6123848052203256442
 GameObject:
   m_ObjectHideFlags: 0

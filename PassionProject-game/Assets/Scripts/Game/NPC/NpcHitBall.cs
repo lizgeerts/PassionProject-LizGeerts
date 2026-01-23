@@ -13,6 +13,7 @@ public class NpcHitBall : MonoBehaviour
     [Header("Movement")]
     public float moveSpeed = 3f;
     public float stopDistance = 0.2f;
+    private Rigidbody rb;
 
     [Header("Hit Settings")]
 
@@ -27,12 +28,18 @@ public class NpcHitBall : MonoBehaviour
 
     void Start()
     {
-
+        rb = GetComponent<Rigidbody>();
     }
 
 
     void Update()
     {
+        keepTrackAnimation();
+    }
+
+
+  void FixedUpdate()
+  {
         // Only react if the ball is coming to me
         if (ballLaunchScript.state == BallLaunch.BallState.Flying && ballLaunchScript.targetPlayer == transform ||
             ballLaunchScript.state == BallLaunch.BallState.Floating && ballLaunchScript.targetPlayer == transform)
@@ -52,9 +59,7 @@ public class NpcHitBall : MonoBehaviour
             hasHit = false;
         }
 
-        keepTrackAnimation();
     }
-
 
     void CalculateTargetHitPos()
     {
@@ -89,54 +94,93 @@ public class NpcHitBall : MonoBehaviour
 
     void MoveToTarget()
     {
+        // if (hasHit)
+        // {
+        //     animator.SetFloat("Direction", 0f);
+        //     return;
+        // }
+
+        // // move smoothly toward target
+        // Vector3 moveDir = targetHitPos - transform.position;
+        // moveDir.y = 0; //no movemeng up 
+        // float distance = moveDir.magnitude;
+
+        // if (distance > stopDistance)
+        // {
+        //     transform.position += moveDir.normalized * moveSpeed * Time.deltaTime;
+
+        //     float xDiff = targetHitPos.x - transform.position.x;
+        //     float animDirection = 0f;
+
+        //     if (Mathf.Abs(xDiff) > 0.1f)
+        //     {
+        //         // For CourtSide.Right (facing Forward), positive xDiff is "Right"
+        //         // For CourtSide.Left (facing Back), positive xDiff is "Left"
+        //         animDirection = (xDiff > 0) ? 1f : -1f;
+
+        //         // Flip logic if they are on the Left side facing Backwards
+        //         if (mySide == CourtSide.Left)
+        //         {
+        //             animDirection *= -1f;
+        //         }
+        //     }
+        //     animator.SetFloat("Direction", animDirection);
+        // }
+        // else
+        // {
+        //     // We reached the target
+        //     animator.SetFloat("Direction", 0f);
+        // }
+
+        // //lock rotation, so they dont go turning and floating
+
+        // if (mySide == CourtSide.Left)
+        // {
+        //     transform.rotation = Quaternion.LookRotation(Vector3.back);
+        // }
+        // else { transform.rotation = Quaternion.LookRotation(Vector3.forward); }
         if (hasHit)
         {
             animator.SetFloat("Direction", 0f);
             return;
         }
 
-        // move smoothly toward target
-        Vector3 moveDir = targetHitPos - transform.position;
-        moveDir.y = 0; //no movemeng up 
+        Vector3 targetPos = targetHitPos;
+        targetPos.y = rb.position.y;
+
+        Vector3 moveDir = targetPos - rb.position;
         float distance = moveDir.magnitude;
 
         if (distance > stopDistance)
         {
-            transform.position += moveDir.normalized * moveSpeed * Time.deltaTime;
+            Vector3 newPos = rb.position + moveDir.normalized * moveSpeed * Time.fixedDeltaTime;
+            rb.MovePosition(newPos);
 
-            float xDiff = targetHitPos.x - transform.position.x;
+            // Animation direction
+            float xDiff = targetHitPos.x - rb.position.x;
             float animDirection = 0f;
 
             if (Mathf.Abs(xDiff) > 0.1f)
             {
-                // For CourtSide.Right (facing Forward), positive xDiff is "Right"
-                // For CourtSide.Left (facing Back), positive xDiff is "Left"
                 animDirection = (xDiff > 0) ? 1f : -1f;
-
-                // Flip logic if they are on the Left side facing Backwards
                 if (mySide == CourtSide.Left)
-                {
                     animDirection *= -1f;
-                }
             }
+
             animator.SetFloat("Direction", animDirection);
         }
         else
         {
-            // We reached the target
             animator.SetFloat("Direction", 0f);
         }
 
-        //lock rotation and y pos, so they dont go turning and floating
-        Vector3 currentPos = transform.position;
-        currentPos.y = 0.852f;
-        transform.position = currentPos;
+        // Rotation (smooth & physics-safe)
+        Quaternion targetRot =
+            (mySide == CourtSide.Left)
+            ? Quaternion.LookRotation(Vector3.back)
+            : Quaternion.LookRotation(Vector3.forward);
 
-        if (mySide == CourtSide.Left)
-        {
-            transform.rotation = Quaternion.LookRotation(Vector3.back);
-        }
-        else { transform.rotation = Quaternion.LookRotation(Vector3.forward); }
+        rb.MoveRotation(targetRot);
     }
 
     private void OnTriggerEnter(Collider other)

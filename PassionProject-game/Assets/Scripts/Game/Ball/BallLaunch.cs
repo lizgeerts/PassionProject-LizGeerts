@@ -24,6 +24,7 @@ public class BallLaunch : MonoBehaviour
     }
 
     public BallState state = BallState.Idle;
+    public PointSystem pointSystemScript;
 
     [Header("Players")]
     public Transform[] leftSidePlayers;
@@ -54,7 +55,7 @@ public class BallLaunch : MonoBehaviour
 
     private float timer;
     public Transform targetPlayer;
-    private bool ballOnLeftSide = false;
+    public bool ballOnLeftSide = false;
 
     public BallServe ballServeScript;
     private enum FlightPhase
@@ -118,6 +119,7 @@ public class BallLaunch : MonoBehaviour
 
     void BeginLaunch()
     {
+
         if (isItPlayerSwinging)
         {
             currentShot = BuildPlayerShot();
@@ -278,10 +280,28 @@ public class BallLaunch : MonoBehaviour
         pos.y += Mathf.Sin(Time.time * 30f) * hitFloatAmplitude;
         transform.position = pos;
 
-        if (timer >= hitFloatTime)
+        if (targetPlayer.name == "Player")
+        {
+            hitFloatTime = 0.5f;
+        }
+        else
+        {
+            hitFloatTime = 0.27f;
+        }
+
+        bool waitingForServe = false;
+        if (!waitingForServe && timer >= hitFloatTime)
         {
             state = BallState.Idle; // missed hit (later: point logic)
             flightPhase = FlightPhase.None;
+            pointSystemScript.AddPoint();
+            waitingForServe = true;
+        }
+        if (waitingForServe && timer >= 1f)
+        {
+            ballServeScript.StartServe();
+            timer = 0f;
+            waitingForServe = false;
         }
     }
 

@@ -14,7 +14,7 @@ public class PointSystem : MonoBehaviour
     private int setPointsIndexTeam1 = 0;
     private int setPointsIndexTeam2 = 0;
 
-    public Ballcontroller ballScript;
+    public BallLaunch ballLaunchScript;
 
     public GameObject team1SetText;
     public GameObject team2SetText;
@@ -23,29 +23,17 @@ public class PointSystem : MonoBehaviour
 
     public bool pointAdded;
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+
+    public void AddPoint()
     {
-        //team1GameText.GetComponent<TextMeshProUGUI>().SetText("1");
-
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        if (pointAdded == true)
-        {
-            return;
-        }
-
-        if (ballScript.bounceCount == 2 && ballScript.leftSide)
-        //if ball bounced twice on left side -> right side gets point = team1
+        if (ballLaunchScript.ballOnLeftSide)
+        //if ball was missed on left side -> right side gets point = team1
         {
             setPointsIndexTeam1 += 1;
             UpdateGamePointsTeam1();
             pointAdded = true;
         }
-        else if (ballScript.bounceCount == 2 && ballScript.rightSide)
+        else if (!ballLaunchScript.ballOnLeftSide)
         {
             setPointsIndexTeam2 += 1;
             UpdateGamePointsTeam2();
