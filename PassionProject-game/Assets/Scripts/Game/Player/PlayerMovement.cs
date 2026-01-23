@@ -54,6 +54,9 @@ public class PlayerMovement : MonoBehaviour
         playerAnimation.SetFloat("Direction", animationDir);
 
         controller.Move(move * moveSpeed * Time.deltaTime);
+        Vector3 pos = transform.position;
+        pos.y = 0.842f; //keep on the floor
+        transform.position = pos;
     }
 
     private void RotatePlayer()

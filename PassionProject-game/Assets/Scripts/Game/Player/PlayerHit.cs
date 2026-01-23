@@ -14,7 +14,7 @@ public class PlayerHit : MonoBehaviour
     private bool collecting;
     private float windowTimer;
     private float sumAx, sumAy, sumAz;
-    float peakAx, peakAy, peakAz;
+    public float peakAx, peakAy, peakAz;
 
     [Header("cooldown")]
     private float swingCooldown = 0.75f;
@@ -48,6 +48,7 @@ public class PlayerHit : MonoBehaviour
         float az = espData.az;
 
         swingEnergy = Mathf.Abs(gx) + Mathf.Abs(gy) + Mathf.Abs(gz);
+        Debug.Log("energy:"+ swingEnergy);
 
         // start collecting
         if (!collecting && swingEnergy > swingThreshold)
@@ -121,6 +122,11 @@ public class PlayerHit : MonoBehaviour
                 swingType = SwingType.Backhand;
             }
             SetRotation();
+        } else
+        {
+            playerAnimation.SetTrigger("Forehand");
+            Debug.Log("FOREHAND");
+            swingType = SwingType.Forehand; //default is forehand
         }
     }
 

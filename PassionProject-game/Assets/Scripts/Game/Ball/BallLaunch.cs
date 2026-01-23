@@ -12,6 +12,8 @@ public class BallLaunch : MonoBehaviour
     - points
     */
 
+    public EspUdp espData;
+    public PlayerHit playerHit;
     public enum BallState
     {
         Idle,
@@ -44,8 +46,6 @@ public class BallLaunch : MonoBehaviour
     [Header("Hit Assist")]
     public float hitFloatTime = 0.25f;
     public float hitFloatAmplitude = 0.03f;
-
-    public bool isItPlayerSwinging;
     private bool withBounce;
 
     private Vector3 startPos;
@@ -66,6 +66,24 @@ public class BallLaunch : MonoBehaviour
     }
 
     private FlightPhase flightPhase = FlightPhase.None;
+
+    [Header("Player swing")]
+    public bool isItPlayerSwinging;
+
+    public struct ShotProfile
+    {
+        public bool forceBounce;
+        public bool goUp;
+        public float flightTimeMultiplier;
+        public float arcMultiplier;
+        public float zOffset;
+        public float xOffset;
+        public float bounceZOffset;
+        public float bounceXOffset;
+        public float smashFactor; // 0 = normal, 1 = smash
+    }
+
+    private ShotProfile currentShot;
 
 
     void Start()
@@ -98,13 +116,17 @@ public class BallLaunch : MonoBehaviour
 
     void BeginLaunch()
     {
+        if (isItPlayerSwinging)
+        {
+            currentShot = BuildPlayerShot();
+        }
+        else currentShot = BuildNPCShot();
+
         timer += Time.deltaTime;
         ballServeScript.stateServe = BallServe.BallStateServe.Idle;
 
         ChooseTargetPlayer();
-        withBounce = Random.value > 0.36f; //in padel, players often play with a bounce
-                                          //either with or without bounce
-                                          // withBounce = false; //debug
+        withBounce = currentShot.forceBounce;
 
         startPos = transform.position;
         //timer = 0f;
@@ -128,23 +150,59 @@ public class BallLaunch : MonoBehaviour
         else return false;
     }
 
+    // void CalculateTargetPositions()
+    // {
+    //     float xOffset = Random.Range(-1.7f, 1.7f);
+    //     //left or right from them
+    //     Vector3 lateralOffset = targetPlayer.right * xOffset;
+
+    //     // floor bounce point
+    //     float bounceForwardDistance = Random.Range(2f, 3f);
+    //     bouncePos =
+    //         targetPlayer.position +
+    //         targetPlayer.forward * bounceForwardDistance +
+    //         lateralOffset;
+
+    //     bouncePos.y = -0.175f;
+
+    //     float racketForwardDistance = Random.Range(-0.8f, 1.2f); //z offset
+    //     if (RandomValue(0.35f)) //bigger chance under,
+    //     { //y offset
+    //         randomYOffset = Random.Range(-0.15f, 0.15f); //backhand or forehand
+    //     }
+    //     else randomYOffset = Random.Range(0.55f, 1.05f); //overhand
+
+    //     Debug.Log("Y: " + randomYOffset);
+    //     hitPos =
+    //         targetPlayer.position +
+    //         targetPlayer.forward * racketForwardDistance +
+    //         lateralOffset + Vector3.up * randomYOffset;
+    // }
+
     void CalculateTargetPositions()
     {
-        float xOffset = Random.Range(-1.7f, 1.7f);
+        Debug.Log($"arc: {currentShot.arcMultiplier} flight:{currentShot.flightTimeMultiplier} xtrX: {currentShot.xOffset} bounce:{currentShot.forceBounce}");
+
+        float baseX = Random.Range(-1.7f, 1.7f);
+        float baseBounceZ = Random.Range(2f, 3f);
+        float baseHitZ = Random.Range(-0.8f, 1.2f);
+
+        baseX += currentShot.xOffset;
+        baseBounceZ += currentShot.bounceZOffset;
+        baseHitZ += currentShot.zOffset;
+
         //left or right from them
-        Vector3 lateralOffset = targetPlayer.right * xOffset;
+        Vector3 lateralOffset = targetPlayer.right * baseX;
 
         // floor bounce point
-        float bounceForwardDistance = Random.Range(2f, 3f);
         bouncePos =
             targetPlayer.position +
-            targetPlayer.forward * bounceForwardDistance +
+            targetPlayer.forward * baseBounceZ +
             lateralOffset;
 
         bouncePos.y = -0.175f;
 
-        float racketForwardDistance = Random.Range(-0.8f , 1.2f); //z offset
-        if (RandomValue(0.35f)) //bigger chance under,
+        if (RandomValue(0.35f) && !currentShot.goUp) //bigger chance under,
         { //y offset
             randomYOffset = Random.Range(-0.15f, 0.15f); //backhand or forehand
         }
@@ -153,7 +211,7 @@ public class BallLaunch : MonoBehaviour
         Debug.Log("Y: " + randomYOffset);
         hitPos =
             targetPlayer.position +
-            targetPlayer.forward * racketForwardDistance +
+            targetPlayer.forward * baseHitZ +
             lateralOffset + Vector3.up * randomYOffset;
     }
 
@@ -175,10 +233,12 @@ public class BallLaunch : MonoBehaviour
     void FlyToBounce()
     {
         timer += Time.deltaTime;
-        float t = Mathf.Clamp01(timer / flightTime);
+        float duration = flightTime * currentShot.flightTimeMultiplier;
+        float t = Mathf.Clamp01(timer / duration);
+        //the smaller duration, the faster timer is at 1
 
         Vector3 pos = Vector3.Lerp(startPos, bouncePos, t);
-        pos.y += Mathf.Sin(t * Mathf.PI) * arcHeight;
+        pos.y += Mathf.Sin(t * Mathf.PI) * arcHeight * currentShot.arcMultiplier;
         transform.position = pos;
 
         if (t >= 1f)
@@ -193,7 +253,7 @@ public class BallLaunch : MonoBehaviour
     void FlyToRacket()
     {
         timer += Time.deltaTime;
-        float duration = withBounce ? flightTime * 0.55f : flightTime;
+        float duration = (withBounce ? flightTime * 0.55f : flightTime) * currentShot.flightTimeMultiplier;
         float t = Mathf.Clamp01(timer / duration);
 
         float easedT = 1f - Mathf.Pow(1f - t, 2.4f);
@@ -251,5 +311,79 @@ public class BallLaunch : MonoBehaviour
         Transform[] targets = ballOnLeftSide ? rightSidePlayers : leftSidePlayers;
         targetPlayer = targets[Random.Range(0, targets.Length)];
         Debug.Log(targetPlayer.name);
+    }
+
+    ShotProfile BuildPlayerShot()
+    {
+        ShotProfile shot = new ShotProfile();
+        shot.smashFactor = 0f; //can be used to reduce float time
+
+        float energy = playerHit.swingEnergy;
+
+        switch (playerHit.swingType)
+        {
+            case PlayerHit.SwingType.Forehand:
+                shot.arcMultiplier = 1.4f; //higher arc
+                shot.forceBounce = Random.value > 0.36f;
+                shot.xOffset = playerHit.peakAx * 0.02f;//peak is often 10 -> + 0.2f
+                break;
+
+            case PlayerHit.SwingType.Backhand:
+                shot.arcMultiplier = 1f;
+                shot.forceBounce = Random.value > 0.36f;
+                shot.xOffset = playerHit.peakAx * 0.02f;
+                break;
+
+            case PlayerHit.SwingType.Overhand:
+                shot.forceBounce = true;
+                shot.arcMultiplier = 1.3f;
+                shot.zOffset = 0.7f;
+
+                if (energy > 11f)
+                {
+                    // Smash
+                    shot.goUp = true; //bounce back higher
+                    shot.smashFactor = Mathf.InverseLerp(11f, 16f, energy);
+                    shot.arcMultiplier = 0.6f;
+                    shot.flightTimeMultiplier = 0.6f;
+                }
+                break;
+        }
+
+        if (energy > 11.5)
+        { //if hit hard -> more to behind
+          //if hit soft -> more towards front
+            shot.bounceZOffset = Random.Range(-1f, 0f);
+            shot.zOffset = Random.Range(-0.6f, 0.4f);
+            shot.flightTimeMultiplier = Random.Range(0.3f, 0.7f); //faster
+        }
+        else
+        {
+            shot.bounceZOffset = Random.Range(0f, 0.6f);
+            shot.zOffset = Random.Range(-0.2f, 1.6f);
+            shot.flightTimeMultiplier = Random.Range(0.85f, 1.2f);
+        }
+
+        return shot;
+    }
+
+    ShotProfile BuildNPCShot()
+    {
+        ShotProfile shot = new ShotProfile();
+
+        // Base values
+        shot.flightTimeMultiplier = Random.Range(0.7f, 1.1f);
+        shot.arcMultiplier = 1f;
+        shot.zOffset = 0f;
+        shot.xOffset = 0f;
+        shot.bounceXOffset = 0f;
+        shot.bounceZOffset = 0f;
+        shot.smashFactor = 0f;
+        shot.forceBounce = Random.value > 0.36f; //in padel, players often play with a bounce
+                                                 //either with or without bounce
+                                                 // withBounce = false; //debug //if overhand do bounce
+        shot.goUp = false;
+
+        return shot;
     }
 }

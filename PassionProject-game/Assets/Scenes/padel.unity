@@ -12636,11 +12636,6 @@ CharacterController:
   m_SkinWidth: 0.08
   m_MinMoveDistance: 0.001
   m_Center: {x: 0.04, y: -0.16, z: 0}
---- !u!65 &1388849404 stripped
-BoxCollider:
-  m_CorrespondingSourceObject: {fileID: 28796724319170843, guid: 64eb9d0f036f7408cbac68aca375d0b3, type: 3}
-  m_PrefabInstance: {fileID: 1080452126}
-  m_PrefabAsset: {fileID: 0}
 --- !u!114 &1388849405
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12654,14 +12649,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BallHit2
   espData: {fileID: 619954534}
-  ballRigidbody: {fileID: 4485896533445412519}
-  ball: {fileID: 4485896533445412522}
-  playerCollider: {fileID: 1388849404}
   playerHitScript: {fileID: 1388849396}
   ballLaunchScript: {fileID: 4485896533445412523}
   swingActive: 0
   swingEnergy: 0
-  baseLaunchDirection: {x: 0, y: 0.3, z: 1}
   mySide: 1
 --- !u!1001 &1412111744
 PrefabInstance:
@@ -18921,16 +18912,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6517cab7cce224574a335bbc6f74e513, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BallMotion
---- !u!54 &4485896533445412519 stripped
-Rigidbody:
-  m_CorrespondingSourceObject: {fileID: 169311028819417090, guid: ca767cda9c5c94629803b3ecaaab285c, type: 3}
-  m_PrefabInstance: {fileID: 6513288010837856131}
-  m_PrefabAsset: {fileID: 0}
---- !u!4 &4485896533445412522 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 5817945563572688836, guid: ca767cda9c5c94629803b3ecaaab285c, type: 3}
-  m_PrefabInstance: {fileID: 6513288010837856131}
-  m_PrefabAsset: {fileID: 0}
 --- !u!114 &4485896533445412523
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -18943,6 +18924,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 396f6a3a3384d42569e1234158cab348, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::TennisBallFlight
+  espData: {fileID: 619954534}
+  playerHit: {fileID: 1388849396}
   state: 0
   leftSidePlayers:
   - {fileID: 7784765815016297566}
@@ -18952,21 +18935,17 @@ MonoBehaviour:
   - {fileID: 917992565}
   leftSideCourt: {fileID: 1315422925}
   rightSideCourt: {fileID: 1823388604}
-  xoffset: 0
-  racketOffset: {x: 0, y: 0.25, z: -0.5}
-  flightTime: 3
+  randomYOffset: 0
+  flightTime: 2.7
   arcHeight: 2.4
-  sideOffsetRange: 1.2
   bounceHeight: 0.5
   bounceTime: 0.22
-  slowDownDistance: 1.2
   hitFloatTime: 0.25
   hitFloatAmplitude: 0.03
-  isItPlayerSwinging: 0
   hitPos: {x: 0, y: 0, z: 0}
   targetPlayer: {fileID: 0}
   ballServeScript: {fileID: 4485896533445412517}
-  randomZOffset: 0
+  isItPlayerSwinging: 0
 --- !u!114 &4485896533445412527
 MonoBehaviour:
   m_ObjectHideFlags: 0
