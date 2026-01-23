@@ -19217,6 +19217,10 @@ PrefabInstance:
       value: 0.35
       objectReference: {fileID: 0}
     - target: {fileID: 1684646929928608246, guid: ca767cda9c5c94629803b3ecaaab285c, type: 3}
+      propertyPath: serveSideOffset
+      value: 0.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 1684646929928608246, guid: ca767cda9c5c94629803b3ecaaab285c, type: 3}
       propertyPath: ballLaunchScript
       value: 
       objectReference: {fileID: 4485896533445412523}
@@ -19226,7 +19230,7 @@ PrefabInstance:
       objectReference: {fileID: 1823388604}
     - target: {fileID: 1684646929928608246, guid: ca767cda9c5c94629803b3ecaaab285c, type: 3}
       propertyPath: serveForwardOffset
-      value: 0.25
+      value: 0.36
       objectReference: {fileID: 0}
     - target: {fileID: 1684646929928608246, guid: ca767cda9c5c94629803b3ecaaab285c, type: 3}
       propertyPath: leftSidePlayers.Array.size

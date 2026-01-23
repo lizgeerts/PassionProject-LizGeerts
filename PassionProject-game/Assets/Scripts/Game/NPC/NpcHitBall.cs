@@ -15,12 +15,6 @@ public class NpcHitBall : MonoBehaviour
     public float stopDistance = 0.2f;
 
     [Header("Hit Settings")]
-    public float forwardOffset = 0.3f; // Z offset toward/away from ball
-    public float anticipation = 0.5f; // how far in advance NPC starts moving
-
-    public Vector2 sideOffsetRange = new Vector2(-0.5f, 0.5f);
-    public float reactionTime = 0.1f;
-
 
     private Vector3 targetHitPos;
 
@@ -29,6 +23,7 @@ public class NpcHitBall : MonoBehaviour
     private float timer = 0f;
     public float moveTimer;
     private float xOffset = 0f;
+    private float zOffset = 0f;
 
 
     void Start()
@@ -67,7 +62,7 @@ public class NpcHitBall : MonoBehaviour
         Vector3 ballPoint = ballLaunchScript.hitPos;
 
         // Add small random offset so NPC is not perfectly on top
-        if (ballLaunchScript.randomZOffset < 0.30f) //if not overhand
+        if (ballLaunchScript.randomYOffset < 0.30f) //if not overhand
         { 
             xOffset = Random.value < 0.5f ? -0.5f : 0.5f;
         }
@@ -77,13 +72,17 @@ public class NpcHitBall : MonoBehaviour
         }
         else xOffset = -0.3f;
 
+        if(mySide == CourtSide.Left)
+        {
+            zOffset = 0.3f;
+        }
+        else zOffset = -0.3f;
 
-        float zOffset = 0.3f;
 
         targetHitPos = new Vector3(
-        ballPoint.x + xOffset,
-        0.852f, // stay on ground 
-        ballPoint.z + zOffset
+            ballPoint.x + xOffset,
+            0.852f, // stay on ground 
+            ballPoint.z + zOffset
         );
     }
 
@@ -154,13 +153,11 @@ public class NpcHitBall : MonoBehaviour
 
     void TriggerHitAnimation()
     {
-        Vector3 localBallPos = transform.InverseTransformPoint(ballLaunchScript.transform.position);
-
         animator.ResetTrigger("Forehand");
         animator.ResetTrigger("Backhand");
         animator.ResetTrigger("Overhand");
 
-        if (ballLaunchScript.randomZOffset >= 0.55f)
+        if (ballLaunchScript.randomYOffset >= 0.55f)
             animator.SetTrigger("Overhand");
         else if (xOffset > 0f && mySide == CourtSide.Left || xOffset < 0f && mySide == CourtSide.Right)
             animator.SetTrigger("Forehand");

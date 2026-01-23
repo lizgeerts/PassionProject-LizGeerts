@@ -5,13 +5,11 @@ public class BallLaunch : MonoBehaviour
 {
     //to fix:
     /*
-    - animation rotation
     - collision with glass or cage
     - going outside cage
     - player launch differs based on mpu data
     - a bit of variation in npc hit as well
-    - 
-
+    - points
     */
 
     public enum BallState
@@ -33,20 +31,17 @@ public class BallLaunch : MonoBehaviour
     public Collider rightSideCourt;
 
     [Header("Offsets")]
-    public float xoffset = 0.0f;
-    public Vector3 racketOffset = new Vector3(0f, 1.0f, 0.3f);
+    public float randomYOffset;
 
     [Header("Flight")]
     public float flightTime = 0.9f;
     public float arcHeight = 2.4f;
-    public float sideOffsetRange = 1.2f;
 
     [Header("Bounce")]
     public float bounceHeight = 0.5f;
     public float bounceTime = 0.22f;
 
     [Header("Hit Assist")]
-    public float slowDownDistance = 1.2f;
     public float hitFloatTime = 0.25f;
     public float hitFloatAmplitude = 0.03f;
 
@@ -62,13 +57,10 @@ public class BallLaunch : MonoBehaviour
     private bool ballOnLeftSide = false;
 
     public BallServe ballServeScript;
-    public float randomZOffset;
-
     private enum FlightPhase
     {
         None,
         ToBounce,
-        Bounce,
         ToRacket,
         Float
     }
@@ -102,8 +94,6 @@ public class BallLaunch : MonoBehaviour
                 UpdateFloat();
                 break;
         }
-
-
     }
 
     void BeginLaunch()
@@ -141,6 +131,7 @@ public class BallLaunch : MonoBehaviour
     void CalculateTargetPositions()
     {
         float xOffset = Random.Range(-1.7f, 1.7f);
+        //left or right from them
         Vector3 lateralOffset = targetPlayer.right * xOffset;
 
         // floor bounce point
@@ -152,19 +143,18 @@ public class BallLaunch : MonoBehaviour
 
         bouncePos.y = -0.175f;
 
-        float racketForwardDistance = Random.Range(-0.8f , 1.2f);
-        if (RandomValue(0.35f)) //bigger chance under
-        {
-            randomZOffset = Random.Range(-0.15f, 0.15f); //backhand or forehand
+        float racketForwardDistance = Random.Range(-0.8f , 1.2f); //z offset
+        if (RandomValue(0.35f)) //bigger chance under,
+        { //y offset
+            randomYOffset = Random.Range(-0.15f, 0.15f); //backhand or forehand
         }
-        else randomZOffset = Random.Range(0.55f, 1.05f); //overhand
+        else randomYOffset = Random.Range(0.55f, 1.05f); //overhand
 
-        Debug.Log("Z: " + randomZOffset);
+        Debug.Log("Y: " + randomYOffset);
         hitPos =
             targetPlayer.position +
             targetPlayer.forward * racketForwardDistance +
-            lateralOffset + Vector3.up * randomZOffset;
-
+            lateralOffset + Vector3.up * randomYOffset;
     }
 
 
@@ -174,10 +164,6 @@ public class BallLaunch : MonoBehaviour
         {
             case FlightPhase.ToBounce:
                 FlyToBounce();
-                break;
-
-            case FlightPhase.Bounce:
-                BounceUp();
                 break;
 
             case FlightPhase.ToRacket:
@@ -203,24 +189,6 @@ public class BallLaunch : MonoBehaviour
         }
     }
 
-    void BounceUp()
-    {
-        timer += Time.deltaTime;
-        float t = Mathf.Clamp01(timer / bounceTime);
-
-        float bounceCurve = Mathf.Sin(t * Mathf.PI * 0.85f);
-
-        Vector3 pos = bouncePos;
-        pos.y += Mathf.Sin(t * Mathf.PI * 0.85f) * bounceHeight;
-        transform.position = pos;
-
-        if (t >= 1f)
-        {
-            timer = 0f;
-            startPos = transform.position;
-            flightPhase = FlightPhase.ToRacket;
-        }
-    }
 
     void FlyToRacket()
     {
