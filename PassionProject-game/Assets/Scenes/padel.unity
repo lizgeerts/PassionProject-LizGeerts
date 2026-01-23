@@ -19044,6 +19044,7 @@ MonoBehaviour:
   espData: {fileID: 619954534}
   playerHit: {fileID: 1388849396}
   state: 0
+  pointSystemScript: {fileID: 1874049531}
   leftSidePlayers:
   - {fileID: 7784765815016297566}
   - {fileID: 1700312444}
@@ -19064,7 +19065,6 @@ MonoBehaviour:
   ballOnLeftSide: 0
   ballServeScript: {fileID: 4485896533445412517}
   isItPlayerSwinging: 0
-  ballMissed: 0
 --- !u!114 &4485896533445412527
 MonoBehaviour:
   m_ObjectHideFlags: 0

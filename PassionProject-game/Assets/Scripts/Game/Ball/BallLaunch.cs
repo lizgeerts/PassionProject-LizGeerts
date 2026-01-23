@@ -289,19 +289,16 @@ public class BallLaunch : MonoBehaviour
             hitFloatTime = 0.27f;
         }
 
-        bool waitingForServe = false;
-        if (!waitingForServe && timer >= hitFloatTime)
+        if (timer >= hitFloatTime && timer < 1)
         {
             state = BallState.Idle; // missed hit (later: point logic)
             flightPhase = FlightPhase.None;
             pointSystemScript.AddPoint();
-            waitingForServe = true;
         }
-        if (waitingForServe && timer >= 1f)
+        if (timer >= 1f)
         {
             ballServeScript.StartServe();
             timer = 0f;
-            waitingForServe = false;
         }
     }
 
