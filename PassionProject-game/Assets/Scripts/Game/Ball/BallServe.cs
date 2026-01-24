@@ -5,9 +5,11 @@ public class BallServe : MonoBehaviour
 {
 
     public BallLaunch ballLaunchScript;
+    public Transform servePlayer;
+    public NpcHitBall[] npcScripts;
+    public BallHit2 playerScript;
 
     [Header("Serve Settings")]
-    public Transform servePlayer;
     public float serveHeight = 1.2f;
     public float serveForwardOffset = 0.4f;
     public float serveSideOffset = 0.15f;
@@ -47,7 +49,7 @@ public class BallServe : MonoBehaviour
     {
         if (ballLaunchScript.state != BallLaunch.BallState.Serving)
             return;
-            
+
         switch (stateServe)
         {
             case BallStateServe.ServeDrop:
@@ -70,6 +72,18 @@ public class BallServe : MonoBehaviour
 
     public void StartServe()
     {
+        // Reset all NPCs!
+        if (npcScripts != null)
+        {
+            for (int i = 0; i < npcScripts.Length; i++)
+            {
+                if (npcScripts[i] != null)
+                    npcScripts[i].ResetToStart();
+            }
+        }
+
+        playerScript.ResetToStart();
+
         ballLaunchScript.state = BallLaunch.BallState.Serving;
         // Base serve position
         serveAnchorPos =

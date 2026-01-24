@@ -11,8 +11,9 @@ public class BallHit2 : MonoBehaviour
 
     public enum CourtSide { Left, Right }
     public CourtSide mySide;
+    public Vector3 startPosition;
+    public Quaternion startRotation;
 
-    // Update is called once per frame
     void Update()
     {
         swingActive = playerHitScript.swingActive;
@@ -33,5 +34,12 @@ public class BallHit2 : MonoBehaviour
     {
         ballLaunchScript.isItPlayerSwinging = true;
         ballLaunchScript.state = BallLaunch.BallState.Hit;
+    }
+
+
+    public void ResetToStart()
+    {
+        transform.position = startPosition;
+        transform.rotation = startRotation;
     }
 }

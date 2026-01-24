@@ -13,7 +13,7 @@ public class NpcHitBall : MonoBehaviour
     [Header("Movement")]
     public float moveSpeed = 3f;
     public float stopDistance = 0.2f;
-    private Rigidbody rb;
+    public Rigidbody rb;
 
     [Header("Hit Settings")]
 
@@ -26,10 +26,7 @@ public class NpcHitBall : MonoBehaviour
     private float xOffset = 0f;
     private float zOffset = 0f;
 
-    void Start()
-    {
-        rb = GetComponent<Rigidbody>();
-    }
+    public Vector3 startPosition;
 
 
     void Update()
@@ -94,51 +91,7 @@ public class NpcHitBall : MonoBehaviour
 
     void MoveToTarget()
     {
-        // if (hasHit)
-        // {
-        //     animator.SetFloat("Direction", 0f);
-        //     return;
-        // }
 
-        // // move smoothly toward target
-        // Vector3 moveDir = targetHitPos - transform.position;
-        // moveDir.y = 0; //no movemeng up 
-        // float distance = moveDir.magnitude;
-
-        // if (distance > stopDistance)
-        // {
-        //     transform.position += moveDir.normalized * moveSpeed * Time.deltaTime;
-
-        //     float xDiff = targetHitPos.x - transform.position.x;
-        //     float animDirection = 0f;
-
-        //     if (Mathf.Abs(xDiff) > 0.1f)
-        //     {
-        //         // For CourtSide.Right (facing Forward), positive xDiff is "Right"
-        //         // For CourtSide.Left (facing Back), positive xDiff is "Left"
-        //         animDirection = (xDiff > 0) ? 1f : -1f;
-
-        //         // Flip logic if they are on the Left side facing Backwards
-        //         if (mySide == CourtSide.Left)
-        //         {
-        //             animDirection *= -1f;
-        //         }
-        //     }
-        //     animator.SetFloat("Direction", animDirection);
-        // }
-        // else
-        // {
-        //     // We reached the target
-        //     animator.SetFloat("Direction", 0f);
-        // }
-
-        // //lock rotation, so they dont go turning and floating
-
-        // if (mySide == CourtSide.Left)
-        // {
-        //     transform.rotation = Quaternion.LookRotation(Vector3.back);
-        // }
-        // else { transform.rotation = Quaternion.LookRotation(Vector3.forward); }
         if (hasHit)
         {
             animator.SetFloat("Direction", 0f);
@@ -224,5 +177,15 @@ public class NpcHitBall : MonoBehaviour
     {
         ballLaunchScript.isItPlayerSwinging = false;
         ballLaunchScript.state = BallLaunch.BallState.Hit;
+    }
+
+    public void ResetToStart() //reset NPC
+    {
+        transform.position = startPosition;
+        rb.position = startPosition;
+        
+        isBallComingToMe = false;
+        hasHit = false;
+        timer = 0f;
     }
 }

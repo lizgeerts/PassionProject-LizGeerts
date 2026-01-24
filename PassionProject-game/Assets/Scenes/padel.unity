@@ -12735,6 +12735,8 @@ MonoBehaviour:
   swingActive: 0
   swingEnergy: 0
   mySide: 1
+  startPosition: {x: 0, y: 0, z: 0}
+  startRotation: {x: 0, y: 0, z: 0, w: 0}
 --- !u!1001 &1412111744
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -19295,6 +19297,10 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 1684646929928608246, guid: ca767cda9c5c94629803b3ecaaab285c, type: 3}
+      propertyPath: NpcScript
+      value: 
+      objectReference: {fileID: 8238025822712178510, guid: 89128b3b67cbe4dfbb8d1c45e9a8521d, type: 3}
+    - target: {fileID: 1684646929928608246, guid: ca767cda9c5c94629803b3ecaaab285c, type: 3}
       propertyPath: serveHeight
       value: 0.4
       objectReference: {fileID: 0}
@@ -19302,6 +19308,10 @@ PrefabInstance:
       propertyPath: servePlayer
       value: 
       objectReference: {fileID: 1388849399}
+    - target: {fileID: 1684646929928608246, guid: ca767cda9c5c94629803b3ecaaab285c, type: 3}
+      propertyPath: playerScript
+      value: 
+      objectReference: {fileID: 1388849405}
     - target: {fileID: 1684646929928608246, guid: ca767cda9c5c94629803b3ecaaab285c, type: 3}
       propertyPath: serveDropTime
       value: 0.35
