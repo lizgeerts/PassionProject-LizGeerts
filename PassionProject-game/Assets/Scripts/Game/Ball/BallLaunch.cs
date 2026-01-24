@@ -1,3 +1,4 @@
+using System.Collections;
 using System.IO.Compression;
 using UnityEngine;
 
@@ -87,6 +88,8 @@ public class BallLaunch : MonoBehaviour
     private ShotProfile currentShot;
 
     float minX, minZ, maxX, maxZ;
+    private bool restarting = false;
+
 
 
     void Start()
@@ -274,6 +277,8 @@ public class BallLaunch : MonoBehaviour
 
     void UpdateFloat()
     {
+        if(restarting) return;
+
         timer += Time.deltaTime;
 
         Vector3 pos = hitPos;
@@ -286,20 +291,26 @@ public class BallLaunch : MonoBehaviour
         }
         else
         {
-            hitFloatTime = 0.27f;
+            hitFloatTime = 0.27f; //hit window for NPC's
         }
 
-        if (timer >= hitFloatTime && timer < 1)
+        if (timer >= hitFloatTime)
         {
-            state = BallState.Idle; // missed hit (later: point logic)
-            flightPhase = FlightPhase.None;
             pointSystemScript.AddPoint();
+            flightPhase = FlightPhase.None;
+            restarting = true;
+            StartCoroutine(RestartAfterDelay(1f)); 
         }
-        if (timer >= 1f)
-        {
-            ballServeScript.StartServe();
-            timer = 0f;
-        }
+    }
+
+    IEnumerator RestartAfterDelay(float delay)
+    {
+        yield return new WaitForSeconds(delay);
+
+        timer = 0f;
+        restarting = false;
+
+        ballServeScript.StartServe();
     }
 
     //helper functions

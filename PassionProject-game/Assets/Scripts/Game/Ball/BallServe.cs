@@ -45,6 +45,9 @@ public class BallServe : MonoBehaviour
 
     void Update()
     {
+        if (ballLaunchScript.state != BallLaunch.BallState.Serving)
+            return;
+            
         switch (stateServe)
         {
             case BallStateServe.ServeDrop:

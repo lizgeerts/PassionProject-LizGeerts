@@ -48,7 +48,7 @@ public class PlayerHit : MonoBehaviour
         float az = espData.az;
 
         swingEnergy = Mathf.Abs(gx) + Mathf.Abs(gy) + Mathf.Abs(gz);
-        Debug.Log("energy:"+ swingEnergy);
+       // Debug.Log("energy:"+ swingEnergy);
 
         // start collecting
         if (!collecting && swingEnergy > swingThreshold)

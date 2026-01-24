@@ -26,11 +26,11 @@ int valueX = 0; // to store the X-axis value
 int valueY = 0; // to store the Y-axis value
 
 //wifi:
-const char* ssid = WIFI_SSID;
-const char* password = WIFI_PASSWORD;
+const char* ssid = WIFI_SSID_HOME;
+const char* password = WIFI_PASSWORD_HOME;
 
 WiFiUDP udp;
-const char* remoteIP = PcIP; // wifi ip adress from pc
+const char* remoteIP = PcIP_HOME; // wifi ip adress from pc
 const int remotePort = 5005;  
 
 //mpu:
