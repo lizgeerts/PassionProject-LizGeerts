@@ -38,8 +38,8 @@ public class NpcHitBall : MonoBehaviour
     void FixedUpdate()
     {
         // Only react if the ball is coming to me
-        if (ballLaunchScript.state == BallLaunch.BallState.Flying && ballLaunchScript.targetPlayer == transform ||
-            ballLaunchScript.state == BallLaunch.BallState.Floating && ballLaunchScript.targetPlayer == transform)
+        if (ballLaunchScript.state == BallLaunch.BallState.Flying && ballLaunchScript.targetPlayer.name == gameObject.name ||
+            ballLaunchScript.state == BallLaunch.BallState.Floating && ballLaunchScript.targetPlayer.name == gameObject.name)
         {
             if (!isBallComingToMe)
             {

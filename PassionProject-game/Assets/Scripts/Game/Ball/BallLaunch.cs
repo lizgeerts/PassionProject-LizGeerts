@@ -345,13 +345,13 @@ public class BallLaunch : MonoBehaviour
             case PlayerHit.SwingType.Forehand:
                 shot.arcMultiplier = Random.Range(1.1f, 1.45f); //higher arc
                 shot.forceBounce = Random.value > 0.4f;
-                shot.xOffset = playerHit.peakAx * 0.02f;//peak is often 10 -> + 0.2f
+                shot.xOffset = espData.ax * 0.02f;//peak is often 10 -> + 0.2f
                 break;
 
             case PlayerHit.SwingType.Backhand:
                 shot.arcMultiplier = Random.Range(0.6f, 1f);
                 shot.forceBounce = Random.value > 0.4f;
-                shot.xOffset = playerHit.peakAx * 0.02f;
+                shot.xOffset = espData.ax * 0.02f;
                 break;
 
             case PlayerHit.SwingType.Overhand:
@@ -360,6 +360,7 @@ public class BallLaunch : MonoBehaviour
                 if (energy > 11f)
                 {
                     // Smash
+                    Debug.Log("player smashed");
                     shot.goUp = true; //bounce back higher
                     shot.smashFactor = Mathf.InverseLerp(11f, 16f, energy);
                     shot.arcMultiplier = 0.6f;
@@ -371,14 +372,14 @@ public class BallLaunch : MonoBehaviour
         { //if hit hard -> more to behind
           //if hit soft -> more towards front
             shot.bounceZOffset = Random.Range(-1f, 0f);
-            shot.zOffset = Random.Range(-0.6f, 0.4f);
+            shot.zOffset = Random.Range(-0.7f, 0.4f);
             shot.flightTimeMultiplier = Random.Range(0.45f, 0.8f); //faster
         }
         else
         {
             shot.bounceZOffset = Random.Range(0f, 0.6f);
             shot.zOffset = Random.Range(-0.2f, 1.6f);
-            shot.flightTimeMultiplier = Random.Range(0.80f, 1.1f);
+            shot.flightTimeMultiplier = Random.Range(0.7f, 1.1f);
         }
 
         return shot;
@@ -389,16 +390,23 @@ public class BallLaunch : MonoBehaviour
         ShotProfile shot = new ShotProfile();
 
         // Base values
-        shot.flightTimeMultiplier = Random.Range(0.7f, 1.1f);
-        shot.arcMultiplier = Random.Range(0.8f, 1.4f);
+        shot.forceBounce = Random.value > 0.4f; //in padel, players often play with a bounce
+                                                //either with or without bounce
+        if (shot.forceBounce) 
+        {
+            shot.flightTimeMultiplier = Random.Range(0.53f, 1.1f);
+            shot.arcMultiplier = Random.Range(0.8f, 1.4f);
+        }
+        else //if without bounce, arc lower and flight less speedy
+        {
+            shot.flightTimeMultiplier = Random.Range(0.7f, 1.1f);
+            shot.arcMultiplier = Random.Range(0.7f, 0.9f);
+        }                                       
         shot.zOffset = 0f;
         shot.xOffset = 0f;
         shot.bounceXOffset = 0f;
         shot.bounceZOffset = 0f;
         shot.smashFactor = 0f;
-        shot.forceBounce = Random.value > 0.4f; //in padel, players often play with a bounce
-                                                //either with or without bounce
-                                                // withBounce = false; //debug //if overhand do bounce
         shot.goUp = false;
         return shot;
     }

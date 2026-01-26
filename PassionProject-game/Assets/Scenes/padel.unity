@@ -16789,10 +16789,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PointSystem
   ballLaunchScript: {fileID: 4485896533445412523}
-  team1SetText: {fileID: 729393243}
-  team2SetText: {fileID: 574764715}
-  team1GameText: {fileID: 943708436}
-  team2GameText: {fileID: 1382127274}
+  setTexts:
+  - {fileID: 729393245}
+  - {fileID: 574764717}
+  gameTexts:
+  - {fileID: 943708438}
+  - {fileID: 1382127276}
 --- !u!1 &1878619333
 GameObject:
   m_ObjectHideFlags: 0

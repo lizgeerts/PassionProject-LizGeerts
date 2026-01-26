@@ -152,7 +152,7 @@ public class EspUdp : MonoBehaviour
         if (noConnection)
         {
             MessageText.GetComponent<TextMeshProUGUI>().SetText("No connection to ESP device!");
-            InstructionsText.GetComponent<TextMeshProUGUI>().SetText("Check USB/Bluetooth and restart the game.");
+            InstructionsText.GetComponent<TextMeshProUGUI>().SetText("Check USB/Bluetooth and restart the game. Blue light = wifi connected");
         }
         else if (noMPUData)
         {
