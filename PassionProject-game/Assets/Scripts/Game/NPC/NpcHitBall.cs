@@ -35,8 +35,8 @@ public class NpcHitBall : MonoBehaviour
     }
 
 
-  void FixedUpdate()
-  {
+    void FixedUpdate()
+    {
         // Only react if the ball is coming to me
         if (ballLaunchScript.state == BallLaunch.BallState.Flying && ballLaunchScript.targetPlayer == transform ||
             ballLaunchScript.state == BallLaunch.BallState.Floating && ballLaunchScript.targetPlayer == transform)
@@ -64,7 +64,7 @@ public class NpcHitBall : MonoBehaviour
 
         // Add small random offset so NPC is not perfectly on top
         if (ballLaunchScript.randomYOffset < 0.30f) //if not overhand
-        { 
+        {
             xOffset = Random.value < 0.5f ? -0.5f : 0.5f;
         }
         else if (mySide == CourtSide.Left)
@@ -73,7 +73,7 @@ public class NpcHitBall : MonoBehaviour
         }
         else xOffset = -0.3f;
 
-        if(mySide == CourtSide.Left)
+        if (mySide == CourtSide.Left)
         {
             zOffset = 0.3f;
         }
@@ -183,9 +183,10 @@ public class NpcHitBall : MonoBehaviour
     {
         transform.position = startPosition;
         rb.position = startPosition;
-        
+
         isBallComingToMe = false;
         hasHit = false;
         timer = 0f;
+        animator.SetFloat("Direction", 0f);
     }
 }

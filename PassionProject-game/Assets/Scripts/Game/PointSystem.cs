@@ -10,7 +10,7 @@ public class PointSystem : MonoBehaviour
     //team 2 = left
     private int Team1GamePoints;
     private int Team2GamePoints;
-    private int[] setPoints = { 0, 15, 30, 40 };
+    private int[] setPoints = { 0, 15, 30, 40, 0 };
     private int setPointsIndexTeam1 = 0;
     private int setPointsIndexTeam2 = 0;
 
@@ -40,7 +40,7 @@ public class PointSystem : MonoBehaviour
     void UpdateGamePointsTeam1()
     {
         team1SetText.GetComponent<TextMeshProUGUI>().SetText(setPoints[setPointsIndexTeam1].ToString());
-        if (setPointsIndexTeam1 == 3)
+        if (setPointsIndexTeam1 == 4)
         {
             setPointsIndexTeam1 = 0;
             setPointsIndexTeam2 = 0;
@@ -55,7 +55,7 @@ public class PointSystem : MonoBehaviour
     void UpdateGamePointsTeam2()
     {
         team2SetText.GetComponent<TextMeshProUGUI>().SetText(setPoints[setPointsIndexTeam2].ToString());
-        if (setPointsIndexTeam2 == 3)
+        if (setPointsIndexTeam2 == 4)
         {
             setPointsIndexTeam1 = 0;
             setPointsIndexTeam2 = 0;

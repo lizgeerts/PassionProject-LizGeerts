@@ -1714,7 +1714,7 @@ Rigidbody:
   m_ImplicitCom: 1
   m_ImplicitTensor: 1
   m_UseGravity: 0
-  m_IsKinematic: 0
+  m_IsKinematic: 1
   m_Interpolate: 1
   m_Constraints: 116
   m_CollisionDetection: 1
@@ -1738,9 +1738,9 @@ CapsuleCollider:
   m_Enabled: 1
   serializedVersion: 2
   m_Radius: 0.16612625
-  m_Height: 1.4332206
+  m_Height: 1.335932
   m_Direction: 1
-  m_Center: {x: 0.046452522, y: -0.009858966, z: 0.025858402}
+  m_Center: {x: 0.046452522, y: 0.03878534, z: 0.025858402}
 --- !u!114 &8238025822712178510
 MonoBehaviour:
   m_ObjectHideFlags: 0
