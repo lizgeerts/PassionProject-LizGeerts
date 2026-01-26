@@ -2970,6 +2970,18 @@ PrefabInstance:
       value: 0.3
       objectReference: {fileID: 0}
     - target: {fileID: 8238025822712178510, guid: 89128b3b67cbe4dfbb8d1c45e9a8521d, type: 3}
+      propertyPath: startPosition.x
+      value: 2.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 8238025822712178510, guid: 89128b3b67cbe4dfbb8d1c45e9a8521d, type: 3}
+      propertyPath: startPosition.y
+      value: 0.852
+      objectReference: {fileID: 0}
+    - target: {fileID: 8238025822712178510, guid: 89128b3b67cbe4dfbb8d1c45e9a8521d, type: 3}
+      propertyPath: startPosition.z
+      value: 3.56
+      objectReference: {fileID: 0}
+    - target: {fileID: 8238025822712178510, guid: 89128b3b67cbe4dfbb8d1c45e9a8521d, type: 3}
       propertyPath: ballLaunchScript
       value: 
       objectReference: {fileID: 4485896533445412523}
@@ -4648,6 +4660,18 @@ PrefabInstance:
     - target: {fileID: 8238025822712178510, guid: 89128b3b67cbe4dfbb8d1c45e9a8521d, type: 3}
       propertyPath: forwardOffset
       value: -0.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 8238025822712178510, guid: 89128b3b67cbe4dfbb8d1c45e9a8521d, type: 3}
+      propertyPath: startPosition.x
+      value: 2.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 8238025822712178510, guid: 89128b3b67cbe4dfbb8d1c45e9a8521d, type: 3}
+      propertyPath: startPosition.y
+      value: 0.852
+      objectReference: {fileID: 0}
+    - target: {fileID: 8238025822712178510, guid: 89128b3b67cbe4dfbb8d1c45e9a8521d, type: 3}
+      propertyPath: startPosition.z
+      value: 16.44
       objectReference: {fileID: 0}
     - target: {fileID: 8238025822712178510, guid: 89128b3b67cbe4dfbb8d1c45e9a8521d, type: 3}
       propertyPath: ballLaunchScript
@@ -12047,6 +12071,17 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1330880629}
   m_CullTransparentMesh: 1
+--- !u!114 &1331098504 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8238025822712178510, guid: 89128b3b67cbe4dfbb8d1c45e9a8521d, type: 3}
+  m_PrefabInstance: {fileID: 364509073}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b52e2d14625a3436e90851fee65524ec, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::NpcHitBall
 --- !u!1001 &1339947573
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -12735,7 +12770,7 @@ MonoBehaviour:
   swingActive: 0
   swingEnergy: 0
   mySide: 1
-  startPosition: {x: 0, y: 0, z: 0}
+  startPosition: {x: -2.5, y: 0.842, z: 3.79}
   startRotation: {x: 0, y: 0, z: 0, w: 0}
 --- !u!1001 &1412111744
 PrefabInstance:
@@ -14788,6 +14823,17 @@ Animator:
   m_CorrespondingSourceObject: {fileID: 5604135242735027382, guid: 89128b3b67cbe4dfbb8d1c45e9a8521d, type: 3}
   m_PrefabInstance: {fileID: 519976182}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1700312450 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8238025822712178510, guid: 89128b3b67cbe4dfbb8d1c45e9a8521d, type: 3}
+  m_PrefabInstance: {fileID: 519976182}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b52e2d14625a3436e90851fee65524ec, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::NpcHitBall
 --- !u!1001 &1705017578
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -18790,6 +18836,18 @@ PrefabInstance:
       value: -0.5
       objectReference: {fileID: 0}
     - target: {fileID: 8238025822712178510, guid: 89128b3b67cbe4dfbb8d1c45e9a8521d, type: 3}
+      propertyPath: startPosition.x
+      value: -2.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 8238025822712178510, guid: 89128b3b67cbe4dfbb8d1c45e9a8521d, type: 3}
+      propertyPath: startPosition.y
+      value: 0.852
+      objectReference: {fileID: 0}
+    - target: {fileID: 8238025822712178510, guid: 89128b3b67cbe4dfbb8d1c45e9a8521d, type: 3}
+      propertyPath: startPosition.z
+      value: 14.13
+      objectReference: {fileID: 0}
+    - target: {fileID: 8238025822712178510, guid: 89128b3b67cbe4dfbb8d1c45e9a8521d, type: 3}
       propertyPath: ballLaunchScript
       value: 
       objectReference: {fileID: 4485896533445412523}
@@ -19299,7 +19357,7 @@ PrefabInstance:
     - target: {fileID: 1684646929928608246, guid: ca767cda9c5c94629803b3ecaaab285c, type: 3}
       propertyPath: NpcScript
       value: 
-      objectReference: {fileID: 8238025822712178510, guid: 89128b3b67cbe4dfbb8d1c45e9a8521d, type: 3}
+      objectReference: {fileID: 7784765815016297568}
     - target: {fileID: 1684646929928608246, guid: ca767cda9c5c94629803b3ecaaab285c, type: 3}
       propertyPath: serveHeight
       value: 0.4
@@ -19340,6 +19398,22 @@ PrefabInstance:
       propertyPath: serveForwardOffset
       value: 0.36
       objectReference: {fileID: 0}
+    - target: {fileID: 1684646929928608246, guid: ca767cda9c5c94629803b3ecaaab285c, type: 3}
+      propertyPath: npcScripts.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 1684646929928608246, guid: ca767cda9c5c94629803b3ecaaab285c, type: 3}
+      propertyPath: 'npcScripts.Array.data[0]'
+      value: 
+      objectReference: {fileID: 7784765815016297568}
+    - target: {fileID: 1684646929928608246, guid: ca767cda9c5c94629803b3ecaaab285c, type: 3}
+      propertyPath: 'npcScripts.Array.data[1]'
+      value: 
+      objectReference: {fileID: 1700312450}
+    - target: {fileID: 1684646929928608246, guid: ca767cda9c5c94629803b3ecaaab285c, type: 3}
+      propertyPath: 'npcScripts.Array.data[2]'
+      value: 
+      objectReference: {fileID: 1331098504}
     - target: {fileID: 1684646929928608246, guid: ca767cda9c5c94629803b3ecaaab285c, type: 3}
       propertyPath: leftSidePlayers.Array.size
       value: 2
@@ -19500,6 +19574,17 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 9184440243639593631, guid: 89128b3b67cbe4dfbb8d1c45e9a8521d, type: 3}
   m_PrefabInstance: {fileID: 1622799323790947882}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &7784765815016297568 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8238025822712178510, guid: 89128b3b67cbe4dfbb8d1c45e9a8521d, type: 3}
+  m_PrefabInstance: {fileID: 1622799323790947882}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b52e2d14625a3436e90851fee65524ec, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::NpcHitBall
 --- !u!4 &7896296321496248135 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7896296323413454559, guid: f556a254d040b48aeb455c72de451204, type: 3}

@@ -21,8 +21,6 @@ public class PointSystem : MonoBehaviour
     public GameObject team1GameText;
     public GameObject team2GameText;
 
-    public bool pointAdded;
-
 
     public void AddPoint()
     {
@@ -31,13 +29,11 @@ public class PointSystem : MonoBehaviour
         {
             setPointsIndexTeam1 += 1;
             UpdateGamePointsTeam1();
-            pointAdded = true;
         }
         else if (!ballLaunchScript.ballOnLeftSide)
         {
             setPointsIndexTeam2 += 1;
             UpdateGamePointsTeam2();
-            pointAdded = true;
         }
     }
 
@@ -49,6 +45,9 @@ public class PointSystem : MonoBehaviour
             setPointsIndexTeam1 = 0;
             setPointsIndexTeam2 = 0;
             Team1GamePoints += 1;
+
+            team1SetText.GetComponent<TextMeshProUGUI>().SetText(setPoints[setPointsIndexTeam1].ToString());
+            team2SetText.GetComponent<TextMeshProUGUI>().SetText(setPoints[setPointsIndexTeam2].ToString());
             team1GameText.GetComponent<TextMeshProUGUI>().SetText(Team1GamePoints.ToString());
         }
     }
@@ -61,6 +60,9 @@ public class PointSystem : MonoBehaviour
             setPointsIndexTeam1 = 0;
             setPointsIndexTeam2 = 0;
             Team2GamePoints += 1;
+
+            team1SetText.GetComponent<TextMeshProUGUI>().SetText(setPoints[setPointsIndexTeam1].ToString());
+            team2SetText.GetComponent<TextMeshProUGUI>().SetText(setPoints[setPointsIndexTeam2].ToString());
             team2GameText.GetComponent<TextMeshProUGUI>().SetText(Team2GamePoints.ToString());
         }
     }
