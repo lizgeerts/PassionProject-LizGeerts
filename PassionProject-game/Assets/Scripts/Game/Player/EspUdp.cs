@@ -25,7 +25,6 @@ public class EspUdp : MonoBehaviour
     // data
     public float ax, ay, az;
     public float gx, gy, gz;
-    public int joystickDir;
     bool noMPUData = false;
 
 
@@ -73,7 +72,7 @@ public class EspUdp : MonoBehaviour
     void ParseData(string msg)
     {
         string[] parts = msg.Split(',');
-        if (parts.Length != 7) return;
+        if (parts.Length != 6) return;
 
         float.TryParse(parts[0], out ax);
         float.TryParse(parts[1], out ay);
@@ -81,8 +80,6 @@ public class EspUdp : MonoBehaviour
         float.TryParse(parts[3], out gx);
         float.TryParse(parts[4], out gy);
         float.TryParse(parts[5], out gz);
-
-        int.TryParse(parts[6], out joystickDir);
 
         //Debug.Log($"timestamp:{Time.time} ax:{ax} ay:{ay} az:{az} gx:{gx} gy:{gy} gz:{gz}, dir:{joystickDir}");
         // Debug.Log($" ax:{ax} ay:{ay} az:{az} gx:{gx} gy:{gy} gz:{gz}, dir:{joystickDir}");
@@ -157,7 +154,7 @@ public class EspUdp : MonoBehaviour
         else if (noMPUData)
         {
             MessageText.GetComponent<TextMeshProUGUI>().SetText("No data from MPU sensor!");
-            InstructionsText.GetComponent<TextMeshProUGUI>().SetText("Ensure the MPU is powered on and sending data.");
+            InstructionsText.GetComponent<TextMeshProUGUI>().SetText("Ensure the MPU is powered on and sending data. Reset ESP");
         }
     }
 }

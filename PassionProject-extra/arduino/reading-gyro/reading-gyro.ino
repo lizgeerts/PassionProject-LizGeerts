@@ -13,18 +13,6 @@
 
 #define LED_PIN 2
 
-//all for joystick:
-#define VRX_PIN 34 // pin D34 is analog input
-#define VRY_PIN 35 
-
-#define LEFT_THRESHOLD  1000
-#define RIGHT_THRESHOLD 3000
-#define UP_THRESHOLD    1000
-#define DOWN_THRESHOLD  3000
-
-int valueX = 0; // to store the X-axis value
-int valueY = 0; // to store the Y-axis value
-
 //wifi:
 const char* ssid = WIFI_SSID_DORM;
 const char* password = WIFI_PASSWORD_DORM;
@@ -40,7 +28,6 @@ sensors_event_t a, g, temp;
 
 float gyroX, gyroY, gyroZ;
 float accX, accY, accZ;
-int direction; //joystick
 
 //Gyroscope sensor deviation
 float gyroXerror = 0.06;
@@ -93,7 +80,6 @@ void InitMPU(){
 
 void setup() {
   Serial.begin(115200);
-  analogSetAttenuation(ADC_11db);
 
   pinMode(LED_PIN, OUTPUT);
   digitalWrite(LED_PIN, LOW);
@@ -117,7 +103,6 @@ void loop() {
       udp.begin(remotePort);
    }
 
-  joyStick();
 
   unsigned long now = millis();
   if (now - lastSend >= sendInterval) {
@@ -138,33 +123,13 @@ void loop() {
     gyroZ = g.gyro.z += gyroZerror;
 
     char csv[96];
-    snprintf(csv, sizeof(csv), "%.3f,%.3f,%.3f,%.3f,%.3f,%.3f,%d",
-                 accX, accY, accZ, gyroX, gyroY, gyroZ, direction);
+    snprintf(csv, sizeof(csv), "%.3f,%.3f,%.3f,%.3f,%.3f,%.3f",
+                 accX, accY, accZ, gyroX, gyroY, gyroZ);
 
     udp.beginPacket(remoteIP, remotePort);
     udp.write((uint8_t*)csv, strlen(csv));
     udp.endPacket();
   }
-}
-
-void joyStick(){
-  // read X and Y analog values
-  valueX = analogRead(VRX_PIN);
-  valueY = analogRead(VRY_PIN);
-
-  // reset 
-  direction = 0;
-
-  if (valueX < LEFT_THRESHOLD)
-    direction = 1; //forward 
-  else if (valueX > RIGHT_THRESHOLD)
-    direction = 2; //backwards
-
-  // check up/down commands
-  if (valueY < UP_THRESHOLD)
-   direction = 3; //right
-  else if (valueY > DOWN_THRESHOLD)
-    direction = 4; //left
 }
 
 
