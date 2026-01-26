@@ -5630,7 +5630,6 @@ MonoBehaviour:
   gx: 0
   gy: 0
   gz: 0
-  joystickDir: 0
 --- !u!1 &638603123
 GameObject:
   m_ObjectHideFlags: 0
@@ -9779,28 +9778,56 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 28796724319170843, guid: 64eb9d0f036f7408cbac68aca375d0b3, type: 3}
       propertyPath: m_Size.x
-      value: 2.1996396
+      value: 2.2063112
       objectReference: {fileID: 0}
     - target: {fileID: 28796724319170843, guid: 64eb9d0f036f7408cbac68aca375d0b3, type: 3}
       propertyPath: m_Size.y
-      value: 1.8493949
+      value: 1.9754924
       objectReference: {fileID: 0}
     - target: {fileID: 28796724319170843, guid: 64eb9d0f036f7408cbac68aca375d0b3, type: 3}
       propertyPath: m_Size.z
-      value: 1.6250348
+      value: 1.5018535
       objectReference: {fileID: 0}
     - target: {fileID: 28796724319170843, guid: 64eb9d0f036f7408cbac68aca375d0b3, type: 3}
       propertyPath: m_Center.x
-      value: 0.117236376
+      value: 0.12057209
       objectReference: {fileID: 0}
     - target: {fileID: 28796724319170843, guid: 64eb9d0f036f7408cbac68aca375d0b3, type: 3}
       propertyPath: m_Center.y
-      value: 0.20084924
+      value: 0.16339093
       objectReference: {fileID: 0}
     - target: {fileID: 28796724319170843, guid: 64eb9d0f036f7408cbac68aca375d0b3, type: 3}
       propertyPath: m_Center.z
-      value: 0.62714314
+      value: 0.5655525
       objectReference: {fileID: 0}
+    - target: {fileID: 306913985190583980, guid: 64eb9d0f036f7408cbac68aca375d0b3, type: 3}
+      propertyPath: mySide
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 306913985190583980, guid: 64eb9d0f036f7408cbac68aca375d0b3, type: 3}
+      propertyPath: espData
+      value: 
+      objectReference: {fileID: 619954534}
+    - target: {fileID: 306913985190583980, guid: 64eb9d0f036f7408cbac68aca375d0b3, type: 3}
+      propertyPath: playerHitScript
+      value: 
+      objectReference: {fileID: 1388849396}
+    - target: {fileID: 306913985190583980, guid: 64eb9d0f036f7408cbac68aca375d0b3, type: 3}
+      propertyPath: startPosition.x
+      value: -2.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 306913985190583980, guid: 64eb9d0f036f7408cbac68aca375d0b3, type: 3}
+      propertyPath: startPosition.y
+      value: 0.82
+      objectReference: {fileID: 0}
+    - target: {fileID: 306913985190583980, guid: 64eb9d0f036f7408cbac68aca375d0b3, type: 3}
+      propertyPath: startPosition.z
+      value: 3.79
+      objectReference: {fileID: 0}
+    - target: {fileID: 306913985190583980, guid: 64eb9d0f036f7408cbac68aca375d0b3, type: 3}
+      propertyPath: ballLaunchScript
+      value: 
+      objectReference: {fileID: 4485896533445412523}
     - target: {fileID: 2017338220183377203, guid: 64eb9d0f036f7408cbac68aca375d0b3, type: 3}
       propertyPath: m_Enabled
       value: 1
@@ -9824,7 +9851,7 @@ PrefabInstance:
     - target: {fileID: 4564521976551054375, guid: 64eb9d0f036f7408cbac68aca375d0b3, type: 3}
       propertyPath: ballHitScript
       value: 
-      objectReference: {fileID: 1388849405}
+      objectReference: {fileID: 1080452127}
     - target: {fileID: 4564521976551054375, guid: 64eb9d0f036f7408cbac68aca375d0b3, type: 3}
       propertyPath: playerAnimation
       value: 
@@ -9894,10 +9921,18 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 2516790503248948639, guid: 64eb9d0f036f7408cbac68aca375d0b3, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1388849400}
-    - targetCorrespondingSourceObject: {fileID: 2516790503248948639, guid: 64eb9d0f036f7408cbac68aca375d0b3, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1388849405}
   m_SourcePrefab: {fileID: 100100000, guid: 64eb9d0f036f7408cbac68aca375d0b3, type: 3}
+--- !u!114 &1080452127 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 306913985190583980, guid: 64eb9d0f036f7408cbac68aca375d0b3, type: 3}
+  m_PrefabInstance: {fileID: 1080452126}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1388849395}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a8111b5613def402fa2f2ced68080b27, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BallHit2
 --- !u!1001 &1081539716
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -12767,31 +12802,11 @@ CharacterController:
   serializedVersion: 3
   m_Height: 1.52
   m_Radius: 0.2
-  m_SlopeLimit: 45
+  m_SlopeLimit: 0
   m_StepOffset: 0.0001
   m_SkinWidth: 0.08
   m_MinMoveDistance: 0.001
   m_Center: {x: 0.04, y: -0.04, z: 0}
---- !u!114 &1388849405
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1388849395}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a8111b5613def402fa2f2ced68080b27, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::BallHit2
-  espData: {fileID: 619954534}
-  playerHitScript: {fileID: 1388849396}
-  ballLaunchScript: {fileID: 4485896533445412523}
-  swingActive: 0
-  swingEnergy: 0
-  mySide: 1
-  startPosition: {x: -2.5, y: 0.82, z: 3.79}
-  startRotation: {x: 0, y: 0, z: 0, w: 0}
 --- !u!1001 &1412111744
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -19136,6 +19151,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::TennisBallFlight
   espData: {fileID: 619954534}
   playerHit: {fileID: 1388849396}
+  playerBallScript: {fileID: 1080452127}
   state: 0
   pointSystemScript: {fileID: 1874049531}
   leftSidePlayers:
@@ -19402,7 +19418,7 @@ PrefabInstance:
     - target: {fileID: 1684646929928608246, guid: ca767cda9c5c94629803b3ecaaab285c, type: 3}
       propertyPath: playerScript
       value: 
-      objectReference: {fileID: 1388849405}
+      objectReference: {fileID: 1080452127}
     - target: {fileID: 1684646929928608246, guid: ca767cda9c5c94629803b3ecaaab285c, type: 3}
       propertyPath: serveDropTime
       value: 0.35

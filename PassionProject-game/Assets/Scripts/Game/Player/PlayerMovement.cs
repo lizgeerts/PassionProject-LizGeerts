@@ -7,7 +7,7 @@ public class PlayerMovement : MonoBehaviour
     //public EspUdp espData;
     public Animator playerAnimation;
     //public EspConnect espData; => if using via cable not wifi
-    public BallHit2 ballHitScript;
+    public PlayerBallHit ballHitScript;
     public float moveSpeed = 3f;
     public float stopDistance = 0.2f;
 
@@ -56,14 +56,14 @@ public class PlayerMovement : MonoBehaviour
         {
             xOffset = Random.value > 0.3f ? -0.55f : 0.55f; //prefer forehand -> bigger chance
         }
-        else if (ballHitScript.mySide == BallHit2.CourtSide.Left)
+        else if (ballHitScript.mySide == PlayerBallHit.CourtSide.Left)
         {//if overhand, only x offset to the side the ball is
             xOffset = 0.3f;
         }
         else xOffset = -0.3f;
 
         //add z offset = behind the ball
-        if (ballHitScript.mySide == BallHit2.CourtSide.Left)
+        if (ballHitScript.mySide == PlayerBallHit.CourtSide.Left)
         {
             zOffset = 0.3f;
         }

@@ -7,7 +7,7 @@ public class BallServe : MonoBehaviour
     public BallLaunch ballLaunchScript;
     public Transform servePlayer;
     public NpcHitBall[] npcScripts;
-    public BallHit2 playerScript;
+    public PlayerBallHit playerScript;
 
     [Header("Serve Settings")]
     public float serveHeight = 1.2f;

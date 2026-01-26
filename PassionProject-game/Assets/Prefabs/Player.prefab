@@ -634,9 +634,9 @@ GameObject:
   - component: {fileID: 4564521976551054375}
   - component: {fileID: 4732381757680774748}
   - component: {fileID: -3557916759371322812}
-  - component: {fileID: 4812114451671487272}
   - component: {fileID: 28796724319170843}
   - component: {fileID: 6888378582169832199}
+  - component: {fileID: 306913985190583980}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -696,9 +696,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerMovement
   controller: {fileID: -3557916759371322812}
-  espData: {fileID: 0}
+  ballLaunchScript: {fileID: 0}
   playerAnimation: {fileID: 5927217159541423448}
+  ballHitScript: {fileID: 0}
   moveSpeed: 3
+  stopDistance: 0.2
+  moveTimer: 0
 --- !u!114 &4732381757680774748
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -745,23 +748,6 @@ CharacterController:
   m_SkinWidth: 0.08
   m_MinMoveDistance: 0.001
   m_Center: {x: 0.05, y: -0.16, z: 0}
---- !u!114 &4812114451671487272
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2516790503248948639}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 02b1b566781ca451f8dd04ce67f1c4e2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::BallHit
-  espData: {fileID: 0}
-  ballRigidbody: {fileID: 0}
-  playerCollider: {fileID: 28796724319170843}
-  playerHitScript: {fileID: 4732381757680774748}
-  baseLaunchDirection: {x: 0, y: 0.3, z: 1}
 --- !u!65 &28796724319170843
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -795,6 +781,30 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b0228276dcb754172a398fbe2f19241d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Clamping
+  minX: 0
+  maxX: 0
+  minZ: 0
+  maxZ: 0
+--- !u!114 &306913985190583980
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2516790503248948639}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a8111b5613def402fa2f2ced68080b27, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BallHit2
+  espData: {fileID: 0}
+  playerHitScript: {fileID: 0}
+  ballLaunchScript: {fileID: 0}
+  swingActive: 0
+  swingEnergy: 0
+  mySide: 0
+  startPosition: {x: 0, y: 0, z: 0}
+  startRotation: {x: 0, y: 0, z: 0, w: 0}
 --- !u!1 &2609220775858131384
 GameObject:
   m_ObjectHideFlags: 0

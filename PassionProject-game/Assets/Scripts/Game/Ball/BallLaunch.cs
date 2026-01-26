@@ -4,17 +4,10 @@ using UnityEngine;
 
 public class BallLaunch : MonoBehaviour
 {
-    //to fix:
-    /*
-    - collision with glass or cage
-    - going outside cage
-    - player launch differs based on mpu data
-    - a bit of variation in npc hit as well
-    - points
-    */
 
     public EspUdp espData;
     public PlayerHit playerHit;
+    public PlayerBallHit playerBallScript;
     public enum BallState
     {
         Idle,
@@ -122,6 +115,7 @@ public class BallLaunch : MonoBehaviour
 
     void BeginLaunch()
     {
+        playerBallScript.ballCanLaunch = false;
 
         if (isItPlayerSwinging)
         {
@@ -287,7 +281,7 @@ public class BallLaunch : MonoBehaviour
 
         if (targetPlayer.name == "Player")
         {
-            hitFloatTime = 0.5f;
+            hitFloatTime = 2f;
         }
         else
         {

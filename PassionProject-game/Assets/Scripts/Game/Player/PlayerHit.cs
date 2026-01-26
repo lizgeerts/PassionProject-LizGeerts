@@ -23,14 +23,11 @@ public class PlayerHit : MonoBehaviour
 
     public enum SwingType { Forehand, Backhand, Overhand }
     public SwingType swingType = SwingType.Forehand;
-    private Quaternion swingRotation;
 
     void Update()
     {
         HandleCooldown();
         DetectSwing();
-        RotateWithSwing();
-
         //Debug.Log($"phase: {swingPhase} swinging:{playerIsSwinging} swingtype:{swingType}");
         // Debug.Log(swingActive);
     }
@@ -103,7 +100,6 @@ public class PlayerHit : MonoBehaviour
             playerAnimation.SetTrigger("Overhand");
             Debug.Log("OVERHAND");
             swingType = SwingType.Overhand;
-            SetRotation();
             return;
         }
 
@@ -121,7 +117,6 @@ public class PlayerHit : MonoBehaviour
                 Debug.Log("BACKHAND");
                 swingType = SwingType.Backhand;
             }
-            SetRotation();
         } else
         {
             playerAnimation.SetTrigger("Forehand");
@@ -130,23 +125,6 @@ public class PlayerHit : MonoBehaviour
         }
     }
 
-    void SetRotation()
-    {
-        switch (swingType)
-        {
-            case SwingType.Forehand:
-                swingRotation = Quaternion.Euler(0f, 30f, 0f);
-                break;
-
-            case SwingType.Backhand:
-                swingRotation = Quaternion.Euler(0f, -30f, 0f);
-                break;
-
-            case SwingType.Overhand:
-                swingRotation = Quaternion.Euler(0f, 25f, 0f);
-                break;
-        }
-    }
 
     void HandleCooldown()
     {
@@ -155,16 +133,9 @@ public class PlayerHit : MonoBehaviour
         cooldownTimer -= Time.deltaTime;
         if (cooldownTimer <= 0f)
         {
-            swingRotation = Quaternion.Euler(0f, 0f, 0f);
             inCooldown = false;
             swingActive = false;
         }
-    }
-
-    void RotateWithSwing()
-    {
-        // transform.rotation = swingRotation;
-        //transform.rotation = Quaternion.RotateTowards(transform.rotation, swingRotation, Time.deltaTime * 500f);
     }
 
 }

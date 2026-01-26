@@ -1,6 +1,7 @@
+using NUnit.Framework;
 using UnityEngine;
 
-public class BallHit2 : MonoBehaviour
+public class PlayerBallHit : MonoBehaviour
 {
     public EspUdp espData;
     public PlayerHit playerHitScript;
@@ -13,13 +14,14 @@ public class BallHit2 : MonoBehaviour
     public CourtSide mySide;
     public Vector3 startPosition;
     public Quaternion startRotation;
+    public bool ballCanLaunch = false;
 
     void Update()
     {
         swingActive = playerHitScript.swingActive;
     }
 
-    void OnTriggerEnter(Collider other)
+    void OnTriggerStay(Collider other)
     {
         if (other.CompareTag("Ball") && swingActive)
         //if the ball is in the capsule collider of the player and the player is swinging 
@@ -32,8 +34,11 @@ public class BallHit2 : MonoBehaviour
 
     private void HitBall()
     {
-        ballLaunchScript.isItPlayerSwinging = true;
-        ballLaunchScript.state = BallLaunch.BallState.Hit;
+        if (ballCanLaunch)
+        {
+            ballLaunchScript.isItPlayerSwinging = true;
+            ballLaunchScript.state = BallLaunch.BallState.Hit;
+        }
     }
 
 
@@ -41,5 +46,10 @@ public class BallHit2 : MonoBehaviour
     {
         transform.position = startPosition;
         transform.rotation = startRotation;
+    }
+
+    public void OpenLaunchWindow()
+    {
+        ballCanLaunch = true;
     }
 }
