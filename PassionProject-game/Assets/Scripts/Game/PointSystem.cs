@@ -38,7 +38,7 @@ public class PointSystem : MonoBehaviour
         setPointIndex[team]++;
 
         // If they reached beyond 40 → win game
-        if (setPointIndex[team] >= setPoints.Length)
+        if (setPointIndex[team] == 4)
         {
             gamePoints[team]++;
 

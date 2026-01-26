@@ -271,7 +271,7 @@ public class BallLaunch : MonoBehaviour
 
     void UpdateFloat()
     {
-        if(restarting) return;
+        if (restarting) return;
 
         timer += Time.deltaTime;
 
@@ -285,7 +285,9 @@ public class BallLaunch : MonoBehaviour
         }
         else
         {
-            hitFloatTime = 0.27f; //hit window for NPC's
+            // hitFloatTime = 0.27f; //hit window for NPC's
+            hitFloatTime = Random.value > 0.18 ? 0.5f : 0.05f; //everything above 0.1 they catch, everything below they dont
+            Debug.Log("float time:" + hitFloatTime);
         }
 
         if (timer >= hitFloatTime)
@@ -293,7 +295,7 @@ public class BallLaunch : MonoBehaviour
             pointSystemScript.AddPoint();
             flightPhase = FlightPhase.None;
             restarting = true;
-            StartCoroutine(RestartAfterDelay(1f)); 
+            StartCoroutine(RestartAfterDelay(1f));
         }
     }
 
@@ -309,7 +311,7 @@ public class BallLaunch : MonoBehaviour
 
     //helper functions
 
-    void OnTriggerEnter(Collider other)
+    void OnTriggerStay(Collider other)
     {
         if (other.CompareTag("Left"))
         {
@@ -386,7 +388,7 @@ public class BallLaunch : MonoBehaviour
         // Base values
         shot.forceBounce = Random.value > 0.4f; //in padel, players often play with a bounce
                                                 //either with or without bounce
-        if (shot.forceBounce) 
+        if (shot.forceBounce)
         {
             shot.flightTimeMultiplier = Random.Range(0.53f, 1.1f);
             shot.arcMultiplier = Random.Range(0.8f, 1.4f);
@@ -395,7 +397,7 @@ public class BallLaunch : MonoBehaviour
         {
             shot.flightTimeMultiplier = Random.Range(0.7f, 1.1f);
             shot.arcMultiplier = Random.Range(0.7f, 0.9f);
-        }                                       
+        }
         shot.zOffset = 0f;
         shot.xOffset = 0f;
         shot.bounceXOffset = 0f;

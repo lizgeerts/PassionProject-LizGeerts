@@ -17,13 +17,6 @@ public class PlayerMovement : MonoBehaviour
     private float zOffset = 0f;
     private Vector3 targetHitPos;
 
-
-    void Start()
-    {
-
-    }
-
-
     void FixedUpdate()
     {
         // Only react if the ball is coming to me
