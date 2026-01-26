@@ -8,18 +8,15 @@ public class PointSystem : MonoBehaviour
 
     //team 1 = right
     //team 2 = left
-    private int Team1GamePoints;
-    private int Team2GamePoints;
+ 
     private int[] setPoints = { 0, 15, 30, 40, 0 };
-    private int setPointsIndexTeam1 = 0;
-    private int setPointsIndexTeam2 = 0;
+    private int[] setPointIndex = new int[2];
+    private int[] gamePoints = new int[2];
 
     public BallLaunch ballLaunchScript;
 
-    public GameObject team1SetText;
-    public GameObject team2SetText;
-    public GameObject team1GameText;
-    public GameObject team2GameText;
+    public TextMeshProUGUI[] setTexts;   
+    public TextMeshProUGUI[] gameTexts; 
 
 
     public void AddPoint()
@@ -27,43 +24,50 @@ public class PointSystem : MonoBehaviour
         if (ballLaunchScript.ballOnLeftSide)
         //if ball was missed on left side -> right side gets point = team1
         {
-            setPointsIndexTeam1 += 1;
-            UpdateGamePointsTeam1();
+            AddSetPoint(0);
         }
         else if (!ballLaunchScript.ballOnLeftSide)
         {
-            setPointsIndexTeam2 += 1;
-            UpdateGamePointsTeam2();
+            AddSetPoint(1);
         }
     }
 
-    void UpdateGamePointsTeam1()
-    {
-        team1SetText.GetComponent<TextMeshProUGUI>().SetText(setPoints[setPointsIndexTeam1].ToString());
-        if (setPointsIndexTeam1 == 4)
-        {
-            setPointsIndexTeam1 = 0;
-            setPointsIndexTeam2 = 0;
-            Team1GamePoints += 1;
 
-            team1SetText.GetComponent<TextMeshProUGUI>().SetText(setPoints[setPointsIndexTeam1].ToString());
-            team2SetText.GetComponent<TextMeshProUGUI>().SetText(setPoints[setPointsIndexTeam2].ToString());
-            team1GameText.GetComponent<TextMeshProUGUI>().SetText(Team1GamePoints.ToString());
+    public void AddSetPoint(int team)
+    {
+        setPointIndex[team]++;
+
+        // If they reached beyond 40 → win game
+        if (setPointIndex[team] >= setPoints.Length)
+        {
+            gamePoints[team]++;
+
+            // Reset both teams' set points
+            setPointIndex[0] = 0;
+            setPointIndex[1] = 0;
+
+            UpdateAllSetTexts();
+            UpdateGameText(team);
+        }
+        else
+        {
+            UpdateSetText(team);
         }
     }
 
-    void UpdateGamePointsTeam2()
+    void UpdateSetText(int team)
     {
-        team2SetText.GetComponent<TextMeshProUGUI>().SetText(setPoints[setPointsIndexTeam2].ToString());
-        if (setPointsIndexTeam2 == 4)
-        {
-            setPointsIndexTeam1 = 0;
-            setPointsIndexTeam2 = 0;
-            Team2GamePoints += 1;
+        setTexts[team].SetText(setPoints[setPointIndex[team]].ToString());
+    }
 
-            team1SetText.GetComponent<TextMeshProUGUI>().SetText(setPoints[setPointsIndexTeam1].ToString());
-            team2SetText.GetComponent<TextMeshProUGUI>().SetText(setPoints[setPointsIndexTeam2].ToString());
-            team2GameText.GetComponent<TextMeshProUGUI>().SetText(Team2GamePoints.ToString());
-        }
+    void UpdateGameText(int team)
+    {
+        gameTexts[team].SetText(gamePoints[team].ToString());
+    }
+
+    void UpdateAllSetTexts()
+    {
+        UpdateSetText(0);
+        UpdateSetText(1);
     }
 }

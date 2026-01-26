@@ -2923,7 +2923,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 3857436711111488176, guid: 89128b3b67cbe4dfbb8d1c45e9a8521d, type: 3}
       propertyPath: maxX
-      value: 4.48
+      value: 4.3
       objectReference: {fileID: 0}
     - target: {fileID: 3857436711111488176, guid: 89128b3b67cbe4dfbb8d1c45e9a8521d, type: 3}
       propertyPath: maxZ
@@ -4619,7 +4619,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 3857436711111488176, guid: 89128b3b67cbe4dfbb8d1c45e9a8521d, type: 3}
       propertyPath: maxX
-      value: 4.61
+      value: 4.4
       objectReference: {fileID: 0}
     - target: {fileID: 3857436711111488176, guid: 89128b3b67cbe4dfbb8d1c45e9a8521d, type: 3}
       propertyPath: maxZ
@@ -9867,7 +9867,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6888378582169832199, guid: 64eb9d0f036f7408cbac68aca375d0b3, type: 3}
       propertyPath: minX
-      value: -4.5
+      value: -4.2
       objectReference: {fileID: 0}
     - target: {fileID: 6888378582169832199, guid: 64eb9d0f036f7408cbac68aca375d0b3, type: 3}
       propertyPath: minZ
@@ -16793,7 +16793,6 @@ MonoBehaviour:
   team2SetText: {fileID: 574764715}
   team1GameText: {fileID: 943708436}
   team2GameText: {fileID: 1382127274}
-  pointAdded: 0
 --- !u!1 &1878619333
 GameObject:
   m_ObjectHideFlags: 0
@@ -18793,7 +18792,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3857436711111488176, guid: 89128b3b67cbe4dfbb8d1c45e9a8521d, type: 3}
       propertyPath: minX
-      value: -4.36
+      value: -4.06
       objectReference: {fileID: 0}
     - target: {fileID: 3857436711111488176, guid: 89128b3b67cbe4dfbb8d1c45e9a8521d, type: 3}
       propertyPath: minZ
@@ -19440,15 +19439,15 @@ PrefabInstance:
       objectReference: {fileID: 1388849399}
     - target: {fileID: 5817945563572688836, guid: ca767cda9c5c94629803b3ecaaab285c, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -2.612
+      value: -2.437
       objectReference: {fileID: 0}
     - target: {fileID: 5817945563572688836, guid: ca767cda9c5c94629803b3ecaaab285c, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1.044
+      value: 0.852
       objectReference: {fileID: 0}
     - target: {fileID: 5817945563572688836, guid: ca767cda9c5c94629803b3ecaaab285c, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 4.75
+      value: 4.25
       objectReference: {fileID: 0}
     - target: {fileID: 5817945563572688836, guid: ca767cda9c5c94629803b3ecaaab285c, type: 3}
       propertyPath: m_LocalRotation.w

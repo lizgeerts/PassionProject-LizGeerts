@@ -68,11 +68,12 @@ public class NpcHitBall : MonoBehaviour
             xOffset = Random.value < 0.5f ? -0.5f : 0.5f;
         }
         else if (mySide == CourtSide.Left)
-        {//if overhand, only x offset to side ball is
+        {//if overhand, only x offset to the side the ball is
             xOffset = 0.3f;
         }
         else xOffset = -0.3f;
 
+        //add z offset = behind the ball
         if (mySide == CourtSide.Left)
         {
             zOffset = 0.3f;
