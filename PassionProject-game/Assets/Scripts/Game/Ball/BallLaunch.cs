@@ -76,9 +76,12 @@ public class BallLaunch : MonoBehaviour
         public float bounceZOffset;
         public float bounceXOffset;
         public float smashFactor; // 0 = normal, 1 = smash
+
+        public float chanceNpcCatches;
     }
 
     private ShotProfile currentShot;
+    private float decidedHitFloatTime;
 
     float minX, minZ, maxX, maxZ;
     private bool restarting = false;
@@ -264,6 +267,7 @@ public class BallLaunch : MonoBehaviour
             timer = 0f;
             flightPhase = FlightPhase.Float;
             state = BallState.Floating;
+            DecideNpcFloatTime();//decide once
         }
     }
 
@@ -279,24 +283,29 @@ public class BallLaunch : MonoBehaviour
         pos.y += Mathf.Sin(Time.time * 30f) * hitFloatAmplitude;
         transform.position = pos;
 
-        if (targetPlayer.name == "Player")
-        {
-            hitFloatTime = 2f;
-        }
-        else
-        {
-            // hitFloatTime = 0.27f; //hit window for NPC's
-            hitFloatTime = Random.value > 0.18 ? 0.5f : 0.05f; //everything above 0.1 they catch, everything below they dont
-            Debug.Log("float time:" + hitFloatTime);
-        }
-
-        if (timer >= hitFloatTime)
+        Debug.Log("float" + decidedHitFloatTime);
+        if (timer >= decidedHitFloatTime)
         {
             pointSystemScript.AddPoint();
             flightPhase = FlightPhase.None;
             restarting = true;
             StartCoroutine(RestartAfterDelay(1f));
         }
+    }
+
+    void DecideNpcFloatTime()
+    {
+        if (targetPlayer.name == "Player")
+        {
+            decidedHitFloatTime = 2f;
+            return;
+        }
+
+        bool npcCatches = Random.value > currentShot.chanceNpcCatches;
+
+        decidedHitFloatTime = npcCatches ? 0.5f : 0.05f;
+
+        Debug.Log($"NPC catches: {npcCatches}, floatTime: {decidedHitFloatTime}");
     }
 
     IEnumerator RestartAfterDelay(float delay)
@@ -370,12 +379,14 @@ public class BallLaunch : MonoBehaviour
             shot.bounceZOffset = Random.Range(-1f, 0f);
             shot.zOffset = Random.Range(-0.7f, 0.4f);
             shot.flightTimeMultiplier = Random.Range(0.45f, 0.8f); //faster
+            shot.chanceNpcCatches = 0.40f; //40% chance they wont catch it
         }
         else
         {
             shot.bounceZOffset = Random.Range(0f, 0.6f);
             shot.zOffset = Random.Range(-0.2f, 1.6f);
             shot.flightTimeMultiplier = Random.Range(0.7f, 1.1f);
+            shot.chanceNpcCatches = 0.17f; //17% chance they wont catch it
         }
 
         return shot;
@@ -403,6 +414,7 @@ public class BallLaunch : MonoBehaviour
         shot.bounceXOffset = 0f;
         shot.bounceZOffset = 0f;
         shot.smashFactor = 0f;
+        shot.chanceNpcCatches = 0.17f;
         shot.goUp = false;
         return shot;
     }
