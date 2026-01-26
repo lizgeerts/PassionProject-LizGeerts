@@ -83,7 +83,7 @@ public class NpcHitBall : MonoBehaviour
 
         targetHitPos = new Vector3(
             ballPoint.x + xOffset,
-            0.852f, // stay on ground 
+            0.82f, // stay on ground 
             ballPoint.z + zOffset
         );
     }
