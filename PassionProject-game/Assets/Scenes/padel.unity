@@ -19116,7 +19116,7 @@ MonoBehaviour:
   rightSideCourt: {fileID: 1823388604}
   randomYOffset: 0
   flightTime: 2.7
-  arcHeight: 2.4
+  arcHeight: 1.7
   bounceHeight: 0.5
   bounceTime: 0.22
   hitFloatTime: 0.25

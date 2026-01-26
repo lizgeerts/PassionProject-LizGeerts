@@ -186,7 +186,7 @@ public class BallLaunch : MonoBehaviour
 
         if (RandomValue(0.35f) && !currentShot.goUp) //bigger chance under,
         { //y offset
-            randomYOffset = Random.Range(-0.3f, 0.05f); //backhand or forehand
+            randomYOffset = Random.Range(-0.2f, 0.05f); //backhand or forehand
         }
         else randomYOffset = Random.Range(0.62f, 1f); //overhand
 
