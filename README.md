@@ -19,5 +19,6 @@ to design all the 3D objects myself. These are the assets I used from the asset 
 
 - Fantasy Skybox FREE by Render Knight https://assetstore.unity.com/packages/2d/textures-materials/sky/fantasy-skybox-free-18353 
 - SimplePoly City - Low Poly Assets by VenCreations https://assetstore.unity.com/packages/3d/environments/simplepoly-city-low-poly-assets-58899 
-- 
+- Deep Space Skybox pack by Sean Duffy https://assetstore.unity.com/packages/2d/textures-materials/deep-space-skybox-pack-11056 
+Free Demo Of Low Poly Space Alien Worlds 3D Asset Pack by Draftpunk Studios https://assetstore.unity.com/packages/3d/environments/sci-fi/free-demo-of-low-poly-space-alien-worlds-3d-asset-pack-258683 
 

@@ -15,7 +15,7 @@ public class EspUdp : MonoBehaviour
     bool running = false;
     public Image ErrorScreen;
     private float lastMessageTime = 0f;
-    public float timeout = 2.0f;
+    public float timeout = 2.5f;
     public GameObject MessageText;
     public GameObject InstructionsText;
 
@@ -81,8 +81,7 @@ public class EspUdp : MonoBehaviour
         float.TryParse(parts[4], out gy);
         float.TryParse(parts[5], out gz);
 
-        //Debug.Log($"timestamp:{Time.time} ax:{ax} ay:{ay} az:{az} gx:{gx} gy:{gy} gz:{gz}, dir:{joystickDir}");
-        // Debug.Log($" ax:{ax} ay:{ay} az:{az} gx:{gx} gy:{gy} gz:{gz}, dir:{joystickDir}");
+        //Debug.Log($" ax:{ax} ay:{ay} az:{az} gx:{gx} gy:{gy} gz:{gz}");
     }
 
 

@@ -14,11 +14,11 @@
 #define LED_PIN 2
 
 //wifi:
-const char* ssid = WIFI_SSID_DORM;
-const char* password = WIFI_PASSWORD_DORM;
+const char* ssid = WIFI_SSID_SCHOOL;
+const char* password = WIFI_PASSWORD_SCHOOL;
 
 WiFiUDP udp;
-const char* remoteIP = PcIP_DORM; // wifi ip adress from pc
+const char* remoteIP = PcIP_SCHOOL; // wifi ip adress from pc
 const int remotePort = 5005;  
 
 //mpu:
@@ -55,9 +55,10 @@ void initWiFi() {
 
 
 void InitMPU(){
-  Wire.begin(21, 22);
-  pinMode(21, INPUT_PULLUP);  // Internal pull-ups
-  pinMode(22, INPUT_PULLUP);
+  Wire.begin(25, 27); //21 = SDA, 22 = SCL
+  //27 = SCL, 25= SDA
+  pinMode(25, INPUT_PULLUP);  // Internal pull-ups
+  pinMode(27, INPUT_PULLUP);
   Wire.setClock(400000);  // fast I2C: 400kHz
 
   int retries = 5;
