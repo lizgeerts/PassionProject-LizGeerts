@@ -15,6 +15,7 @@ public class PlayerHit : MonoBehaviour
     private float windowTimer;
     private float sumAx, sumAy, sumAz;
     public float peakAx, peakAy, peakAz;
+    public float peakGx, peakGy, peakGz;
 
     [Header("cooldown")]
     private float swingCooldown = 0.75f;
@@ -69,6 +70,10 @@ public class PlayerHit : MonoBehaviour
             peakAy = Mathf.Max(peakAy, Mathf.Abs(ay));
             peakAz = Mathf.Max(peakAz, Mathf.Abs(az));
 
+            peakGx = Mathf.Max(peakGx, gx);
+            peakGy = Mathf.Max(peakGy, Mathf.Abs(gy));
+            peakGz = Mathf.Max(peakGz, Mathf.Abs(gz));
+
             if (windowTimer >= 0.400f) // 400ms window
             {
                 ClassifySwing();
@@ -87,11 +92,9 @@ public class PlayerHit : MonoBehaviour
         playerAnimation.ResetTrigger("Overhand");
 
         //  Debug.Log($"AX:{sumAx:F1} AY:{sumAy:F1} AZ:{sumAz:F1}");
-        Debug.Log($"Peak AX:{peakAx:F1} AY:{peakAy:F1} AZ:{peakAz:F1}");
+       // Debug.Log($"Peak AX:{peakAx:F1} AY:{peakAy:F1} AZ:{peakAz:F1}");
         float total = sumAx + sumAy + sumAz;
 
-        float axR = sumAx / total;
-        float ayR = sumAy / total;
         float azR = sumAz / total;
 
         // OVERHAND: vertical dominance
@@ -138,4 +141,9 @@ public class PlayerHit : MonoBehaviour
         }
     }
 
+    public void ConsumeSwing()
+    {
+        swingActive = false;
+        collecting = false;
+    }
 }

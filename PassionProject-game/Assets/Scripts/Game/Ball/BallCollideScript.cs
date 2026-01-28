@@ -16,11 +16,11 @@ public class BallCollideScript : MonoBehaviour
 
     void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Floor"))
-            Debug.Log("Ball hit floor");
-        else if (other.CompareTag("Cage"))
-            Debug.Log("Ball hit cage");
-        else if (other.CompareTag("Glass"))
-            Debug.Log("Ball hit glass");
+        // if (other.CompareTag("Floor"))
+        //     Debug.Log("Ball hit floor");
+        // else if (other.CompareTag("Cage"))
+        //     Debug.Log("Ball hit cage");
+        // else if (other.CompareTag("Glass"))
+        //     Debug.Log("Ball hit glass");
     }
 }

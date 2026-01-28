@@ -40,6 +40,8 @@ public class PlayerBallHit : MonoBehaviour
     {
         if (ballCanLaunch)
         {
+            playerHitScript.ConsumeSwing();
+            
             if (!soundPlayed)
             {
                 SoundFXManager.instance.PlaySoundFXClip(ballHitClip, transform, 1f, 0f);

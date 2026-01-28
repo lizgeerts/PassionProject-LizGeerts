@@ -289,7 +289,6 @@ public class NpcHitBall : MonoBehaviour
     }
 
 
-
     void MoveToTarget()
     {
 
@@ -377,25 +376,31 @@ public class NpcHitBall : MonoBehaviour
         else
             animator.SetTrigger("Backhand");
 
-        SoundFXManager.instance.PlaySoundFXClip(ballHitClip, transform, 0.6f, 0f);
+        if (ballLaunchScript.willNPCCatch)
+        {
+            SoundFXManager.instance.PlaySoundFXClip(ballHitClip, transform, 0.6f, 0f);
+        }
     }
 
     void keepTrackAnimation()
     {
         if (!isSwinging) return;
 
-        if (ballLaunchScript.state != BallLaunch.BallState.Floating)
+        if (!ballLaunchScript.willNPCCatch)
         {
             return;
         }
 
         timer += Time.deltaTime;
 
-        if (timer >= 0.05f)
+        if (timer >= 0.9f)
         {
             TriggerHit();
         }
     }
+
+
+
     void TriggerHit()
     {
         hasHit = true;
