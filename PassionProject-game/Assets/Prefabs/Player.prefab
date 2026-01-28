@@ -702,6 +702,8 @@ MonoBehaviour:
   moveSpeed: 3
   stopDistance: 0.2
   moveTimer: 0
+  RunMovement: {fileID: 8300000, guid: 1528a3393936f4136beea343436c6571, type: 3}
+  soundPlayed: 0
 --- !u!114 &4732381757680774748
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -805,6 +807,9 @@ MonoBehaviour:
   mySide: 0
   startPosition: {x: 0, y: 0, z: 0}
   startRotation: {x: 0, y: 0, z: 0, w: 0}
+  ballCanLaunch: 0
+  ballHitClip: {fileID: 8300000, guid: 453617f2a8bd64d92afe438bcdbf5ef7, type: 3}
+  soundPlayed: 0
 --- !u!1 &2609220775858131384
 GameObject:
   m_ObjectHideFlags: 0

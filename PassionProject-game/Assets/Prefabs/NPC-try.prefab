@@ -1762,6 +1762,9 @@ MonoBehaviour:
   rb: {fileID: 7071316911052928970}
   moveTimer: 0
   startPosition: {x: 0, y: 0, z: 0}
+  ballHitClip: {fileID: 8300000, guid: c4e7c58398dfb4209bb99c352759da80, type: 3}
+  RunMovement: {fileID: 8300000, guid: 1528a3393936f4136beea343436c6571, type: 3}
+  soundPlayed: 0
 --- !u!114 &3857436711111488176
 MonoBehaviour:
   m_ObjectHideFlags: 0

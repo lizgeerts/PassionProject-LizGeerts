@@ -16,6 +16,10 @@ public class PlayerBallHit : MonoBehaviour
     public Quaternion startRotation;
     public bool ballCanLaunch = false;
 
+    [Header("Sounds")]
+    [SerializeField] private AudioClip ballHitClip;
+    public bool soundPlayed = false;
+
     void Update()
     {
         swingActive = playerHitScript.swingActive;
@@ -36,6 +40,11 @@ public class PlayerBallHit : MonoBehaviour
     {
         if (ballCanLaunch)
         {
+            if (!soundPlayed)
+            {
+                SoundFXManager.instance.PlaySoundFXClip(ballHitClip, transform, 1f, 0f);
+                soundPlayed = true;
+            }
             ballLaunchScript.isItPlayerSwinging = true;
             ballLaunchScript.state = BallLaunch.BallState.Hit;
         }

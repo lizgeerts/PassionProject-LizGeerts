@@ -2383,6 +2383,53 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 5.0604124, y: 4.366593, z: 8.1209755}
   m_Center: {x: 7.56515, y: 1.6832955, z: 3.1068668}
+--- !u!1 &288223691
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 288223693}
+  - component: {fileID: 288223692}
+  m_Layer: 0
+  m_Name: SoundFXManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &288223692
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 288223691}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 131bccd7183d54251b7ba0c9715c0d50, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SoundEffectsManager
+  soundFXObject: {fileID: 8856523565829255016, guid: b572c933e393946459d5cb5790b93f43, type: 3}
+  loopingSource: {fileID: 1223957584469729396, guid: 05b6cbec31b5c4655a34d705abfd98ac, type: 3}
+  stopLoop: 0
+--- !u!4 &288223693
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 288223691}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -1.89341, y: 0.50574, z: 9.89385}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &290281466
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -18052,6 +18099,7 @@ GameObject:
   - component: {fileID: 1874049530}
   - component: {fileID: 1874049529}
   - component: {fileID: 1874049531}
+  - component: {fileID: 1874049532}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -18110,6 +18158,19 @@ MonoBehaviour:
   gameTexts:
   - {fileID: 943708438}
   - {fileID: 1382127276}
+--- !u!114 &1874049532
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1874049528}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ee2ed2090e10245ab803b9b6527b0e9f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::GameManager
+  CityAmbience: {fileID: 8300000, guid: 66be69c4426584cecbb2cb1f7319fb54, type: 3}
 --- !u!1 &1878619333
 GameObject:
   m_ObjectHideFlags: 0
@@ -20772,6 +20833,8 @@ MonoBehaviour:
   ballOnLeftSide: 0
   ballServeScript: {fileID: 4485896533445412517}
   isItPlayerSwinging: 0
+  ballHitClip: {fileID: 8300000, guid: c4e7c58398dfb4209bb99c352759da80, type: 3}
+  ballBounceClip: {fileID: 8300000, guid: 21c9c6eed91524c74bd4f899e54586f1, type: 3}
 --- !u!114 &4485896533445412527
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -21021,6 +21084,10 @@ PrefabInstance:
       propertyPath: serveDropTime
       value: 0.35
       objectReference: {fileID: 0}
+    - target: {fileID: 1684646929928608246, guid: ca767cda9c5c94629803b3ecaaab285c, type: 3}
+      propertyPath: ballBounceClip
+      value: 
+      objectReference: {fileID: 8300000, guid: 21c9c6eed91524c74bd4f899e54586f1, type: 3}
     - target: {fileID: 1684646929928608246, guid: ca767cda9c5c94629803b3ecaaab285c, type: 3}
       propertyPath: leftSideTrigger
       value: 
@@ -21303,3 +21370,4 @@ SceneRoots:
   - {fileID: 1648079316}
   - {fileID: 1001217078}
   - {fileID: 1430163276}
+  - {fileID: 288223693}

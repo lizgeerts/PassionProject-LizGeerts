@@ -224,7 +224,10 @@ public class NpcHitBall : MonoBehaviour
     public Vector3 startPosition;
     private bool isSwinging = false;
 
-
+    [Header("Sounds")]
+    [SerializeField] private AudioClip ballHitClip;
+    [SerializeField] private AudioClip RunMovement;
+    public bool soundPlayed = false;
 
     void Update()
     {
@@ -304,6 +307,12 @@ public class NpcHitBall : MonoBehaviour
 
         if (distance > stopDistance)
         {
+            if (!soundPlayed)
+            {
+                SoundFXManager.instance.PlaySoundFXClip(RunMovement, transform, 0.8f, 1f);
+                soundPlayed = true;
+            }
+
             Vector3 newPos = rb.position + moveDir.normalized * moveSpeed * Time.fixedDeltaTime;
             rb.MovePosition(newPos);
 
@@ -322,6 +331,7 @@ public class NpcHitBall : MonoBehaviour
         }
         else
         {
+            soundPlayed = false;
             animator.SetFloat("Direction", 0f);
         }
 
@@ -367,6 +377,7 @@ public class NpcHitBall : MonoBehaviour
         else
             animator.SetTrigger("Backhand");
 
+        SoundFXManager.instance.PlaySoundFXClip(ballHitClip, transform, 0.6f, 0f);
     }
 
     void keepTrackAnimation()
@@ -380,7 +391,7 @@ public class NpcHitBall : MonoBehaviour
 
         timer += Time.deltaTime;
 
-        if (timer >= 0.1f)
+        if (timer >= 0.05f)
         {
             TriggerHit();
         }

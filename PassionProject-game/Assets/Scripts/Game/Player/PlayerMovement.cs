@@ -17,6 +17,10 @@ public class PlayerMovement : MonoBehaviour
     private float zOffset = 0f;
     private Vector3 targetHitPos;
 
+    [Header("Sounds")]
+    [SerializeField] private AudioClip RunMovement;
+    public bool soundPlayed = false;
+
     void FixedUpdate()
     {
         // Only react if the ball is coming to me
@@ -73,7 +77,7 @@ public class PlayerMovement : MonoBehaviour
     void MoveToTarget()
     {
 
-       // Vector3 move = Vector3.zero;
+        // Vector3 move = Vector3.zero;
 
         Vector3 targetPos = targetHitPos;
         targetPos.y = transform.position.y; //extra lock for y
@@ -83,6 +87,12 @@ public class PlayerMovement : MonoBehaviour
 
         if (distance > stopDistance)
         {
+            if (!soundPlayed)
+            {
+                SoundFXManager.instance.PlaySoundFXClip(RunMovement, transform, 0.8f, 1f);
+                soundPlayed = true;
+            }
+
             Vector3 move = moveDir.normalized * moveSpeed * Time.fixedDeltaTime;
             controller.Move(move);
 
@@ -100,8 +110,7 @@ public class PlayerMovement : MonoBehaviour
         else
         {
             playerAnimation.SetFloat("Direction", 0f);
+            soundPlayed = false;
         }
-
     }
-
 }

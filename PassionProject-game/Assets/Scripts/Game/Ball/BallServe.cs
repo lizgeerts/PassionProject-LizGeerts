@@ -35,10 +35,8 @@ public class BallServe : MonoBehaviour
     public int leftSideBounces = 0;
     public int rightSideBounces = 0;
 
-
-    // ----------------------------
-    // UNITY LOOP
-    // --------------------------
+    [Header("Sounds")]
+    [SerializeField] private AudioClip ballBounceClip;
 
     void Start()
     {
@@ -112,6 +110,7 @@ public class BallServe : MonoBehaviour
 
         if (t >= 1.1f)
         {
+            SoundFXManager.instance.PlaySoundFXClip(ballBounceClip, transform, 0.7f, 0f);
             timer = 0f;
             stateServe = BallStateServe.ServeReturn;
         }

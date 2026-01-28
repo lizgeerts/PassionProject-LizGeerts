@@ -86,6 +86,10 @@ public class BallLaunch : MonoBehaviour
     float minX, minZ, maxX, maxZ;
     private bool restarting = false;
 
+    [Header("Sounds")]
+
+    [SerializeField] private AudioClip ballHitClip;
+    [SerializeField] private AudioClip ballBounceClip;
 
 
     void Start()
@@ -138,6 +142,7 @@ public class BallLaunch : MonoBehaviour
         if (timer >= 0.25f)
         {
             CalculateTargetPositions();
+            playerBallScript.soundPlayed = false;
             timer = 0f;
             flightPhase = withBounce ? FlightPhase.ToBounce : FlightPhase.ToRacket;
             state = BallState.Flying;
@@ -238,6 +243,7 @@ public class BallLaunch : MonoBehaviour
 
         if (t >= 1f)
         {
+            SoundFXManager.instance.PlaySoundFXClip(ballBounceClip, transform, 0.8f, 0f);
             timer = 0f;
             startPos = transform.position;
             flightPhase = FlightPhase.ToRacket;
@@ -303,7 +309,7 @@ public class BallLaunch : MonoBehaviour
 
         bool npcCatches = Random.value > currentShot.chanceNpcCatches;
 
-        decidedHitFloatTime = npcCatches ? 0.5f : 0.05f;
+        decidedHitFloatTime = npcCatches ? 0.5f : 0f;
 
         Debug.Log($"NPC catches: {npcCatches}, floatTime: {decidedHitFloatTime}");
     }
@@ -414,7 +420,7 @@ public class BallLaunch : MonoBehaviour
         shot.bounceXOffset = 0f;
         shot.bounceZOffset = 0f;
         shot.smashFactor = 0f;
-        shot.chanceNpcCatches = 0.17f;
+        shot.chanceNpcCatches = 0.18f;
         shot.goUp = false;
         return shot;
     }
