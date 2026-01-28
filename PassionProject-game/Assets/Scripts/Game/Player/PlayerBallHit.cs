@@ -7,6 +7,8 @@ public class PlayerBallHit : MonoBehaviour
     public PlayerHit playerHitScript;
     public BallLaunch ballLaunchScript;
 
+    public GameManager gameManager;
+
     public bool swingActive;
     public float swingEnergy;
 
@@ -27,6 +29,8 @@ public class PlayerBallHit : MonoBehaviour
 
     void OnTriggerStay(Collider other)
     {
+        if (gameManager.transitionMultiverse) return; //no swinging during transition
+
         if (other.CompareTag("Ball") && swingActive)
         //if the ball is in the capsule collider of the player and the player is swinging 
         //then launch the ball
@@ -41,7 +45,7 @@ public class PlayerBallHit : MonoBehaviour
         if (ballCanLaunch)
         {
             playerHitScript.ConsumeSwing();
-            
+
             if (!soundPlayed)
             {
                 SoundFXManager.instance.PlaySoundFXClip(ballHitClip, transform, 1f, 0f);

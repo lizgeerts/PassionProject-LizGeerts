@@ -5,6 +5,7 @@ public class PlayerHit : MonoBehaviour
     [Header("References")]
     public Animator playerAnimation;
     public EspUdp espData;
+    public GameManager gameManager;
 
     [Header("Swing Detection")]
     private float swingThreshold = 7f;
@@ -27,6 +28,8 @@ public class PlayerHit : MonoBehaviour
 
     void Update()
     {
+        if (gameManager.transitionMultiverse) return; //no swinging during transition
+
         HandleCooldown();
         DetectSwing();
         //Debug.Log($"phase: {swingPhase} swinging:{playerIsSwinging} swingtype:{swingType}");

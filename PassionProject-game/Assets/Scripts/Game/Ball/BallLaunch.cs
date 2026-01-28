@@ -6,6 +6,7 @@ public class BallLaunch : MonoBehaviour
 {
 
     public EspUdp espData;
+    public GameManager gameManager;
     public PlayerHit playerHit;
     public PlayerBallHit playerBallScript;
     public enum BallState
@@ -100,6 +101,12 @@ public class BallLaunch : MonoBehaviour
 
     void Update()
     {
+        if (gameManager.transitionMultiverse)
+        {
+            state = BallState.Idle;
+            return; //nothing during transition
+        }
+
 
         switch (state)
         {
