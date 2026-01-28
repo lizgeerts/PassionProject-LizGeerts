@@ -22,3 +22,10 @@ to design all the 3D objects myself. These are the assets I used from the asset 
 - Deep Space Skybox pack by Sean Duffy https://assetstore.unity.com/packages/2d/textures-materials/deep-space-skybox-pack-11056 
 Free Demo Of Low Poly Space Alien Worlds 3D Asset Pack by Draftpunk Studios https://assetstore.unity.com/packages/3d/environments/sci-fi/free-demo-of-low-poly-space-alien-worlds-3d-asset-pack-258683 
 
+
+**Sounds:**
+- Running, Tennis, Hitting-balls sound effect by freesound_community https://pixabay.com/sound-effects/film-special-effects-tennishitting-ballsrunningbirdsmono-22566/
+- Jogging Past Footsteps Back and Forth in Tennis Shoes on Sidewalk by freesound_community https://pixabay.com/sound-effects/film-special-effects-jogging-past-footsteps-back-and-forth-in-tennis-shoes-on-sidewalk-28098/
+- 43 tennis by freesound_community http://pixabay.com/sound-effects/film-special-effects-43-tennis-57477/
+- Space by freesound_community https://pixabay.com/sound-effects/musical-space-72679/
+- Clock beat effect by H-beats https://pixabay.com/sound-effects/musical-clock-beat-effect-402705/

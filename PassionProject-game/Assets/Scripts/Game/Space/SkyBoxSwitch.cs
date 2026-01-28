@@ -3,14 +3,14 @@ using UnityEngine;
 public class SkyboxSwitcher : MonoBehaviour
 {
     public Material skyboxMaterial;
-    public bool space = false;
+    public bool multiverse = false;
 
     void Update()
     {
-        if (space)
+        if (multiverse)
         {
             RenderSettings.skybox = skyboxMaterial;
             DynamicGI.UpdateEnvironment();
-        }
+        } 
     }
 }

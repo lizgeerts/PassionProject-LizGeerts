@@ -14,11 +14,11 @@
 #define LED_PIN 2
 
 //wifi:
-const char* ssid = WIFI_SSID_SCHOOL;
-const char* password = WIFI_PASSWORD_SCHOOL;
+const char* ssid = WIFI_SSID_DORM;
+const char* password = WIFI_PASSWORD_DORM;
 
 WiFiUDP udp;
-const char* remoteIP = PcIP_SCHOOL; // wifi ip adress from pc
+const char* remoteIP = PcIP_DORM; // wifi ip adress from pc
 const int remotePort = 5005;  
 
 //mpu:
@@ -46,13 +46,12 @@ void initWiFi() {
   WiFi.setSleep(false);
   Serial.print("Connecting to WiFi ..");
   while (WiFi.status() != WL_CONNECTED) {
-  Serial.print('.');
+    Serial.print('.');
     delay(1000);
   }
   Serial.println(WiFi.localIP());
   digitalWrite(LED_PIN, HIGH);
 }
-
 
 void InitMPU(){
   Wire.begin(25, 27); //21 = SDA, 22 = SCL
@@ -61,7 +60,7 @@ void InitMPU(){
   pinMode(27, INPUT_PULLUP);
   Wire.setClock(400000);  // fast I2C: 400kHz
 
-  int retries = 5;
+  int retries = 8;
   while (!mpu.begin() && retries > 0) {
     //Serial.println("MPU6050 not found, retrying...");
     delay(500);
@@ -119,9 +118,9 @@ void loop() {
     // if (abs(g.gyro.y) > gyroYerror) gyroY += g.gyro.y / 70.0;
     // if (abs(g.gyro.z) > gyroZerror) gyroZ += g.gyro.z / 90.0;
 
-    gyroX = g.gyro.x += gyroXerror;
-    gyroY = g.gyro.y += gyroYerror;
-    gyroZ = g.gyro.z += gyroZerror;
+    gyroX = g.gyro.x + gyroXerror;
+    gyroY = g.gyro.y + gyroYerror;
+    gyroZ = g.gyro.z + gyroZerror;
 
     char csv[96];
     snprintf(csv, sizeof(csv), "%.3f,%.3f,%.3f,%.3f,%.3f,%.3f",

@@ -1309,8 +1309,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 145137097}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.96674, y: 0.26185, z: 2.05663}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -2.6858501, y: 0.46185, z: -5.49368}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -1318,7 +1318,7 @@ Transform:
   - {fileID: 1223695086}
   - {fileID: 1635265105}
   - {fileID: 1363466570}
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 1847075747}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &152927466
 PrefabInstance:
@@ -9333,6 +9333,37 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8382e1e28f21a407ca26b44ed8fcf935, type: 3}
+--- !u!1 &1001217077
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1001217078}
+  m_Layer: 0
+  m_Name: MultiverseManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1001217078
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1001217077}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 5.08075, y: 0, z: 10.4203}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1002852995
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -14323,6 +14354,52 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8382e1e28f21a407ca26b44ed8fcf935, type: 3}
+--- !u!1 &1430163275
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1430163276}
+  - component: {fileID: 1430163277}
+  m_Layer: 0
+  m_Name: TimeVerse
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1430163276
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1430163275}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -5.0539, y: 1.95131, z: 11.42624}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1430163277
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1430163275}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0c7c622e031dd409cab90c432dc1b967, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SkyboxSwitcher
+  skyboxMaterial: {fileID: 2100000, guid: 7a3cc9101d52e41b3b08f5b73fe2b01c, type: 2}
+  multiverse: 0
 --- !u!1001 &1436540050
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -15724,7 +15801,7 @@ GameObject:
   - component: {fileID: 1648079316}
   - component: {fileID: 1648079315}
   m_Layer: 0
-  m_Name: Space
+  m_Name: SpaceVerse
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -15743,7 +15820,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SkyBoxSwitch
   skyboxMaterial: {fileID: 2100000, guid: a4be220830e90ea4eb88b48b7fd376ce, type: 2}
-  space: 0
+  multiverse: 0
 --- !u!4 &1648079316
 Transform:
   m_ObjectHideFlags: 0
@@ -17749,6 +17826,7 @@ Transform:
   - {fileID: 125422315}
   - {fileID: 1997980734}
   - {fileID: 1227694353}
+  - {fileID: 145137098}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1847851619
@@ -21216,7 +21294,6 @@ SceneRoots:
   - {fileID: 1080452126}
   - {fileID: 619954533}
   - {fileID: 1847075747}
-  - {fileID: 145137098}
   - {fileID: 638603127}
   - {fileID: 233948704}
   - {fileID: 6513288010837856131}
@@ -21224,3 +21301,5 @@ SceneRoots:
   - {fileID: 519976182}
   - {fileID: 364509073}
   - {fileID: 1648079316}
+  - {fileID: 1001217078}
+  - {fileID: 1430163276}
