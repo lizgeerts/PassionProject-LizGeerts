@@ -61,21 +61,30 @@ public class PointSystem : MonoBehaviour
     void UpdateSetText(int team)
     {
         setTexts[team].SetText(setPoints[setPointIndex[team]].ToString());
-    }
 
-    void UpdateGameText(int team)
-    {
-        Debug.Log("gamepoints:" + gamePoints[team]);
-
-        gameTexts[team].SetText(gamePoints[team].ToString());
-
+        //!!!!!!  just to test quicker   !!!
         if (!gameManager.transitionMultiverse
-        && gamePoints[team] == gameManager.pointsTillChaos
-        && hasNotTranstitioned)
+   && setPointIndex[team] == gameManager.pointsTillChaos //to go to transition quicker just till 15 now
+   && hasNotTranstitioned)
         {
             gameManager.transitionMultiverse = true;
             hasNotTranstitioned = false;
         }
+    }
+
+    void UpdateGameText(int team)
+    {
+
+        gameTexts[team].SetText(gamePoints[team].ToString());
+
+        // if (!gameManager.transitionMultiverse
+        // && gamePoints[team] == gameManager.pointsTillChaos
+        // && hasNotTranstitioned)
+        // {
+        //     gameManager.transitionMultiverse = true;
+        //     hasNotTranstitioned = false;
+        // }
+
     }
 
     void UpdateAllSetTexts()

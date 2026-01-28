@@ -16,4 +16,12 @@ public class GameManager : MonoBehaviour
         SoundFXManager.instance.PlayLoop(CityAmbience, transform, 0.65f);
     }
 
+    void Update()
+    {
+        if (transitionMultiverse)
+        {
+           SoundFXManager.instance.StopLoop();
+        }
+    }
+
 }

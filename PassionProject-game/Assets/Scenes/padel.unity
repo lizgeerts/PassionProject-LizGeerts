@@ -1860,11 +1860,11 @@ Transform:
   m_GameObject: {fileID: 203844586}
   serializedVersion: 2
   m_LocalRotation: {x: 0.4154064, y: -0.1667166, z: 0.07774123, w: 0.890842}
-  m_LocalPosition: {x: 4.2, y: 26.89, z: -19.3}
+  m_LocalPosition: {x: 2.4808898, y: 27.09, z: -26.85031}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 1847075747}
   m_LocalEulerAnglesHint: {x: 50, y: -21.2, z: 0}
 --- !u!1001 &214006124
 PrefabInstance:
@@ -2414,7 +2414,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::SoundEffectsManager
   soundFXObject: {fileID: 8856523565829255016, guid: b572c933e393946459d5cb5790b93f43, type: 3}
   loopingSource: {fileID: 1223957584469729396, guid: 05b6cbec31b5c4655a34d705abfd98ac, type: 3}
-  stopLoop: 0
+  activeLoops: []
 --- !u!4 &288223693
 Transform:
   m_ObjectHideFlags: 0
@@ -9300,7 +9300,7 @@ MonoBehaviour:
   IgnoreTimeScale: 0
   WorldUpOverride: {fileID: 0}
   ChannelMask: 1
-  UpdateMethod: 1
+  UpdateMethod: 2
   BlendUpdateMethod: 1
   LensModeOverride:
     Enabled: 0
@@ -9552,8 +9552,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MultiverseManager
   gameManager: {fileID: 1874049532}
-  playerCam: {fileID: 638603123}
-  lookUpCam: {fileID: 1129779161}
+  playerCamGO: {fileID: 638603126}
+  lookUpCamGO: {fileID: 1129779162}
+  citySkybox: {fileID: 2100000, guid: c051fe5a20f72814f9643eb10ebbd2fc, type: 2}
+  spaceSkybox: {fileID: 2100000, guid: a4be220830e90ea4eb88b48b7fd376ce, type: 2}
+  ballLaunchScript: {fileID: 4485896533445412523}
+  skyboxFadeDuration: 2.5
+  timerTreshold: 4
+  city: {fileID: 1847075746}
+  space: {fileID: 1648079314}
+  SpaceRumble: {fileID: 8300000, guid: 179d4b07c2c08496e82e26068eb199c8, type: 3}
 --- !u!1001 &1002852995
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -11423,7 +11431,7 @@ Transform:
   m_GameObject: {fileID: 1129779161}
   serializedVersion: 2
   m_LocalRotation: {x: -0.6267584, y: 0.06358226, z: 0.013888912, w: 0.77649105}
-  m_LocalPosition: {x: -0.76, y: 1.4, z: 4.94}
+  m_LocalPosition: {x: -2.5, y: 1.98, z: 1.99}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -18101,6 +18109,7 @@ Transform:
   - {fileID: 1997980734}
   - {fileID: 1227694353}
   - {fileID: 145137098}
+  - {fileID: 203844589}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1847851619
@@ -21568,7 +21577,6 @@ SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
   - {fileID: 961739753}
-  - {fileID: 203844589}
   - {fileID: 1176740731}
   - {fileID: 486227884}
   - {fileID: 1874049530}

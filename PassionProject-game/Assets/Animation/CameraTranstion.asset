@@ -16,7 +16,7 @@ MonoBehaviour:
   - From: PlayerCamera
     To: TransitionCamera
     Blend:
-      Style: 2
+      Style: 3
       Time: 2
       CustomCurve:
         serializedVersion: 2

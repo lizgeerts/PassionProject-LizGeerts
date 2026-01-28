@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Rendering;
 
@@ -7,7 +8,6 @@ public class SoundFXManager : MonoBehaviour
     [SerializeField] private AudioSource soundFXObject;
     [SerializeField] private AudioSource loopingSource;
 
-    public bool stopLoop = false;
     private void Awake()
     {
         if (instance == null)
@@ -38,6 +38,8 @@ public class SoundFXManager : MonoBehaviour
         Destroy(audioSource.gameObject, length);
     }
 
+    public List<AudioSource> activeLoops = new List<AudioSource>();
+
     public void PlayLoop(AudioClip audioClip, Transform spawnTransform, float volume = 1f)
     {
         AudioSource audioSource = Instantiate(loopingSource, spawnTransform.position, Quaternion.identity);
@@ -46,11 +48,18 @@ public class SoundFXManager : MonoBehaviour
         audioSource.volume = volume;
         audioSource.Play();
         audioSource.loop = true;
-        
-        if (stopLoop)
+
+        activeLoops.Add(audioSource);
+    }
+
+    public void StopLoop()
+    {
+        foreach (AudioSource source in activeLoops)
         {
-            Destroy(audioSource.gameObject);
+            if (source != null)
+                Destroy(source.gameObject);
         }
+        activeLoops.Clear();
     }
 
 }
