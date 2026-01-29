@@ -4,7 +4,9 @@ public class PlayerHit : MonoBehaviour
 {
     [Header("References")]
     public Animator playerAnimation;
-    public EspUdp espData;
+    public EspUdp espManager;
+    public int playerId = 1;  // 1 or 2, set in Inspector
+
     public GameManager gameManager;
 
     [Header("Swing Detection")]
@@ -39,6 +41,7 @@ public class PlayerHit : MonoBehaviour
     void DetectSwing()
     {
         if (inCooldown) return;
+        EspUdp.EspData espData = (playerId == 1) ? espManager.esp1 : espManager.esp2;
 
         float gx = espData.gx;
         float gy = espData.gy;
@@ -49,7 +52,7 @@ public class PlayerHit : MonoBehaviour
         float az = espData.az;
 
         swingEnergy = Mathf.Abs(gx) + Mathf.Abs(gy) + Mathf.Abs(gz);
-       // Debug.Log("energy:"+ swingEnergy);
+        // Debug.Log("energy:"+ swingEnergy);
 
         // start collecting
         if (!collecting && swingEnergy > swingThreshold)
@@ -95,7 +98,7 @@ public class PlayerHit : MonoBehaviour
         playerAnimation.ResetTrigger("Overhand");
 
         //  Debug.Log($"AX:{sumAx:F1} AY:{sumAy:F1} AZ:{sumAz:F1}");
-       // Debug.Log($"Peak AX:{peakAx:F1} AY:{peakAy:F1} AZ:{peakAz:F1}");
+        // Debug.Log($"Peak AX:{peakAx:F1} AY:{peakAy:F1} AZ:{peakAz:F1}");
         float total = sumAx + sumAy + sumAz;
 
         float azR = sumAz / total;
@@ -123,7 +126,8 @@ public class PlayerHit : MonoBehaviour
                 Debug.Log("BACKHAND");
                 swingType = SwingType.Backhand;
             }
-        } else
+        }
+        else
         {
             playerAnimation.SetTrigger("Forehand");
             Debug.Log("FOREHAND");

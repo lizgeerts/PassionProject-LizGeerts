@@ -23,6 +23,8 @@ public class BallLaunch : MonoBehaviour
 
     [Header("Players")]
     public Transform[] leftSidePlayers;
+    public Transform[] leftSidePlayersMultiplayer;
+
     public Transform[] rightSidePlayers;
 
     public Collider leftSideCourt;
@@ -347,7 +349,17 @@ public class BallLaunch : MonoBehaviour
 
     void ChooseTargetPlayer()
     {
-        Transform[] targets = ballOnLeftSide ? rightSidePlayers : leftSidePlayers;
+        // Transform[] targets = ballOnLeftSide ? rightSidePlayers : leftSidePlayers;
+        Transform[] targets;
+
+        if (ballOnLeftSide)
+        {
+            targets = rightSidePlayers;
+        } else
+        {
+            targets = gameManager.gameIsMultiplayer ? leftSidePlayersMultiplayer : leftSidePlayers;
+        }
+        
         targetPlayer = targets[Random.Range(0, targets.Length)];
     }
 

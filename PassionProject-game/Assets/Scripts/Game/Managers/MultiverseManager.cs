@@ -21,6 +21,8 @@ public class MultiverseManager : MonoBehaviour
   [SerializeField] private GameObject city;
   [SerializeField] private GameObject space;
   [SerializeField] private AudioClip SpaceRumble;
+  public bool soundPlayed = false;
+
 
 
   void Start()
@@ -36,9 +38,13 @@ public class MultiverseManager : MonoBehaviour
     {
       timer += Time.deltaTime;
 
-      if(timer >= 1.6f) //wait for player pos reset
+      if (timer >= 1.6f) //wait for player pos reset
       {
-        SoundFXManager.instance.PlaySoundFXClip(SpaceRumble, transform, 0.1f, 1.5f);
+        if (!soundPlayed)
+        {
+          SoundFXManager.instance.PlaySoundFXClip(SpaceRumble, transform, 0.3f, 6f);
+          soundPlayed = true;
+        }
         SwitchToLookUp();
         TransitionSkyboxes();
       }
@@ -48,6 +54,7 @@ public class MultiverseManager : MonoBehaviour
         SwitchBack();
         timer = 0;
         gameManager.transitionMultiverse = false;
+        soundPlayed = false;
       }
     }
   }

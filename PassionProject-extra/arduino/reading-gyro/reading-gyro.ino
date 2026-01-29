@@ -19,6 +19,8 @@ const char* password = WIFI_PASSWORD_DORM;
 
 WiFiUDP udp;
 const char* remoteIP = PcIP_DORM; // wifi ip adress from pc
+const int EspID = 2; //set 1 or 2 based on which esp it is
+
 const int remotePort = 5005;  
 
 //mpu:
@@ -123,8 +125,8 @@ void loop() {
     gyroZ = g.gyro.z + gyroZerror;
 
     char csv[96];
-    snprintf(csv, sizeof(csv), "%.3f,%.3f,%.3f,%.3f,%.3f,%.3f",
-                 accX, accY, accZ, gyroX, gyroY, gyroZ);
+    snprintf(csv, sizeof(csv), "%.3f,%.3f,%.3f,%.3f,%.3f,%.3f,%d",
+                 accX, accY, accZ, gyroX, gyroY, gyroZ, EspID);
 
     udp.beginPacket(remoteIP, remotePort);
     udp.write((uint8_t*)csv, strlen(csv));
