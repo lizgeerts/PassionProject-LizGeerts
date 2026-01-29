@@ -6,6 +6,8 @@ public class MultiverseManager : MonoBehaviour
   public GameManager gameManager;
   public CinemachineCamera playerCamGO;
   public CinemachineCamera lookUpCamGO;
+  public CinemachineCamera playerCamGO2;
+  public CinemachineCamera lookUpCamGO2;
 
   public Material citySkybox;
   public Material spaceSkybox;
@@ -65,6 +67,13 @@ public class MultiverseManager : MonoBehaviour
     lookUpCamGO.transform.position = lookUpCamGO.transform.position + new Vector3(0, 2f, 0);
     playerCamGO.Priority = 0;
     lookUpCamGO.Priority = 1;
+    if (gameManager.gameIsMultiplayer)
+    {
+      lookUpCamGO2.transform.position = playerCamGO2.transform.position;
+      lookUpCamGO2.transform.position = lookUpCamGO2.transform.position + new Vector3(0, 2f, 0);
+      playerCamGO2.Priority = 0;
+      lookUpCamGO2.Priority = 1;
+    }
   }
 
   void SwitchBack()
@@ -72,6 +81,11 @@ public class MultiverseManager : MonoBehaviour
     SwitchEnvironment();
     playerCamGO.Priority = 1;
     lookUpCamGO.Priority = 0;
+    if (gameManager.gameIsMultiplayer)
+    {
+      playerCamGO2.Priority = 1;
+      lookUpCamGO2.Priority = 0;
+    }
     ballLaunchScript.state = BallLaunch.BallState.Serving;
   }
 

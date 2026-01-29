@@ -5,7 +5,7 @@ using UnityEngine;
 public class BallLaunch : MonoBehaviour
 {
 
-    public EspUdp espData;
+    public EspUdp espManager;
     public GameManager gameManager;
     public PlayerHit playerHit;
     public PlayerBallHit playerBallScript;
@@ -349,7 +349,6 @@ public class BallLaunch : MonoBehaviour
 
     void ChooseTargetPlayer()
     {
-        // Transform[] targets = ballOnLeftSide ? rightSidePlayers : leftSidePlayers;
         Transform[] targets;
 
         if (ballOnLeftSide)
@@ -359,12 +358,21 @@ public class BallLaunch : MonoBehaviour
         {
             targets = gameManager.gameIsMultiplayer ? leftSidePlayersMultiplayer : leftSidePlayers;
         }
-        
+
         targetPlayer = targets[Random.Range(0, targets.Length)];
     }
 
     ShotProfile BuildPlayerShot()
     {
+       
+        EspUdp.EspData espData;
+
+        if (playerHit.playerId == 1)
+        {
+            espData = espManager.esp1;
+        } else espData = espManager.esp2;
+
+
         ShotProfile shot = new ShotProfile();
 
         float energy = playerHit.swingEnergy;

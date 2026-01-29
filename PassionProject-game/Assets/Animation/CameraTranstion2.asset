@@ -10,11 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 36baaa8bdcb9d8b49b9199833965d2c3, type: 3}
-  m_Name: CameraTranstion
+  m_Name: CameraTranstion2
   m_EditorClassIdentifier: Unity.Cinemachine::Unity.Cinemachine.CinemachineBlenderSettings
   CustomBlends:
-  - From: Player1Cinemachine
-    To: TransitionCamera
+  - From: Player2Cinemachine
+    To: TransitionCamera2
     Blend:
       Style: 3
       Time: 2
@@ -24,8 +24,8 @@ MonoBehaviour:
         m_PreInfinity: 0
         m_PostInfinity: 0
         m_RotationOrder: 0
-  - From: TransitionCamera
-    To: Player1Cinemachine
+  - From: TransitionCamera2
+    To: Player2Cinemachine
     Blend:
       Style: 3
       Time: 2

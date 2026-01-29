@@ -15,9 +15,15 @@ public class GameManager : MonoBehaviour
     [SerializeField] private GameObject NPC2;
 
 
+    [Header("Cameras")]
+    public Camera cameraPlayer1;
+    public Camera cameraPlayer2;
+
+
     void Start()
     {
         gameIsMultiplayer = StaticData.multiplayerValueToKeep;
+        setupCameras();
         // pointsTillChaos = Random.Range(3, 5);
         pointsTillChaos = 1;
         SoundFXManager.instance.PlayLoop(CityAmbience, transform, 0.65f);
@@ -47,4 +53,24 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    void setupCameras()
+    {
+        if (gameIsMultiplayer)
+        {
+            // Both cameras active
+            cameraPlayer1.gameObject.SetActive(true);
+            cameraPlayer2.gameObject.SetActive(true);
+
+            cameraPlayer1.rect = new Rect(0f, 0f, 0.5f, 1f);   
+            cameraPlayer2.rect = new Rect(0.5f, 0f, 0.5f, 1f); 
+        }
+        else
+        {
+            // Single player: only camera 1, full screen
+            cameraPlayer1.gameObject.SetActive(true);
+            cameraPlayer2.gameObject.SetActive(false);
+
+            cameraPlayer1.rect = new Rect(0f, 0f, 1f, 1f); 
+        }
+    }
 }

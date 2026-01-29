@@ -3,7 +3,6 @@ using UnityEngine;
 
 public class PlayerBallHit : MonoBehaviour
 {
-    public EspUdp espData;
     public PlayerHit playerHitScript;
     public BallLaunch ballLaunchScript;
 

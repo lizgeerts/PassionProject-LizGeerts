@@ -4,9 +4,7 @@ public class PlayerMovement : MonoBehaviour
 {
     public CharacterController controller;
     public BallLaunch ballLaunchScript;
-    //public EspUdp espData;
     public Animator playerAnimation;
-    //public EspConnect espData; => if using via cable not wifi
     public PlayerBallHit ballHitScript;
     public float moveSpeed = 3f;
     public float stopDistance = 0.2f;
