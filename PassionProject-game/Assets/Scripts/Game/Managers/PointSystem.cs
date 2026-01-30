@@ -13,13 +13,17 @@ public class PointSystem : MonoBehaviour
     private int[] gamePoints = new int[2];
 
     public BallLaunch ballLaunchScript;
-
+    public MultiverseManager multiverseManager;
+    public Space spaceScript;
+    
     public TextMeshProUGUI[] setTexts;
     public TextMeshProUGUI[] gameTexts;
 
     public GameManager gameManager;
 
     private bool hasNotTranstitioned = true;
+
+    public bool switchScene = false;
 
     public void AddPoint()
     {
@@ -37,6 +41,8 @@ public class PointSystem : MonoBehaviour
     public void AddSetPoint(int team)
     {
         setPointIndex[team]++;
+
+        if (multiverseManager.inSpace) spaceScript.ToggleScenario();
 
         // If they reached beyond 40, win game
         if (setPointIndex[team] == 4)
@@ -64,8 +70,8 @@ public class PointSystem : MonoBehaviour
 
         //!!!!!!  just to test quicker   !!!
         if (!gameManager.transitionMultiverse
-   && setPointIndex[team] == gameManager.pointsTillChaos //to go to transition quicker just till 15 now
-   && hasNotTranstitioned)
+        && setPointIndex[team] == gameManager.pointsTillChaos //to go to transition quicker just till 15 now
+        && hasNotTranstitioned)
         {
             gameManager.transitionMultiverse = true;
             hasNotTranstitioned = false;
@@ -84,7 +90,6 @@ public class PointSystem : MonoBehaviour
         //     gameManager.transitionMultiverse = true;
         //     hasNotTranstitioned = false;
         // }
-
     }
 
     void UpdateAllSetTexts()

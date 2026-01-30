@@ -17268,7 +17268,7 @@ MonoBehaviour:
   multiverseManager: {fileID: 1001217079}
   gameManager: {fileID: 1874049532}
   scenarioDuration: 10
-  delayBeforeNextScenario: 5
+  scenarioEnabled: 0
   chaosAmplitude: 1.5
   chaosSpeed: 2
   p1Composer: {fileID: 638603131}
@@ -19552,6 +19552,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PointSystem
   ballLaunchScript: {fileID: 4485896533445412523}
+  multiverseManager: {fileID: 1001217079}
+  spaceScript: {fileID: 1648079315}
   setTexts:
   - {fileID: 729393245}
   - {fileID: 574764717}
@@ -19559,6 +19561,7 @@ MonoBehaviour:
   - {fileID: 943708438}
   - {fileID: 1382127276}
   gameManager: {fileID: 1874049532}
+  switchScene: 0
 --- !u!114 &1874049532
 MonoBehaviour:
   m_ObjectHideFlags: 0

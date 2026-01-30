@@ -22,10 +22,7 @@ public class Space : MonoBehaviour
     private float timer = 0f;
 
     [SerializeField] private float scenarioDuration;
-    private float scenarioTimer = 0f;
-    private bool scenarioActive = false;
-    [SerializeField] private float delayBeforeNextScenario = 1.0f; // 1 second delay
-    private bool waitingForNextScenario = false;
+    public bool scenarioEnabled = false; // is a scenario currently active?
 
     [Header("scen1: cam chaos")]
     [SerializeField] private float chaosAmplitude = 1.5f;
@@ -62,27 +59,23 @@ public class Space : MonoBehaviour
             ResetScenario();
             return;
         }
+    }
 
-        if (!scenarioActive && !waitingForNextScenario)
-        {
-            ChooseScenario();
-        }
-
-        scenarioTimer += Time.deltaTime;
-
-        if (scenarioTimer >= scenarioDuration)
+    public void ToggleScenario()
+    {
+        if (scenarioEnabled)
         {
             EndScenario();
         }
-
-        RunScenario();
+        else
+        {
+            ChooseScenario();
+            scenarioEnabled = true;
+        }
     }
 
     void ChooseScenario()
     {
-        scenarioActive = true;
-        scenarioTimer = 0f;
-
         currentScenario = (SpaceScenarios)Random.Range(1, 3);
         Debug.Log("Scenario started: " + currentScenario);
 
@@ -112,15 +105,6 @@ public class Space : MonoBehaviour
         }
     }
 
-    void RunScenario()
-    {
-        switch (currentScenario)
-        {
-            case SpaceScenarios.scenario3:
-                // UpdateBlackHole();
-                break;
-        }
-    }
 
     void EndScenario()
     {
@@ -128,25 +112,14 @@ public class Space : MonoBehaviour
 
         StopAllScenarios();
         currentScenario = SpaceScenarios.None;
-        scenarioActive = false;
-        scenarioTimer = 0f;
+        scenarioEnabled = false;
+    }
 
-        if (!waitingForNextScenario)
-            StartCoroutine(ScenarioDelayCoroutine());
-    }
-    IEnumerator ScenarioDelayCoroutine()
-    {
-        waitingForNextScenario = true;
-        yield return new WaitForSeconds(delayBeforeNextScenario);
-        waitingForNextScenario = false;
-    }
     void ResetScenario()
     {
-        if (!scenarioActive) return;
+        if (!scenarioEnabled) return;
         StopAllScenarios();
         currentScenario = SpaceScenarios.None;
-        scenarioActive = false;
-        scenarioTimer = 0f;
     }
 
     void StopAllScenarios()
@@ -165,6 +138,7 @@ public class Space : MonoBehaviour
 
         //clean up scene 2:
         ballLaunchScript.hyperRallyMultiplyer = 1f;
+        StopCoroutine(HyperRallySpeedRamp());
     }
 
 
@@ -206,7 +180,7 @@ public class Space : MonoBehaviour
 
     void StartHyperRally()
     {
-       //need to fix that hitting also happens faster
+        //need to fix that hitting also happens faster
         StartCoroutine(HyperRallySpeedRamp());
     }
 
