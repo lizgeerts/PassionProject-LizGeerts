@@ -59,6 +59,8 @@ public class BallLaunch : MonoBehaviour
     {
         None,
         ToBounce,
+        ToHole,
+        ToTeleport,
         ToRacket,
         Float
     }
@@ -95,6 +97,10 @@ public class BallLaunch : MonoBehaviour
 
     [SerializeField] private AudioClip ballHitClip;
     [SerializeField] private AudioClip ballBounceClip;
+
+    [Header("space")]
+
+    [SerializeField] private Space spaceScript;
 
 
     void Start()
@@ -157,6 +163,7 @@ public class BallLaunch : MonoBehaviour
             timer = 0f;
             DecideNpcFloatTime();//decide once if npc will catch or not
             flightPhase = withBounce ? FlightPhase.ToBounce : FlightPhase.ToRacket;
+            // flightPhase = spaceScript.Scenario3? FlightPhase.ToHole : (withBounce ? FlightPhase.ToBounce : FlightPhase.ToRacket);
             state = BallState.Flying;
         }
     }
@@ -209,7 +216,18 @@ public class BallLaunch : MonoBehaviour
             lateralOffset + Vector3.up * randomYOffset;
 
         hitPos = ClampToBounds(hitPos);
+
+        // if (spaceScript.Scenario3)
+        // {
+        //     SetBlackHolepath();
+        // }
     }
+
+    // private void SetBlackHolepath()
+    // {
+    //  bouncePos = spaceScript.BlackHole.transform.position;   
+    //  bouncePos.y += 0.2f;
+    // }
 
     private void getMinMax()
     {

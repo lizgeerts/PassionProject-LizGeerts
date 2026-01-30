@@ -10,7 +10,7 @@ public class Space : MonoBehaviour
     public enum SpaceScenarios
     {
         None,
-        scenario1, //camera upside down, backhand is forehand 
+        scenario1, //camera moves around
         scenario2, //super speed
         scenario3, // black hole in tbhe middle, ball towards it, teleports somewhere else, could also fly higher, particle system
         scenario4, //mirroring
@@ -38,6 +38,10 @@ public class Space : MonoBehaviour
     [SerializeField] private float hyperRallySpeedMultiplier = 3f; // 3x faster
     [SerializeField] private float hyperRallyRampTime = 0.5f; // ramp up duration
     private float hyperRallyCurrentMultiplier = 1f;
+
+    [Header("scen3: black hole")]
+     public GameObject BlackHole;
+    public bool Scenario3 = false;
 
 
     void Start()
@@ -76,7 +80,8 @@ public class Space : MonoBehaviour
 
     void ChooseScenario()
     {
-        currentScenario = (SpaceScenarios)Random.Range(1, 3);
+        // currentScenario = (SpaceScenarios)Random.Range(1, 3);
+        currentScenario = SpaceScenarios.scenario3;
         Debug.Log("Scenario started: " + currentScenario);
 
         StartScenario(currentScenario);
@@ -139,6 +144,11 @@ public class Space : MonoBehaviour
         //clean up scene 2:
         ballLaunchScript.hyperRallyMultiplyer = 1f;
         StopCoroutine(HyperRallySpeedRamp());
+
+        //clean up scene 3:
+        BlackHole.SetActive(false);
+        BlackHole.GetComponent<ParticleSystem>().Stop();
+        Scenario3 = false;
     }
 
 
@@ -201,10 +211,35 @@ public class Space : MonoBehaviour
         ballLaunchScript.hyperRallyMultiplyer = hyperRallyCurrentMultiplier;
     }
 
+    // ------- 4, black hole:  -------
+
     void StartBlackHole()
     {
-
+        StartCoroutine(AnimateBlackHoleRise());
+        Scenario3 = true;
     }
+
+    IEnumerator AnimateBlackHoleRise()
+    {
+        Vector3 startPos = new Vector3(BlackHole.transform.position.x, -2.08f, BlackHole.transform.position.z);
+        Vector3 endPos = new Vector3(BlackHole.transform.position.x, 0.5f, BlackHole.transform.position.z);
+        float timer = 0f;
+
+        BlackHole.transform.position = startPos;
+        BlackHole.gameObject.SetActive(true);
+        BlackHole.GetComponent<ParticleSystem>().Play();
+
+        while (timer < 3f)
+        {
+            timer += Time.deltaTime;
+            BlackHole.transform.position = Vector3.Lerp(startPos, endPos, timer / 3f);
+            yield return null;
+        }
+
+        BlackHole.transform.position = endPos;
+    }
+
+
 
     void StartMirrorMatch()
     {
