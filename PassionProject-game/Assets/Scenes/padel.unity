@@ -17268,10 +17268,12 @@ MonoBehaviour:
   multiverseManager: {fileID: 1001217079}
   gameManager: {fileID: 1874049532}
   scenarioDuration: 10
+  delayBeforeNextScenario: 3
   chaosAmplitude: 1.5
   chaosSpeed: 2
   p1Composer: {fileID: 638603131}
   p2Composer: {fileID: 2062458651}
+  ballLaunchScript: {fileID: 4485896533445412523}
 --- !u!4 &1648079316
 Transform:
   m_ObjectHideFlags: 0
@@ -22370,7 +22372,7 @@ MonoBehaviour:
   leftSideCourt: {fileID: 1315422925}
   rightSideCourt: {fileID: 1823388604}
   randomYOffset: 0
-  flightTime: 2.7
+  flightTime: 2.5
   arcHeight: 1.7
   bounceHeight: 0.5
   bounceTime: 0.22
@@ -22381,6 +22383,7 @@ MonoBehaviour:
   ballOnLeftSide: 0
   ballServeScript: {fileID: 4485896533445412517}
   isItPlayerSwinging: 0
+  decidedHitFloatTime: 0
   willNPCCatch: 1
   ballHitClip: {fileID: 8300000, guid: c4e7c58398dfb4209bb99c352759da80, type: 3}
   ballBounceClip: {fileID: 8300000, guid: 21c9c6eed91524c74bd4f899e54586f1, type: 3}

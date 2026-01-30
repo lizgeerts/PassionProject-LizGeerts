@@ -64,6 +64,7 @@ public class BallLaunch : MonoBehaviour
     }
 
     private FlightPhase flightPhase = FlightPhase.None;
+    public float hyperRallyMultiplyer = 1f;
 
     [Header("Player swing")]
     public bool isItPlayerSwinging;
@@ -84,7 +85,7 @@ public class BallLaunch : MonoBehaviour
     }
 
     private ShotProfile currentShot;
-    private float decidedHitFloatTime;
+    public float decidedHitFloatTime;
     public bool willNPCCatch = true;
 
     float minX, minZ, maxX, maxZ;
@@ -242,7 +243,7 @@ public class BallLaunch : MonoBehaviour
     void FlyToBounce()
     {
         timer += Time.deltaTime;
-        float duration = flightTime * currentShot.flightTimeMultiplier;
+        float duration = flightTime * currentShot.flightTimeMultiplier / hyperRallyMultiplyer;
         float t = Mathf.Clamp01(timer / duration);
         //the smaller duration, the faster timer is at 1
 
@@ -259,11 +260,10 @@ public class BallLaunch : MonoBehaviour
         }
     }
 
-
     void FlyToRacket()
     {
         timer += Time.deltaTime;
-        float duration = (withBounce ? flightTime * 0.55f : flightTime) * currentShot.flightTimeMultiplier;
+        float duration = (withBounce ? flightTime * 0.55f : flightTime) * currentShot.flightTimeMultiplier / hyperRallyMultiplyer;
         float t = Mathf.Clamp01(timer / duration);
 
         float easedT = 1f - Mathf.Pow(1f - t, 2.4f);
@@ -306,7 +306,7 @@ public class BallLaunch : MonoBehaviour
         }
     }
 
-    void DecideNpcFloatTime()
+    public void DecideNpcFloatTime()
     {
         if (targetPlayer.name == "Player")
         {
@@ -354,7 +354,8 @@ public class BallLaunch : MonoBehaviour
         if (ballOnLeftSide)
         {
             targets = rightSidePlayers;
-        } else
+        }
+        else
         {
             targets = gameManager.gameIsMultiplayer ? leftSidePlayersMultiplayer : leftSidePlayers;
         }
@@ -364,13 +365,14 @@ public class BallLaunch : MonoBehaviour
 
     ShotProfile BuildPlayerShot()
     {
-       
+
         EspUdp.EspData espData;
 
         if (playerHit.playerId == 1)
         {
             espData = espManager.esp1;
-        } else espData = espManager.esp2;
+        }
+        else espData = espManager.esp2;
 
 
         ShotProfile shot = new ShotProfile();
