@@ -26,12 +26,19 @@ public class MultiverseManager : MonoBehaviour
   public bool soundPlayed = false;
 
 
+  [Header("space")]
+  public bool inSpace = false;
+  [SerializeField] private float spaceStartDelay = 1.0f; // delay after transition before weird stuff happens
+  private float spaceDelayTimer = 0f;
+  private bool waitingForSpaceStart = false;
+
 
   void Start()
   {
     RenderSettings.skybox.SetFloat("_Exposure", 1);
     space.SetActive(false);
     city.SetActive(true);
+    inSpace = false;
   }
 
   void FixedUpdate() //for camera and physics
@@ -56,7 +63,22 @@ public class MultiverseManager : MonoBehaviour
         SwitchBack();
         timer = 0;
         gameManager.transitionMultiverse = false;
+
+        waitingForSpaceStart = true;
+        spaceDelayTimer = 0f;
+
         soundPlayed = false;
+      }
+    }
+
+    if (waitingForSpaceStart)
+    {
+      spaceDelayTimer += Time.deltaTime;
+
+      if (spaceDelayTimer >= spaceStartDelay)
+      {
+        inSpace = true;
+        waitingForSpaceStart = false;
       }
     }
   }

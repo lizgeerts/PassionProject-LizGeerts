@@ -6392,7 +6392,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::EspUdp
   listenPort: 5005
   ErrorScreen: {fileID: 1594120039}
-  timeout: 3
+  timeout: 2
   MessageText: {fileID: 1301731821}
   InstructionsText: {fileID: 892524082}
   ax: 0
@@ -6495,7 +6495,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 638603123}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.15269347, y: 0.01097878, z: -0.0016963822, w: 0.98821115}
+  m_LocalRotation: {x: 0.15269357, y: 0.010978718, z: -0.0016963779, w: 0.9882112}
   m_LocalPosition: {x: -2.5, y: 1.98, z: 1.99}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -10117,13 +10117,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 961739749}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.15269348, y: 0.010978781, z: -0.0016963865, w: 0.98821115}
+  m_LocalRotation: {x: 0.15269358, y: 0.010978719, z: -0.0016963783, w: 0.98821115}
   m_LocalPosition: {x: -2.5, y: 1.98, z: 1.99}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 17.567, y: 1.23, z: 0}
+  m_LocalEulerAnglesHint: {x: 17.567, y: 1.65, z: 0}
 --- !u!114 &961739754
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10406,8 +10406,6 @@ MonoBehaviour:
   space: {fileID: 1648079314}
   SpaceRumble: {fileID: 8300000, guid: 179d4b07c2c08496e82e26068eb199c8, type: 3}
   soundPlayed: 0
-  inSpace: 0
-  spaceStartDelay: 3.7
 --- !u!1001 &1002852995
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -15793,6 +15791,52 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8382e1e28f21a407ca26b44ed8fcf935, type: 3}
+--- !u!1 &1430163275
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1430163276}
+  - component: {fileID: 1430163277}
+  m_Layer: 0
+  m_Name: TimeVerse
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1430163276
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1430163275}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -5.0539, y: 1.95131, z: 11.42624}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1430163277
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1430163275}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0c7c622e031dd409cab90c432dc1b967, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SkyboxSwitcher
+  skyboxMaterial: {fileID: 2100000, guid: 7a3cc9101d52e41b3b08f5b73fe2b01c, type: 2}
+  multiverse: 0
 --- !u!1001 &1436540050
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -17265,13 +17309,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0c7c622e031dd409cab90c432dc1b967, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SkyBoxSwitch
-  multiverseManager: {fileID: 1001217079}
-  gameManager: {fileID: 1874049532}
-  scenarioDuration: 10
-  chaosAmplitude: 1.5
-  chaosSpeed: 2
-  p1Composer: {fileID: 638603131}
-  p2Composer: {fileID: 2062458651}
+  skyboxMaterial: {fileID: 2100000, guid: a4be220830e90ea4eb88b48b7fd376ce, type: 2}
+  multiverse: 0
 --- !u!4 &1648079316
 Transform:
   m_ObjectHideFlags: 0
@@ -21283,7 +21322,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2062458649}
   serializedVersion: 2
-  m_LocalRotation: {x: -0.0016963913, y: 0.98821115, z: -0.15269348, w: -0.010978811}
+  m_LocalRotation: {x: -0.0016963843, y: 0.98821115, z: -0.15269351, w: -0.010978762}
   m_LocalPosition: {x: 2.5, y: 1.98, z: 18.22}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -22715,7 +22754,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5817945563572688836, guid: ca767cda9c5c94629803b3ecaaab285c, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -1.838
+      value: -3.579
       objectReference: {fileID: 0}
     - target: {fileID: 5817945563572688836, guid: ca767cda9c5c94629803b3ecaaab285c, type: 3}
       propertyPath: m_LocalPosition.y
@@ -22942,4 +22981,5 @@ SceneRoots:
   - {fileID: 364509073}
   - {fileID: 1648079316}
   - {fileID: 1001217078}
+  - {fileID: 1430163276}
   - {fileID: 288223693}
