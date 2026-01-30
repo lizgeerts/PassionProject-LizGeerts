@@ -196,13 +196,9 @@ public class NpcHitBall : MonoBehaviour
         {
             return;
         }
-
-        timer += Time.deltaTime;
-
-        if (timer >= 0.9f)
-        {
-            TriggerHit();
-        }
+        
+        TriggerHit();
+    
     }
 
 

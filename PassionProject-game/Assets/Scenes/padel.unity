@@ -17268,12 +17268,14 @@ MonoBehaviour:
   multiverseManager: {fileID: 1001217079}
   gameManager: {fileID: 1874049532}
   scenarioDuration: 10
-  delayBeforeNextScenario: 3
+  delayBeforeNextScenario: 5
   chaosAmplitude: 1.5
   chaosSpeed: 2
   p1Composer: {fileID: 638603131}
   p2Composer: {fileID: 2062458651}
   ballLaunchScript: {fileID: 4485896533445412523}
+  hyperRallySpeedMultiplier: 2
+  hyperRallyRampTime: 0.5
 --- !u!4 &1648079316
 Transform:
   m_ObjectHideFlags: 0
@@ -22382,6 +22384,7 @@ MonoBehaviour:
   targetPlayer: {fileID: 0}
   ballOnLeftSide: 0
   ballServeScript: {fileID: 4485896533445412517}
+  hyperRallyMultiplyer: 1
   isItPlayerSwinging: 0
   decidedHitFloatTime: 0
   willNPCCatch: 1
