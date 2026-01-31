@@ -31,4 +31,8 @@ Free Demo Of Low Poly Space Alien Worlds 3D Asset Pack by Draftpunk Studios http
 - Clock beat effect by H-beats https://pixabay.com/sound-effects/musical-clock-beat-effect-402705/
 - Cinematic Rumble by freesound_community https://pixabay.com/sound-effects/film-special-effects-cinematic-rumble-106063/
 - Game Gaming Minecraft Background Music by BackgroundMusicForVideos https://pixabay.com/music/upbeat-game-gaming-minecraft-background-music-379533/
-- 
+- Space trip by PlaySound https://pixabay.com/music/build-up-scenes-space-trip-114102/
+- Fast Chiptune for Gaming Videos by nickpanek https://pixabay.com/music/video-games-fast-chiptune-for-gaming-videos-253097/
+- Deep and Mysterious Music for Cosmic Themes by ViraMiller https://pixabay.com/music/ambient-deep-and-mysterious-music-for-cosmic-themes-273579/
+- Deep House - Low Gravity by AntipodeanWriter https://pixabay.com/music/deep-house-deep-house-low-gravity-13045/
+

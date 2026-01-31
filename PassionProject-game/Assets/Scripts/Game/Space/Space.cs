@@ -54,6 +54,13 @@ public class Space : MonoBehaviour
     [SerializeField] private AudioClip backgroundMusic;
     private bool loopStart = false;
 
+    [SerializeField] private AudioClip scen1Music;
+    [SerializeField] private AudioClip scen2Music;
+    [SerializeField] private AudioClip scen3Music;
+    [SerializeField] private AudioClip scen4Music;
+    [SerializeField] private AudioClip scen5Music;
+
+
 
     void Start()
     {
@@ -85,7 +92,7 @@ public class Space : MonoBehaviour
 
     void StartBackgroundMusic()
     {
-      SoundFXManager.instance.PlayLoop(backgroundMusic, transform, 0.06f);
+      SoundFXManager.instance.PlayLoop(backgroundMusic, transform, 0.04f);
       loopStart = true;
     }
 
@@ -104,8 +111,8 @@ public class Space : MonoBehaviour
 
     void ChooseScenario()
     {
-        //currentScenario = (SpaceScenarios)Random.Range(1, 6);
-        currentScenario = SpaceScenarios.scenario5;
+        currentScenario = (SpaceScenarios)Random.Range(1, 6);
+        //currentScenario = SpaceScenarios.scenario5;
         Debug.Log("Scenario started: " + currentScenario);
 
         StartScenario(currentScenario);
@@ -194,6 +201,10 @@ public class Space : MonoBehaviour
         }
         ballLaunchScript.bounceHeight = -0.175f;
         scenario5 = false;
+
+        //clean up sounds:
+        SoundFXManager.instance.StopScenarioSound(1.5f);
+        StartBackgroundMusic();
     }
 
 
@@ -205,6 +216,8 @@ public class Space : MonoBehaviour
     {
         if (chaosRoutine != null) return;
         chaosRoutine = StartCoroutine(CameraChaos());
+        SoundFXManager.instance.PlayScenarioFXClip(scen1Music, transform, 1.75f, 0.15f);  // Fade in
+        SoundFXManager.instance.StopLoop();
     }
 
     IEnumerator CameraChaos()
@@ -237,6 +250,8 @@ public class Space : MonoBehaviour
     {
         //need to fix that hitting also happens faster
         StartCoroutine(HyperRallySpeedRamp());
+        SoundFXManager.instance.PlayScenarioFXClip(scen2Music, transform, 1.75f, 0.25f);  // Fade in
+        SoundFXManager.instance.StopLoop();
     }
 
 
@@ -262,6 +277,8 @@ public class Space : MonoBehaviour
     {
         StartCoroutine(AnimateBlackHoleRise());
         Scenario3 = true;
+        SoundFXManager.instance.PlayScenarioFXClip(scen3Music, transform, 1.75f, 0.25f);  // Fade in
+        SoundFXManager.instance.StopLoop();
     }
 
     IEnumerator AnimateBlackHoleRise()
@@ -289,6 +306,8 @@ public class Space : MonoBehaviour
     void StartBallSize()
     {
         StartCoroutine(AnimateBallSizes());
+        SoundFXManager.instance.PlayScenarioFXClip(scen4Music, transform, 1.75f, 0.2f);  // Fade in
+        SoundFXManager.instance.StopLoop();
     }
 
     IEnumerator AnimateBallSizes()
@@ -332,6 +351,8 @@ public class Space : MonoBehaviour
     {
         scenario5 = true;
         StartCoroutine(GravityPartyRoutine());
+        SoundFXManager.instance.PlayScenarioFXClip(scen5Music, transform, 1.75f, 0.2f);  // Fade in
+        SoundFXManager.instance.StopLoop();
     }
 
     IEnumerator GravityPartyRoutine()

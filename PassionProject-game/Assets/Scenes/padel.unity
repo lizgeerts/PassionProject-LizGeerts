@@ -2163,6 +2163,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::SoundEffectsManager
   soundFXObject: {fileID: 8856523565829255016, guid: b572c933e393946459d5cb5790b93f43, type: 3}
   loopingSource: {fileID: 1223957584469729396, guid: 05b6cbec31b5c4655a34d705abfd98ac, type: 3}
+  scenarioSource: {fileID: 4175047006755979574, guid: 6e58d9fb0cafa4c2aa4e0d963a12db39, type: 3}
   activeLoops: []
 --- !u!4 &288223693
 Transform:
@@ -35670,6 +35671,11 @@ MonoBehaviour:
   - {fileID: 917992565}
   scenario5: 0
   backgroundMusic: {fileID: 8300000, guid: 6bbd9393b32264622afc5ef480c0ebdb, type: 3}
+  scen1Music: {fileID: 8300000, guid: ccc7fcb599ba14944aae2ca2d1313162, type: 3}
+  scen2Music: {fileID: 8300000, guid: 6888b7e05ab6e4c9cb9816a657f85c82, type: 3}
+  scen3Music: {fileID: 8300000, guid: b04416ee8125d4514a378c1d997df7e0, type: 3}
+  scen4Music: {fileID: 8300000, guid: 7cc22c8357b714424b9e764a8a86e4d5, type: 3}
+  scen5Music: {fileID: 8300000, guid: 0c33709caa15f4c4e8f2ceeba45d958c, type: 3}
 --- !u!4 &1648079316
 Transform:
   m_ObjectHideFlags: 0
