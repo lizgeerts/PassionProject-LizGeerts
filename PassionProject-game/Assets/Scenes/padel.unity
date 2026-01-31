@@ -35668,6 +35668,8 @@ MonoBehaviour:
   - {fileID: 7784765815016297566}
   - {fileID: 1700312444}
   - {fileID: 917992565}
+  scenario5: 0
+  backgroundMusic: {fileID: 8300000, guid: 6bbd9393b32264622afc5ef480c0ebdb, type: 3}
 --- !u!4 &1648079316
 Transform:
   m_ObjectHideFlags: 0

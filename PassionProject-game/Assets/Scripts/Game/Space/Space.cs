@@ -50,6 +50,10 @@ public class Space : MonoBehaviour
     private Quaternion[] originalRotations;
     public bool scenario5 = false;
 
+    [Header("sounds")]
+    [SerializeField] private AudioClip backgroundMusic;
+    private bool loopStart = false;
+
 
     void Start()
     {
@@ -72,6 +76,17 @@ public class Space : MonoBehaviour
             ResetScenario();
             return;
         }
+
+        if (!loopStart && multiverseManager.inSpace)
+        {
+            StartBackgroundMusic();
+        }
+    }
+
+    void StartBackgroundMusic()
+    {
+      SoundFXManager.instance.PlayLoop(backgroundMusic, transform, 0.06f);
+      loopStart = true;
     }
 
     public void ToggleScenario()

@@ -25,12 +25,12 @@ public class MultiverseManager : MonoBehaviour
   [SerializeField] private AudioClip SpaceRumble;
   public bool soundPlayed = false;
 
-
   [Header("space")]
   public bool inSpace = false;
   [SerializeField] private float spaceStartDelay = 1.0f; // delay after transition before weird stuff happens
   private float spaceDelayTimer = 0f;
   private bool waitingForSpaceStart = false;
+
 
 
   void Start()
@@ -43,6 +43,7 @@ public class MultiverseManager : MonoBehaviour
 
   void FixedUpdate() //for camera and physics
   {
+
     if (gameManager.transitionMultiverse)
     {
       timer += Time.deltaTime;
