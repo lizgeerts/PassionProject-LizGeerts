@@ -15930,12 +15930,16 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 619954534}
     - target: {fileID: 306913985190583980, guid: 64eb9d0f036f7408cbac68aca375d0b3, type: 3}
+      propertyPath: ballHitClip
+      value: 
+      objectReference: {fileID: 8300000, guid: c4e7c58398dfb4209bb99c352759da80, type: 3}
+    - target: {fileID: 306913985190583980, guid: 64eb9d0f036f7408cbac68aca375d0b3, type: 3}
       propertyPath: gameManager
       value: 
       objectReference: {fileID: 1874049532}
     - target: {fileID: 306913985190583980, guid: 64eb9d0f036f7408cbac68aca375d0b3, type: 3}
       propertyPath: ballCanLaunch
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 306913985190583980, guid: 64eb9d0f036f7408cbac68aca375d0b3, type: 3}
       propertyPath: playerHitScript
@@ -15952,6 +15956,14 @@ PrefabInstance:
     - target: {fileID: 306913985190583980, guid: 64eb9d0f036f7408cbac68aca375d0b3, type: 3}
       propertyPath: startPosition.z
       value: 16.42
+      objectReference: {fileID: 0}
+    - target: {fileID: 306913985190583980, guid: 64eb9d0f036f7408cbac68aca375d0b3, type: 3}
+      propertyPath: startRotation.w
+      value: -0.00000004371139
+      objectReference: {fileID: 0}
+    - target: {fileID: 306913985190583980, guid: 64eb9d0f036f7408cbac68aca375d0b3, type: 3}
+      propertyPath: startRotation.y
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 306913985190583980, guid: 64eb9d0f036f7408cbac68aca375d0b3, type: 3}
       propertyPath: ballLaunchScript
@@ -50017,7 +50029,13 @@ MonoBehaviour:
   espManager: {fileID: 619954534}
   gameManager: {fileID: 1874049532}
   playerHit: {fileID: 1388849396}
+  playerHits:
+  - {fileID: 1388849396}
+  - {fileID: 664295402}
   playerBallScript: {fileID: 1080452127}
+  playerBallScripts:
+  - {fileID: 1080452127}
+  - {fileID: 664295401}
   state: 0
   pointSystemScript: {fileID: 1874049531}
   leftSidePlayers:
@@ -50285,6 +50303,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 7784765815016297568}
     - target: {fileID: 1684646929928608246, guid: ca767cda9c5c94629803b3ecaaab285c, type: 3}
+      propertyPath: gameManager
+      value: 
+      objectReference: {fileID: 1874049532}
+    - target: {fileID: 1684646929928608246, guid: ca767cda9c5c94629803b3ecaaab285c, type: 3}
       propertyPath: serveHeight
       value: 0.4
       objectReference: {fileID: 0}
@@ -50333,6 +50355,10 @@ PrefabInstance:
       value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 1684646929928608246, guid: ca767cda9c5c94629803b3ecaaab285c, type: 3}
+      propertyPath: playerScript.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1684646929928608246, guid: ca767cda9c5c94629803b3ecaaab285c, type: 3}
       propertyPath: 'npcScripts.Array.data[0]'
       value: 
       objectReference: {fileID: 7784765815016297568}
@@ -50345,9 +50371,29 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1331098504}
     - target: {fileID: 1684646929928608246, guid: ca767cda9c5c94629803b3ecaaab285c, type: 3}
+      propertyPath: playerScripts.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1684646929928608246, guid: ca767cda9c5c94629803b3ecaaab285c, type: 3}
       propertyPath: leftSidePlayers.Array.size
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 1684646929928608246, guid: ca767cda9c5c94629803b3ecaaab285c, type: 3}
+      propertyPath: 'playerScript.Array.data[0]'
+      value: 
+      objectReference: {fileID: 1080452127}
+    - target: {fileID: 1684646929928608246, guid: ca767cda9c5c94629803b3ecaaab285c, type: 3}
+      propertyPath: 'playerScript.Array.data[1]'
+      value: 
+      objectReference: {fileID: 664295401}
+    - target: {fileID: 1684646929928608246, guid: ca767cda9c5c94629803b3ecaaab285c, type: 3}
+      propertyPath: 'playerScripts.Array.data[0]'
+      value: 
+      objectReference: {fileID: 1080452127}
+    - target: {fileID: 1684646929928608246, guid: ca767cda9c5c94629803b3ecaaab285c, type: 3}
+      propertyPath: 'playerScripts.Array.data[1]'
+      value: 
+      objectReference: {fileID: 664295401}
     - target: {fileID: 1684646929928608246, guid: ca767cda9c5c94629803b3ecaaab285c, type: 3}
       propertyPath: rightSidePlayers.Array.size
       value: 2

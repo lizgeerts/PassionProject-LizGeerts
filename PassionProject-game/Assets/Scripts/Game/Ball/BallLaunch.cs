@@ -8,7 +8,11 @@ public class BallLaunch : MonoBehaviour
     public EspUdp espManager;
     public GameManager gameManager;
     public PlayerHit playerHit;
+    public PlayerHit[] playerHits;
+
     public PlayerBallHit playerBallScript;
+    public PlayerBallHit[] playerBallScripts;
+
     public enum BallState
     {
         Idle,
@@ -141,7 +145,15 @@ public class BallLaunch : MonoBehaviour
 
     void BeginLaunch()
     {
-        playerBallScript.ballCanLaunch = false;
+        if (gameManager.gameIsMultiplayer)
+        {
+            for (int i = 0; i < playerBallScripts.Length; i++)
+            {
+               playerBallScripts[i].ballCanLaunch = false;
+            }
+        }
+        else playerBallScript.ballCanLaunch = false;
+
 
         if (isItPlayerSwinging)
         {
@@ -156,12 +168,19 @@ public class BallLaunch : MonoBehaviour
         withBounce = currentShot.forceBounce;
 
         startPos = transform.position;
-        //timer = 0f;
 
         if (timer >= 0.25f)
         {
             CalculateTargetPositions();
-            playerBallScript.soundPlayed = false;
+            if (gameManager.gameIsMultiplayer)
+            {
+                for (int i = 0; i < playerBallScripts.Length; i++)
+                {
+                    playerBallScripts[i].soundPlayed = false;
+                }
+            }
+            else playerBallScript.soundPlayed = false;
+
             timer = 0f;
             DecideNpcFloatTime();//decide once if npc will catch or not
             //flightPhase = withBounce ? FlightPhase.ToBounce : FlightPhase.ToRacket;
@@ -327,9 +346,9 @@ public class BallLaunch : MonoBehaviour
 
     public void DecideNpcFloatTime()
     {
-        if (targetPlayer.name == "Player")
+        if (targetPlayer.name == "Player" || gameManager.gameIsMultiplayer && targetPlayer.name == "Player2")
         {
-            decidedHitFloatTime = Random.Range(0.3f, 0.9f);
+            decidedHitFloatTime = Random.Range(0.3f, 0.8f);
             return;
         }
 

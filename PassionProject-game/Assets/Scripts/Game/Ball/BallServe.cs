@@ -7,7 +7,9 @@ public class BallServe : MonoBehaviour
     public BallLaunch ballLaunchScript;
     public Transform servePlayer;
     public NpcHitBall[] npcScripts;
+    public PlayerBallHit[] playerScripts;
     public PlayerBallHit playerScript;
+    public GameManager gameManager;
 
     [Header("Serve Settings")]
     public float serveHeight = 1.2f;
@@ -80,7 +82,17 @@ public class BallServe : MonoBehaviour
             }
         }
 
-        playerScript.ResetToStart();
+        if (gameManager.gameIsMultiplayer)
+        {
+            if (playerScripts != null)
+            {
+                for (int i = 0; i < playerScripts.Length; i++)
+                {
+                    if (playerScripts[i] != null)
+                        playerScripts[i].ResetToStart();
+                }
+            }
+        } else  playerScript.ResetToStart();
 
         ballLaunchScript.state = BallLaunch.BallState.Serving;
         // Base serve position
