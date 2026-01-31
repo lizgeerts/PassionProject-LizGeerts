@@ -1,7 +1,6 @@
 using UnityEngine;
 using Unity.Cinemachine;
 using System.Collections;
-using Unity.Mathematics;
 
 public class Space : MonoBehaviour
 {
@@ -49,6 +48,7 @@ public class Space : MonoBehaviour
     [SerializeField] private Transform[] characters;
     private Vector3[] originalPositions;
     private Quaternion[] originalRotations;
+    public bool scenario5 = false;
 
 
     void Start()
@@ -89,7 +89,7 @@ public class Space : MonoBehaviour
 
     void ChooseScenario()
     {
-        // currentScenario = (SpaceScenarios)Random.Range(1, 3);
+        //currentScenario = (SpaceScenarios)Random.Range(1, 6);
         currentScenario = SpaceScenarios.scenario5;
         Debug.Log("Scenario started: " + currentScenario);
 
@@ -178,6 +178,7 @@ public class Space : MonoBehaviour
             characters[i].rotation = Quaternion.Euler(eulerRot);
         }
         ballLaunchScript.bounceHeight = -0.175f;
+        scenario5 = false;
     }
 
 
@@ -314,6 +315,7 @@ public class Space : MonoBehaviour
 
     void GravityParty()
     {
+        scenario5 = true;
         StartCoroutine(GravityPartyRoutine());
     }
 
@@ -346,7 +348,6 @@ public class Space : MonoBehaviour
         float floatHeight = 0.3f;
         float rotateSpeed = 1f;
         float rotateAngle= 12f;
-        ballLaunchScript.bounceHeight = UnityEngine.Random.Range(0.28f, 0.77f);
 
         while (true)
         {

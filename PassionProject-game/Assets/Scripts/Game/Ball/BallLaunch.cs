@@ -202,6 +202,7 @@ public class BallLaunch : MonoBehaviour
             targetPlayer.forward * baseBounceZ +
             lateralOffset;
 
+        bounceHeight = spaceScript.scenario5 ? Random.Range(0.28f, 0.77f) : -0.175f;
         bouncePos.y = bounceHeight;
 
         bouncePos = ClampToBounds(bouncePos); //clamp -> not outside zone!!
