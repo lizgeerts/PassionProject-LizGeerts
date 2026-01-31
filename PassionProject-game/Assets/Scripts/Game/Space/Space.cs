@@ -1,6 +1,7 @@
 using UnityEngine;
 using Unity.Cinemachine;
 using System.Collections;
+using Unity.Mathematics;
 
 public class Space : MonoBehaviour
 {
@@ -13,8 +14,8 @@ public class Space : MonoBehaviour
         scenario1, //camera moves around
         scenario2, //super speed
         scenario3, // black hole in tbhe middle, ball towards it, teleports somewhere else, could also fly higher, particle system
-        scenario4, //mirroring
-        scenario5
+        scenario4, // ball size changes
+        scenario5 // gravity party
     }
 
     private SpaceScenarios currentScenario = SpaceScenarios.None;
@@ -41,6 +42,14 @@ public class Space : MonoBehaviour
      public GameObject BlackHole;
     public bool Scenario3 = false;
 
+    [Header("scen4: ball sizes")]
+    [SerializeField] private GameObject ball;
+
+    [Header("scen5: gravity party")]
+    [SerializeField] private Transform[] characters;
+    private Vector3[] originalPositions;
+    private Quaternion[] originalRotations;
+
 
     void Start()
     {
@@ -52,6 +61,8 @@ public class Space : MonoBehaviour
         {
             p2OriginalOffset = p2Composer.TargetOffset;
         }
+
+        OriginalCharacterTransforms();
     }
 
     void Update()
@@ -79,7 +90,7 @@ public class Space : MonoBehaviour
     void ChooseScenario()
     {
         // currentScenario = (SpaceScenarios)Random.Range(1, 3);
-        currentScenario = SpaceScenarios.scenario3;
+        currentScenario = SpaceScenarios.scenario5;
         Debug.Log("Scenario started: " + currentScenario);
 
         StartScenario(currentScenario);
@@ -103,7 +114,11 @@ public class Space : MonoBehaviour
                 break;
 
             case SpaceScenarios.scenario4:
-                StartMirrorMatch();
+                StartBallSize();
+                break;
+
+            case SpaceScenarios.scenario5:
+                GravityParty();
                 break;
         }
     }
@@ -127,10 +142,12 @@ public class Space : MonoBehaviour
 
     void StopAllScenarios()
     {
+        StopAllCoroutines();
+
         //cleanup scene 1:
         if (chaosRoutine != null)
         {
-            StopCoroutine(chaosRoutine);
+            //StopCoroutine(chaosRoutine);
             chaosRoutine = null;
         }
         if (p1Composer != null)
@@ -141,13 +158,26 @@ public class Space : MonoBehaviour
 
         //clean up scene 2:
         ballLaunchScript.hyperRallyMultiplyer = 1f;
-        StopCoroutine(HyperRallySpeedRamp());
+        //StopCoroutine(HyperRallySpeedRamp());
 
         //clean up scene 3:
         BlackHole.SetActive(false);
         BlackHole.GetComponent<ParticleSystem>().Stop();
         Scenario3 = false;
-        StopCoroutine(AnimateBlackHoleRise());
+       // StopCoroutine(AnimateBlackHoleRise());
+
+        //clean up scene 4:
+        ball.transform.localScale = new Vector3(0.08f, 0.08f, 0.08f);
+
+        //clean up scene 5:
+        for (int i = 0; i < characters.Length; i++)
+        {
+            characters[i].position = originalPositions[i];
+            Vector3 eulerRot = originalRotations[i].eulerAngles;
+            eulerRot.z = 0f;  // extra reset Z rotation 
+            characters[i].rotation = Quaternion.Euler(eulerRot);
+        }
+        ballLaunchScript.bounceHeight = -0.175f;
     }
 
 
@@ -210,7 +240,7 @@ public class Space : MonoBehaviour
         ballLaunchScript.hyperRallyMultiplyer = hyperRallyCurrentMultiplier;
     }
 
-    // ------- 4, black hole:  -------
+    // ------- 3, black hole:  -------
 
     void StartBlackHole()
     {
@@ -238,10 +268,107 @@ public class Space : MonoBehaviour
         BlackHole.transform.position = endPos;
     }
 
+    // ------- 4, ball sizes:  -------
 
-
-    void StartMirrorMatch()
+    void StartBallSize()
     {
-
+        StartCoroutine(AnimateBallSizes());
     }
+
+    IEnumerator AnimateBallSizes()
+    {
+        Vector3 originalScale = ball.transform.localScale;
+
+        float minScale = 0.015f;
+        float maxScale = 0.45f;
+        float pulseSpeed = 2.5f;
+
+        float t = 0f;
+
+        while (true)
+        {
+            t += Time.deltaTime * pulseSpeed;
+
+            float pulse = (Mathf.Sin(t) + 1f) * 0.5f; // 0 → 1
+            float scaleValue = Mathf.Lerp(minScale, maxScale, pulse);
+
+            ball.transform.localScale = originalScale.normalized * scaleValue;
+
+
+            yield return null;
+        }
+    }
+
+    // ------- 5, weird gravity :  -------
+    void OriginalCharacterTransforms()
+    {
+        originalPositions = new Vector3[characters.Length];
+        originalRotations = new Quaternion[characters.Length];
+
+        for (int i = 0; i < characters.Length; i++)
+        {
+            originalPositions[i] = characters[i].position;
+            originalRotations[i] = characters[i].rotation;
+        }
+    }
+
+    void GravityParty()
+    {
+        StartCoroutine(GravityPartyRoutine());
+    }
+
+    IEnumerator GravityPartyRoutine()
+    {
+        // 1: Float up smoothly 
+
+        float introDuration = 2f;
+        float introT = 0f;
+
+        while (introT < introDuration)
+        {
+            introT += Time.deltaTime;
+
+            for (int i = 0; i < characters.Length; i++)
+            {
+                float introHeight = Mathf.Lerp(0f, 0.7f, introT / introDuration); // 0 → 0.7m
+
+                Vector3 pos = characters[i].position;
+                pos.y = originalPositions[i].y + introHeight;
+                characters[i].position = pos;
+            }
+
+            yield return null;
+        }
+
+        // 2: Float up and down in the air
+        float t = 0f;
+        float floatSpeed = 1.2f;
+        float floatHeight = 0.3f;
+        float rotateSpeed = 1f;
+        float rotateAngle= 12f;
+        ballLaunchScript.bounceHeight = UnityEngine.Random.Range(0.28f, 0.77f);
+
+        while (true)
+        {
+            t += Time.deltaTime;
+
+            for (int i = 0; i < characters.Length; i++)
+            {
+                float phaseOffset = i * 0.6f; // makes them desync nicely
+
+                float yOffset = Mathf.Sin(t * floatSpeed + phaseOffset) * floatHeight;
+                float zRot = Mathf.Sin(t * rotateSpeed + phaseOffset) * rotateAngle;
+
+                Vector3 pos = characters[i].position;
+                pos.y = originalPositions[i].y+ yOffset + 0.7f; //+0.7 otherwise float in the
+
+                characters[i].position = pos;
+                characters[i].rotation =
+                    originalRotations[i] * Quaternion.Euler(0f, 0f, zRot);
+            }
+
+            yield return null;
+        }
+    }
+
 }

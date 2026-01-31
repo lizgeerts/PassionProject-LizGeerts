@@ -38,7 +38,7 @@ public class BallLaunch : MonoBehaviour
     public float arcHeight = 2.4f;
 
     [Header("Bounce")]
-    public float bounceHeight = 0.5f;
+   public float bounceHeight= -0.175f;
     public float bounceTime = 0.22f;
 
     [Header("Hit Assist")]
@@ -202,7 +202,7 @@ public class BallLaunch : MonoBehaviour
             targetPlayer.forward * baseBounceZ +
             lateralOffset;
 
-        bouncePos.y = -0.175f;
+        bouncePos.y = bounceHeight;
 
         bouncePos = ClampToBounds(bouncePos); //clamp -> not outside zone!!
 
@@ -210,7 +210,7 @@ public class BallLaunch : MonoBehaviour
         { //y offset
             randomYOffset = Random.Range(-0.2f, 0.05f); //backhand or forehand
         }
-        else randomYOffset = Random.Range(0.62f, 1f); //overhand
+        else randomYOffset = Random.Range(0.62f, 0.85f); //overhand
 
         hitPos =
             targetPlayer.position +
