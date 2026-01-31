@@ -22,7 +22,6 @@ public class NpcHitBall : MonoBehaviour
 
     private bool isBallComingToMe = false;
     private bool hasHit = false;
-    private float timer = 0f;
     public float moveTimer;
     private float xOffset = 0f;
     private float zOffset = 0f;
@@ -164,7 +163,6 @@ public class NpcHitBall : MonoBehaviour
     void StartSwing()
     {
         isSwinging = true;
-        timer = 0f;
 
         TriggerHitAnimation();
     }
@@ -220,7 +218,6 @@ public class NpcHitBall : MonoBehaviour
         isBallComingToMe = false;
         isSwinging = false;
         hasHit = false;
-        timer = 0f;
         animator.SetFloat("Direction", 0f);
     }
 }

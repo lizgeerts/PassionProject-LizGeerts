@@ -50034,6 +50034,8 @@ MonoBehaviour:
   ballHitClip: {fileID: 8300000, guid: c4e7c58398dfb4209bb99c352759da80, type: 3}
   ballBounceClip: {fileID: 8300000, guid: 21c9c6eed91524c74bd4f899e54586f1, type: 3}
   spaceScript: {fileID: 1648079315}
+  minCourt: {x: -4.6, y: 0.5, z: 2.5}
+  maxCourt: {x: 4.5, y: 3, z: 17.5}
 --- !u!114 &4485896533445412527
 MonoBehaviour:
   m_ObjectHideFlags: 0

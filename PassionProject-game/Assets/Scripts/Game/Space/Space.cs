@@ -19,8 +19,6 @@ public class Space : MonoBehaviour
 
     private SpaceScenarios currentScenario = SpaceScenarios.None;
 
-    private float timer = 0f;
-
     [SerializeField] private float scenarioDuration;
     public bool scenarioEnabled = false; // is a scenario currently active?
 
@@ -149,6 +147,7 @@ public class Space : MonoBehaviour
         BlackHole.SetActive(false);
         BlackHole.GetComponent<ParticleSystem>().Stop();
         Scenario3 = false;
+        StopCoroutine(AnimateBlackHoleRise());
     }
 
 

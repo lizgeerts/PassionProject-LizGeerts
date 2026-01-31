@@ -59,7 +59,6 @@ public class BallLaunch : MonoBehaviour
     {
         None,
         ToBounce,
-        ToHole,
         ToTeleport,
         ToRacket,
         Float
@@ -101,6 +100,9 @@ public class BallLaunch : MonoBehaviour
     [Header("space")]
 
     [SerializeField] private Space spaceScript;
+    [SerializeField] private Vector3 minCourt;
+    [SerializeField] private Vector3 maxCourt;
+    bool isPositionPicked = false;
 
 
     void Start()
@@ -162,8 +164,8 @@ public class BallLaunch : MonoBehaviour
             playerBallScript.soundPlayed = false;
             timer = 0f;
             DecideNpcFloatTime();//decide once if npc will catch or not
-            flightPhase = withBounce ? FlightPhase.ToBounce : FlightPhase.ToRacket;
-            // flightPhase = spaceScript.Scenario3? FlightPhase.ToHole : (withBounce ? FlightPhase.ToBounce : FlightPhase.ToRacket);
+            //flightPhase = withBounce ? FlightPhase.ToBounce : FlightPhase.ToRacket;
+            flightPhase = withBounce || spaceScript.Scenario3 ? FlightPhase.ToBounce : FlightPhase.ToRacket;
             state = BallState.Flying;
         }
     }
@@ -217,17 +219,12 @@ public class BallLaunch : MonoBehaviour
 
         hitPos = ClampToBounds(hitPos);
 
-        // if (spaceScript.Scenario3)
-        // {
-        //     SetBlackHolepath();
-        // }
+        if (spaceScript.Scenario3)
+        {
+            bouncePos = spaceScript.BlackHole.transform.position;
+        }
     }
 
-    // private void SetBlackHolepath()
-    // {
-    //  bouncePos = spaceScript.BlackHole.transform.position;   
-    //  bouncePos.y += 0.2f;
-    // }
 
     private void getMinMax()
     {
@@ -250,6 +247,9 @@ public class BallLaunch : MonoBehaviour
         {
             case FlightPhase.ToBounce:
                 FlyToBounce();
+                break;
+            case FlightPhase.ToTeleport:
+                SpawnBall();
                 break;
 
             case FlightPhase.ToRacket:
@@ -274,7 +274,7 @@ public class BallLaunch : MonoBehaviour
             SoundFXManager.instance.PlaySoundFXClip(ballBounceClip, transform, 0.8f, 0f);
             timer = 0f;
             startPos = transform.position;
-            flightPhase = FlightPhase.ToRacket;
+            flightPhase = spaceScript.Scenario3 ? FlightPhase.ToTeleport : flightPhase = FlightPhase.ToRacket;
         }
     }
 
@@ -349,6 +349,29 @@ public class BallLaunch : MonoBehaviour
         restarting = false;
 
         ballServeScript.StartServe();
+    }
+
+    void SpawnBall()
+    {
+        float randomX = Random.Range(minCourt.x, maxCourt.x);
+        float randomY = Random.Range(minCourt.y, maxCourt.y);
+        float randomZ = Random.Range(minCourt.z, maxCourt.z);
+
+        if (!isPositionPicked)
+        {
+            Vector3 pos = new Vector3(randomX, randomY, randomZ);
+            transform.position = pos;
+            isPositionPicked = true;
+        }
+
+        timer += Time.deltaTime;
+        if(timer >= 0.75f)
+        {
+            startPos = transform.position;
+            timer = 0f;
+            isPositionPicked = false;
+            flightPhase = FlightPhase.ToRacket;
+        }
     }
 
     //helper functions
@@ -435,7 +458,7 @@ public class BallLaunch : MonoBehaviour
         {
             shot.bounceZOffset = Random.Range(0f, 0.6f);
             shot.zOffset = Random.Range(-0.2f, 1.6f);
-            shot.flightTimeMultiplier = Random.Range(0.7f, 1.1f);
+            shot.flightTimeMultiplier = Random.Range(0.67f, 1.05f);
         }
 
         float difficulty = spin * 0.25f + smashFactor * 0.25f;
@@ -454,12 +477,12 @@ public class BallLaunch : MonoBehaviour
                                                 //either with or without bounce
         if (shot.forceBounce)
         {
-            shot.flightTimeMultiplier = Random.Range(0.5f, 1.05f);
+            shot.flightTimeMultiplier = Random.Range(0.5f, 1f);
             shot.arcMultiplier = Random.Range(0.8f, 1.4f);
         }
         else //if without bounce, arc lower and flight less speedy
         {
-            shot.flightTimeMultiplier = Random.Range(0.7f, 1.1f);
+            shot.flightTimeMultiplier = Random.Range(0.67f, 1.05f);
             shot.arcMultiplier = Random.Range(0.7f, 0.9f);
         }
         shot.zOffset = 0f;
