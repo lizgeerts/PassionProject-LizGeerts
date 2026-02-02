@@ -1,3 +1,4 @@
+using TMPro;
 using UnityEngine;
 
 public class GameManager : MonoBehaviour
@@ -14,6 +15,9 @@ public class GameManager : MonoBehaviour
     [SerializeField] private GameObject Player2;
     [SerializeField] private GameObject NPC2;
 
+    [SerializeField] private TextMeshProUGUI teamText1;
+    [SerializeField] private TextMeshProUGUI teamText2;
+
 
     [Header("Cameras")]
     public Camera cameraPlayer1;
@@ -29,6 +33,8 @@ public class GameManager : MonoBehaviour
         SoundFXManager.instance.PlayLoop(CityAmbience, transform, 0.65f);
         Debug.Log("multiplayer: " + gameIsMultiplayer);
         AddPlayer();
+        StaticData.showWinningScreen = false;
+        SetTeamText();
     }
 
     void Update()
@@ -71,6 +77,20 @@ public class GameManager : MonoBehaviour
             cameraPlayer2.gameObject.SetActive(false);
 
             cameraPlayer1.rect = new Rect(0f, 0f, 1f, 1f); 
+        }
+    }
+
+    void SetTeamText()
+    {
+        if (gameIsMultiplayer)
+        {
+            teamText1.SetText("Team 1 (P1)");
+            teamText2.SetText("Team 2 (P2)");
+        }
+        else
+        {
+            teamText1.SetText("Team 1 (you)");
+            teamText2.SetText("Team 2");
         }
     }
 }

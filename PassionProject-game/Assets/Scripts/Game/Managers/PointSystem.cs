@@ -1,6 +1,7 @@
 using System;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class PointSystem : MonoBehaviour
@@ -90,6 +91,13 @@ public class PointSystem : MonoBehaviour
         //     gameManager.transitionMultiverse = true;
         //     hasNotTranstitioned = false;
         // }
+
+        if (gamePoints[team] == 1)
+        {
+            StaticData.showWinningScreen = true;
+            StaticData.winningTeam = team;
+            SceneManager.LoadScene("MainMenu");
+        }
     }
 
     void UpdateAllSetTexts()

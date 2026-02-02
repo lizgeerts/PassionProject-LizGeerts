@@ -154,7 +154,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 200, y: 10}
+  m_SizeDelta: {x: 338, y: 10}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1922533
 MonoBehaviour:
@@ -42583,6 +42583,8 @@ MonoBehaviour:
   gameIsMultiplayer: 0
   Player2: {fileID: 664295400}
   NPC2: {fileID: 519976183}
+  teamText1: {fileID: 1030835360}
+  teamText2: {fileID: 1922533}
   cameraPlayer1: {fileID: 961739752}
   cameraPlayer2: {fileID: 747844664}
 --- !u!1 &1878619333
