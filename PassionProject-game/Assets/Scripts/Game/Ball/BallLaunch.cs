@@ -202,7 +202,7 @@ public class BallLaunch : MonoBehaviour
     {
         getMinMax(); // get it once
 
-        Debug.Log($"arc: {currentShot.arcMultiplier} flight:{currentShot.flightTimeMultiplier} xtrX: {currentShot.xOffset} bounce:{currentShot.forceBounce}");
+        //Debug.Log($"arc: {currentShot.arcMultiplier} flight:{currentShot.flightTimeMultiplier} xtrX: {currentShot.xOffset} bounce:{currentShot.forceBounce}");
 
         float baseX = Random.Range(-1.7f, 1.7f);
         float baseBounceZ = Random.Range(2f, 3f);
@@ -358,7 +358,7 @@ public class BallLaunch : MonoBehaviour
 
         decidedHitFloatTime = 0.7f;
 
-        Debug.Log($"npc catch: {willNPCCatch}");
+       // Debug.Log($"npc catch: {willNPCCatch}");
     }
 
     IEnumerator RestartAfterDelay(float delay)

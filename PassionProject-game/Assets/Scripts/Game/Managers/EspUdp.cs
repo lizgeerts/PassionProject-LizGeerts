@@ -114,7 +114,7 @@ public class EspUdp : MonoBehaviour
 
         target.active = true;
         target.deviceId = parts[6];
-        //Debug.Log($" ax:{ax} ay:{ay} az:{az} gx:{gx} gy:{gy} gz:{gz}");
+       // Debug.Log($" ax:{target.ax} ay:{target.ay} az:{target.az} gx:{target.gx} gy:{target.gy} gz:{target.gz}");
     }
 
 

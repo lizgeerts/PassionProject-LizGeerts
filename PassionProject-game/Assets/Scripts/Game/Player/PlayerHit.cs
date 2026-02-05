@@ -10,7 +10,7 @@ public class PlayerHit : MonoBehaviour
     public GameManager gameManager;
 
     [Header("Swing Detection")]
-    private float swingThreshold = 7f;
+    [SerializeField] private float swingThreshold = 7f;
     public bool swingActive = false;
     public float timer;
     public float swingEnergy;
@@ -19,9 +19,10 @@ public class PlayerHit : MonoBehaviour
     private float sumAx, sumAy, sumAz;
     public float peakAx, peakAy, peakAz;
     public float peakGx, peakGy, peakGz;
+    public float peakAxPos, peakAxNeg;
 
     [Header("cooldown")]
-    private float swingCooldown = 0.75f;
+    [SerializeField] private float swingCooldown = 0.75f;
     private float cooldownTimer = 0f;
     private bool inCooldown = false;
 
@@ -34,8 +35,7 @@ public class PlayerHit : MonoBehaviour
 
         HandleCooldown();
         DetectSwing();
-        //Debug.Log($"phase: {swingPhase} swinging:{playerIsSwinging} swingtype:{swingType}");
-        // Debug.Log(swingActive);
+        Debug.Log("swinging:" + swingActive);
     }
 
     void DetectSwing()
@@ -52,7 +52,6 @@ public class PlayerHit : MonoBehaviour
         float az = espData.az;
 
         swingEnergy = Mathf.Abs(gx) + Mathf.Abs(gy) + Mathf.Abs(gz);
-        // Debug.Log("energy:"+ swingEnergy);
 
         // start collecting
         if (!collecting && swingEnergy > swingThreshold)
@@ -61,6 +60,10 @@ public class PlayerHit : MonoBehaviour
             collecting = true;
             windowTimer = 0f;
             sumAx = sumAy = sumAz = 0f;
+            peakAx = peakAy = peakAz = 0f;
+            peakGx = peakGy = peakGz = 0f;
+            peakAxPos = 0f;
+            peakAxNeg = 0f;
         }
 
         // collect motion
@@ -80,6 +83,9 @@ public class PlayerHit : MonoBehaviour
             peakGy = Mathf.Max(peakGy, Mathf.Abs(gy));
             peakGz = Mathf.Max(peakGz, Mathf.Abs(gz));
 
+            if (ax > peakAxPos) peakAxPos = ax;
+            if (ax < peakAxNeg) peakAxNeg = ax;
+
             if (windowTimer >= 0.400f) // 400ms window
             {
                 ClassifySwing();
@@ -97,41 +103,57 @@ public class PlayerHit : MonoBehaviour
         playerAnimation.ResetTrigger("Backhand");
         playerAnimation.ResetTrigger("Overhand");
 
-        //  Debug.Log($"AX:{sumAx:F1} AY:{sumAy:F1} AZ:{sumAz:F1}");
-        // Debug.Log($"Peak AX:{peakAx:F1} AY:{peakAy:F1} AZ:{peakAz:F1}");
         float total = sumAx + sumAy + sumAz;
+        float absSumAx = sumAx;
+        float absSumAz = sumAz;
 
-        float azR = sumAz / total;
-
-        // OVERHAND: vertical dominance
-        if (azR > 0.40f && peakAx < 17.3f)
+        if(total < 0.001f)
         {
-            playerAnimation.SetTrigger("Overhand");
-            Debug.Log("OVERHAND");
-            swingType = SwingType.Overhand;
+            swingActive = false;
             return;
         }
 
-        if (sumAx > sumAy * 0.85f)
+        float verticalRatio = absSumAz / total;
+        float horizontalRatio = absSumAx / total; 
+        float totalAccel = total;
+
+        // ---------- THRESHOLDS (tune-friendly) ----------
+        const float overhandVerticalRatio = 0.40f;  // vertical 
+        const float overhandMinAccel = 300f;    // strong motion
+
+        const float forehandPeakAxMin = 10f;     // forehand = pos
+        const float backhandPeakAxMax = -5.5f;    // backhand = neg
+
+
+        // ---------- 1) OVERHAND DETECTION ----------
+        // Overhand tends to have strong vertical accel and decent energy.
+        if (verticalRatio > overhandVerticalRatio && totalAccel > overhandMinAccel && peakAx > 5f)
         {
-            if (peakAx > 4f)
-            {
-                playerAnimation.SetTrigger("Forehand");
-                Debug.Log("FOREHAND");
-                swingType = SwingType.Forehand;
-            }
-            else if (peakAx < 1.5f)
-            {
-                playerAnimation.SetTrigger("Backhand");
-                Debug.Log("BACKHAND");
-                swingType = SwingType.Backhand;
-            }
+            playerAnimation.SetTrigger("Overhand");
+            swingType = SwingType.Overhand;
+            Debug.Log($"OVERHAND | vr={verticalRatio:F2}, totalAccel={totalAccel:F1} peakAx={peakAx:F1}, hr={horizontalRatio:F2}");
+            return;
+        }
+
+        // ---------- 2) FOREHAND vs BACKHAND ----------
+        // peak AX is either positive or negative / small
+        if (peakAxPos > forehandPeakAxMin && Mathf.Abs(peakAxPos) > Mathf.Abs(peakAxNeg))
+        {
+            playerAnimation.SetTrigger("Forehand");
+            swingType = SwingType.Forehand;
+            Debug.Log($"FOREHAND | vr={verticalRatio:F2}, totalAccel={totalAccel:F1} , peakAx={peakAx:F1}, hr={horizontalRatio:F2}  ");
+        }
+        else if (peakAxNeg < backhandPeakAxMax && Mathf.Abs(peakAxNeg) > Mathf.Abs(peakAxPos))
+        {
+            playerAnimation.SetTrigger("Backhand");
+            swingType = SwingType.Backhand;
+            Debug.Log($"BACKHAND | vr={verticalRatio:F2}, totalAccel={totalAccel:F1}, peakAx={peakAx:F1}, hr={horizontalRatio:F2} ");
         }
         else
         {
+            // default, almost never occurs though that this happens
             playerAnimation.SetTrigger("Forehand");
-            Debug.Log("FOREHAND");
-            swingType = SwingType.Forehand; //default is forehand
+            swingType = SwingType.Forehand;
         }
     }
 
