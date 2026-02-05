@@ -150,7 +150,7 @@ public class BallServe : MonoBehaviour
         transform.position = pos;
         //floats waiting for player to hit
 
-        if (timer >= 1.1f && ballLaunchScript.state == BallLaunch.BallState.Serving)
+        if (timer >= 0.7f && ballLaunchScript.state == BallLaunch.BallState.Serving)
         {
             stateServe = BallStateServe.Idle;
             StartServe();
