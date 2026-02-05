@@ -31,11 +31,14 @@ public class PlayerHit : MonoBehaviour
 
     void Update()
     {
-        if (gameManager.transitionMultiverse) return; //no swinging during transition
+        if (gameManager.transitionMultiverse)
+        {
+            swingActive = false;
+            return; 
+        } 
 
         HandleCooldown();
         DetectSwing();
-        Debug.Log("swinging:" + swingActive);
     }
 
     void DetectSwing()
