@@ -14,11 +14,11 @@
 #define LED_PIN 2
 
 //wifi:
-const char* ssid = WIFI_SSID_SCHOOL;
-const char* password = WIFI_PASSWORD_SCHOOL;
+const char* ssid = WIFI_SSID_DORM;
+const char* password = WIFI_PASSWORD_DORM;
 
 WiFiUDP udp;
-const char* remoteIP = PcIP_SCHOOL; // wifi ip adress from pc
+const char* remoteIP = PcIP_DORM; // wifi ip adress from pc
 const int EspID = 2; //set 1 or 2 based on which esp it is
 
 const int remotePort = 5005;  

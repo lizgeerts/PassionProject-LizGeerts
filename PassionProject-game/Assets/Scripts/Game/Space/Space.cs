@@ -27,6 +27,7 @@ public class Space : MonoBehaviour
     [SerializeField] private float chaosSpeed = 2.0f;
     [SerializeField] private CinemachineRotationComposer p1Composer;
     [SerializeField] private CinemachineRotationComposer p2Composer;
+
     private Vector3 p1OriginalOffset;
     private Vector3 p2OriginalOffset;
     private Coroutine chaosRoutine;
@@ -38,7 +39,7 @@ public class Space : MonoBehaviour
     private float hyperRallyCurrentMultiplier = 1f;
 
     [Header("scen3: black hole")]
-     public GameObject BlackHole;
+    public GameObject BlackHole;
     public bool Scenario3 = false;
 
     [Header("scen4: ball sizes")]
@@ -59,7 +60,6 @@ public class Space : MonoBehaviour
     [SerializeField] private AudioClip scen3Music;
     [SerializeField] private AudioClip scen4Music;
     [SerializeField] private AudioClip scen5Music;
-
 
 
     void Start()
@@ -92,8 +92,8 @@ public class Space : MonoBehaviour
 
     void StartBackgroundMusic()
     {
-      SoundFXManager.instance.PlayLoop(backgroundMusic, transform, 0.04f);
-      loopStart = true;
+        SoundFXManager.instance.PlayLoop(backgroundMusic, transform, 0.04f);
+        loopStart = true;
     }
 
     public void ToggleScenario()
@@ -186,7 +186,7 @@ public class Space : MonoBehaviour
         BlackHole.SetActive(false);
         BlackHole.GetComponent<ParticleSystem>().Stop();
         Scenario3 = false;
-       // StopCoroutine(AnimateBlackHoleRise());
+        // StopCoroutine(AnimateBlackHoleRise());
 
         //clean up scene 4:
         ball.transform.localScale = new Vector3(0.08f, 0.08f, 0.08f);
@@ -383,7 +383,7 @@ public class Space : MonoBehaviour
         float floatSpeed = 1.2f;
         float floatHeight = 0.3f;
         float rotateSpeed = 1f;
-        float rotateAngle= 12f;
+        float rotateAngle = 12f;
 
         while (true)
         {
@@ -397,7 +397,7 @@ public class Space : MonoBehaviour
                 float zRot = Mathf.Sin(t * rotateSpeed + phaseOffset) * rotateAngle;
 
                 Vector3 pos = characters[i].position;
-                pos.y = originalPositions[i].y+ yOffset + 0.7f; //+0.7 otherwise float in the
+                pos.y = originalPositions[i].y + yOffset + 0.7f; //+0.7 otherwise float in the
 
                 characters[i].position = pos;
                 characters[i].rotation =
