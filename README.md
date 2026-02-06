@@ -8,9 +8,10 @@ Check out my Figma with the design https://www.figma.com/design/prllXF4k1FcCGg21
 ---
 
 ### To make the ESP32 work
-- put your wifi name and password in ino file
-- put your ip adress in ino file
+- put your wifi name and password in keys file
+- put your pc ip adress in keys file
 - make sure the esp and pc are on same wifi network
+- mpu scl pin 27, sda pin 25 -> see blog for circuit
 
 ---
 
@@ -37,4 +38,6 @@ Free Demo Of Low Poly Space Alien Worlds 3D Asset Pack by Draftpunk Studios http
 - Fast Chiptune for Gaming Videos by nickpanek https://pixabay.com/music/video-games-fast-chiptune-for-gaming-videos-253097/
 - Deep and Mysterious Music for Cosmic Themes by ViraMiller https://pixabay.com/music/ambient-deep-and-mysterious-music-for-cosmic-themes-273579/
 - Deep House - Low Gravity by AntipodeanWriter https://pixabay.com/music/deep-house-deep-house-low-gravity-13045/
+- Success Videogame SFX by Mrstokes302 https://pixabay.com/sound-effects/success-videogame-sfx-423626/
+- Verloren by KastenFrosch (freesound_community) https://pixabay.com/sound-effects/musical-verloren-89595/ 
 

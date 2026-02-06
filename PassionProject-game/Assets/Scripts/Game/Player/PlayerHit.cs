@@ -125,8 +125,8 @@ public class PlayerHit : MonoBehaviour
         float totalAccel = total;
 
         // ---------- THRESHOLDS (tune-friendly) ----------
-        const float overhandVerticalRatio = 0.35f;  // vertical default 0.4
-        const float overhandMinAccel = 300f;    // strong motion
+        const float overhandVerticalRatio = 0.36f;  // vertical default 0.4
+       // const float overhandMinAccel = 300f;    // strong motion
 
         const float forehandPeakAxMin = 10f;     // forehand = pos
         const float backhandPeakAxMax = -5.5f;    // backhand = neg
@@ -134,7 +134,7 @@ public class PlayerHit : MonoBehaviour
 
         // ---------- 1) OVERHAND DETECTION ----------
         // Overhand tends to have strong vertical accel and decent energy.
-        if (verticalRatio > overhandVerticalRatio && totalAccel > overhandMinAccel && peakAx > 5f)
+        if (verticalRatio > overhandVerticalRatio && peakAx > 5f)
         {
             playerAnimation.SetTrigger("Overhand");
             swingType = SwingType.Overhand;

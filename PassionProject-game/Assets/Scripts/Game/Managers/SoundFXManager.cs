@@ -23,6 +23,8 @@ public class SoundFXManager : MonoBehaviour
         }
     }
 
+    //---- normal sound effect: -----
+
     public void PlaySoundFXClip(AudioClip audioClip, Transform spawnTransform, float volume, float length)
     {
         //spawn in gameobject + assign audioclip
@@ -44,6 +46,8 @@ public class SoundFXManager : MonoBehaviour
         //destroy clip after done playing   
         Destroy(audioSource.gameObject, length);
     }
+
+    //---- looping audio: -------
 
     public List<AudioSource> activeLoops = new List<AudioSource>();
 
@@ -69,6 +73,8 @@ public class SoundFXManager : MonoBehaviour
         activeLoops.Clear();
     }
 
+
+    //---- scenarios space: -----
 
     public void PlayScenarioFXClip(AudioClip audioClip, Transform spawnTransform, float fadeInTime, float volume)
     {

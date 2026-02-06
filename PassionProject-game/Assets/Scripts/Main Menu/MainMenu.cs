@@ -14,6 +14,11 @@ public class MainMenu : MonoBehaviour
     [SerializeField] private TextMeshProUGUI winText;
     private bool hasShownWinningScreen = false;
 
+    [Header("Sounds")]
+    [SerializeField] private AudioClip menuMusic;
+    [SerializeField] private AudioClip winningMusic;
+    [SerializeField] private AudioClip lostMusic;
+
 
     void Start()
     {
@@ -23,6 +28,7 @@ public class MainMenu : MonoBehaviour
         instructionScreen.SetActive(false);
         player.SetActive(false);
         practiseBackButton.SetActive(false);
+        SoundMainMenu.instance.PlayLoop(menuMusic, transform, true, 0.04f);
     }
 
     void Update()
@@ -31,6 +37,7 @@ public class MainMenu : MonoBehaviour
 
         if (!hasShownWinningScreen)
         {
+            SoundMainMenu.instance.StopLoop();
             ShowWinningScreen();
         }
     }
@@ -98,6 +105,8 @@ public class MainMenu : MonoBehaviour
     {
         if (StaticData.winningTeam == 0)
         {
+            SoundMainMenu.instance.PlayLoop(winningMusic, transform, false, 0.19f);
+
             if (StaticData.multiplayerValueToKeep)
             {
                 winText.SetText("Player 1 won!");
@@ -113,6 +122,7 @@ public class MainMenu : MonoBehaviour
         {
             if (StaticData.multiplayerValueToKeep)
             {
+                SoundMainMenu.instance.PlayLoop(winningMusic, transform, false, 0.19f);
                 winText.SetText("Player 2 won!");
                 winText.fontSize = 10f;
             }
@@ -120,6 +130,7 @@ public class MainMenu : MonoBehaviour
             {
                 winText.SetText("You lost!");
                 winText.fontSize = 13f;
+                SoundMainMenu.instance.PlayLoop(lostMusic, transform, false, 0.2f);
             }
         }
 
