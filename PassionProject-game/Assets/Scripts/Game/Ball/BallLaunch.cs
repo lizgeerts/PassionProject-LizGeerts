@@ -411,17 +411,30 @@ public class BallLaunch : MonoBehaviour
     void ChooseTargetPlayer()
     {
         Transform[] targets;
+        float playerWeight = 0.7f;
+        float randomChance = Random.value; // 0..1
+        bool player = randomChance < playerWeight;
 
         if (ballOnLeftSide)
         {
             targets = rightSidePlayers;
+            targetPlayer = player ? targets[0] : targets[1];
         }
         else
         {
-            targets = gameManager.gameIsMultiplayer ? leftSidePlayersMultiplayer : leftSidePlayers;
+            if (gameManager.gameIsMultiplayer)
+            {
+                targets = leftSidePlayersMultiplayer;
+                targetPlayer = player ? targets[0] : targets[1];
+            }
+            else
+            {
+                targets = leftSidePlayers;
+                targetPlayer = targets[Random.Range(0, targets.Length)];
+            }
+            targetPlayer = player ? targets[0] : targets[1];
         }
 
-        targetPlayer = targets[Random.Range(0, targets.Length)];
     }
 
     ShotProfile BuildPlayerShot()

@@ -50028,8 +50028,8 @@ MonoBehaviour:
   - {fileID: 7784765815016297566}
   - {fileID: 1700312444}
   leftSidePlayersMultiplayer:
-  - {fileID: 7784765815016297566}
   - {fileID: 362715791}
+  - {fileID: 7784765815016297566}
   rightSidePlayers:
   - {fileID: 1388849399}
   - {fileID: 917992565}
