@@ -3,6 +3,8 @@
 
 Follow along on my journey: https://www.notion.so/Blogpost-2a3615fa3a49803191bbdaff47c4b4b5?source=copy_link
 
+Check out my Figma with the design https://www.figma.com/design/prllXF4k1FcCGg21dG0FQv/Passion-project?node-id=111-2&t=86Uhmcah733t5W7p-1 
+
 ---
 
 ### To make the ESP32 work
