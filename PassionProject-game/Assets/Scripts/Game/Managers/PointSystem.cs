@@ -16,7 +16,7 @@ public class PointSystem : MonoBehaviour
     public BallLaunch ballLaunchScript;
     public MultiverseManager multiverseManager;
     public Space spaceScript;
-    
+
     public TextMeshProUGUI[] setTexts;
     public TextMeshProUGUI[] gameTexts;
 
@@ -25,6 +25,9 @@ public class PointSystem : MonoBehaviour
     private bool hasNotTranstitioned = true;
 
     public bool switchScene = false;
+
+    bool everyOtherPoint = false;
+
 
     public void AddPoint()
     {
@@ -70,13 +73,13 @@ public class PointSystem : MonoBehaviour
         setTexts[team].SetText(setPoints[setPointIndex[team]].ToString());
 
         //!!!!!!  just to test quicker   !!!
-        if (!gameManager.transitionMultiverse
-        && setPointIndex[team] == gameManager.pointsTillChaos //to go to transition quicker just till 15 now
-        && hasNotTranstitioned)
-        {
-            gameManager.transitionMultiverse = true;
-            hasNotTranstitioned = false;
-        }
+        // if (!gameManager.transitionMultiverse
+        // && setPointIndex[team] == gameManager.pointsTillChaos //to go to transition quicker just till 15 now
+        // && hasNotTranstitioned)
+        // {
+        //     gameManager.transitionMultiverse = true;
+        //     hasNotTranstitioned = false;
+        // }
     }
 
     void UpdateGameText(int team)
@@ -84,20 +87,32 @@ public class PointSystem : MonoBehaviour
 
         gameTexts[team].SetText(gamePoints[team].ToString());
 
-        // if (!gameManager.transitionMultiverse
-        // && gamePoints[team] == gameManager.pointsTillChaos
-        // && hasNotTranstitioned)
-        // {
-        //     gameManager.transitionMultiverse = true;
-        //     hasNotTranstitioned = false;
-        // }
+        IncreaseDiff();
 
-        if (gamePoints[team] == 1)
+        if (!gameManager.transitionMultiverse
+        && gamePoints[team] == gameManager.pointsTillChaos
+        && hasNotTranstitioned)
+        {
+            gameManager.transitionMultiverse = true;
+            hasNotTranstitioned = false;
+        }
+
+        if (gamePoints[team] == 6)
         {
             StaticData.showWinningScreen = true;
             StaticData.winningTeam = team;
             SceneManager.LoadScene("MainMenu");
         }
+    }
+
+    private void IncreaseDiff()
+    {
+        everyOtherPoint = !everyOtherPoint;
+
+        if (!everyOtherPoint) return;
+
+        ballLaunchScript.flightTime -= 0.14f;
+        ballLaunchScript.hitWindowRecuct += 0.023f;
     }
 
     void UpdateAllSetTexts()

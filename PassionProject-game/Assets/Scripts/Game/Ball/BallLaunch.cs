@@ -39,7 +39,7 @@ public class BallLaunch : MonoBehaviour
     public float randomYOffset;
 
     [Header("Flight")]
-    public float flightTime = 0.9f;
+    public float flightTime = 2.5f;
     public float arcHeight = 2.4f;
 
     [Header("Bounce")]
@@ -48,6 +48,7 @@ public class BallLaunch : MonoBehaviour
 
     [Header("Hit Assist")]
     public float hitFloatTime = 0.25f;
+    public float hitWindowRecuct = 0f;
     public float hitFloatAmplitude = 0.03f;
     private bool withBounce;
 
@@ -113,7 +114,8 @@ public class BallLaunch : MonoBehaviour
 
     void Start()
     {
-
+        hitWindowRecuct = 0f;
+        flightTime = 2.5f;
     }
 
     void Update()
@@ -373,7 +375,7 @@ public class BallLaunch : MonoBehaviour
     {
         if (targetPlayer.name == "Player" || gameManager.gameIsMultiplayer && targetPlayer.name == "Player2")
         {
-            decidedHitFloatTime = Random.Range(0.2f, 0.5f);
+            decidedHitFloatTime = Random.Range(0.2f, 0.5f) - hitWindowRecuct;
             return;
         }
 

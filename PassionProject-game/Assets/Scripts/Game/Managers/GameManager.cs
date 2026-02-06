@@ -28,8 +28,8 @@ public class GameManager : MonoBehaviour
     {
         gameIsMultiplayer = StaticData.multiplayerValueToKeep;
         setupCameras();
-        // pointsTillChaos = Random.Range(3, 5);
-        pointsTillChaos = 1;
+        pointsTillChaos = Random.Range(2, 5);
+        //pointsTillChaos = 1;
         SoundFXManager.instance.PlayLoop(CityAmbience, transform, 0.65f);
         Debug.Log("multiplayer: " + gameIsMultiplayer);
         AddPlayer();

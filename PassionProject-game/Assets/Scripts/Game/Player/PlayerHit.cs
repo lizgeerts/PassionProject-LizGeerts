@@ -125,7 +125,7 @@ public class PlayerHit : MonoBehaviour
         float totalAccel = total;
 
         // ---------- THRESHOLDS (tune-friendly) ----------
-        const float overhandVerticalRatio = 0.37f;  // vertical default 0.4
+        const float overhandVerticalRatio = 0.375f;  // vertical default 0.4
        // const float overhandMinAccel = 300f;    // strong motion
 
         const float forehandPeakAxMin = 10f;     // forehand = pos

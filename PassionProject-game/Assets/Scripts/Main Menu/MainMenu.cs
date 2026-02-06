@@ -80,6 +80,8 @@ public class MainMenu : MonoBehaviour
         startScreen.SetActive(true);
         playersScreen.SetActive(false);
         endScreen.SetActive(false);
+        SoundMainMenu.instance.StopLoop();
+        SoundMainMenu.instance.PlayLoop(menuMusic, transform, true, 0.04f);
     }
 
     public void StartGame()
