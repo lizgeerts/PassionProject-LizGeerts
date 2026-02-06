@@ -17,6 +17,7 @@ public class EspUdp : MonoBehaviour
     public float timeout = 3f;
     private string latestMessage;
     private bool hasMessage;
+    
     public GameObject MessageText;
     public GameObject InstructionsText;
 
