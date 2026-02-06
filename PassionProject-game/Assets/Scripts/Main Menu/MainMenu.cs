@@ -7,6 +7,9 @@ public class MainMenu : MonoBehaviour
     [SerializeField] private GameObject playersScreen;
     [SerializeField] private GameObject endScreen;
     [SerializeField] private GameObject instructionScreen;
+    [SerializeField] private GameObject practiseBackButton;
+
+    [SerializeField] private GameObject player;
 
     [SerializeField] private TextMeshProUGUI winText;
     private bool hasShownWinningScreen = false;
@@ -18,6 +21,8 @@ public class MainMenu : MonoBehaviour
         playersScreen.SetActive(false);
         endScreen.SetActive(false);
         instructionScreen.SetActive(false);
+        player.SetActive(false);
+        practiseBackButton.SetActive(false);
     }
 
     void Update()
@@ -72,19 +77,28 @@ public class MainMenu : MonoBehaviour
 
     public void StartGame()
     {
-      SceneManager.LoadScene("Padel");
+        SceneManager.LoadScene("Padel");
     }
 
     public void Practise()
     {
-        
+        player.SetActive(true);
+        instructionScreen.SetActive(false);
+        practiseBackButton.SetActive(true);
+    }
+
+    public void BackToInstructions()
+    {
+        player.SetActive(false);
+        instructionScreen.SetActive(true);
+        practiseBackButton.SetActive(false);
     }
 
     private void ShowWinningScreen()
     {
-        if(StaticData.winningTeam == 0)
+        if (StaticData.winningTeam == 0)
         {
-           if (StaticData.multiplayerValueToKeep)
+            if (StaticData.multiplayerValueToKeep)
             {
                 winText.SetText("Player 1 won!");
                 winText.fontSize = 10f;
@@ -94,7 +108,8 @@ public class MainMenu : MonoBehaviour
                 winText.SetText("You won!");
                 winText.fontSize = 13f;
             }
-        } else
+        }
+        else
         {
             if (StaticData.multiplayerValueToKeep)
             {
@@ -110,7 +125,7 @@ public class MainMenu : MonoBehaviour
 
         startScreen.SetActive(false);
         playersScreen.SetActive(false);
-        endScreen.SetActive(true);   
-        hasShownWinningScreen = true;     
+        endScreen.SetActive(true);
+        hasShownWinningScreen = true;
     }
 }

@@ -4,10 +4,11 @@ public class PlayerHit : MonoBehaviour
 {
     [Header("References")]
     public Animator playerAnimation;
-    public EspUdp espManager;
+    //public EspUdp espManager;
     public int playerId = 1;  // 1 or 2, set in Inspector
 
     public GameManager gameManager;
+    public EspUdp espManager;
 
     [Header("Swing Detection")]
     [SerializeField] private float swingThreshold = 7f;
@@ -22,7 +23,7 @@ public class PlayerHit : MonoBehaviour
     public float peakAxPos, peakAxNeg;
 
     [Header("cooldown")]
-    [SerializeField] private float swingCooldown = 0.75f;
+    [SerializeField] private float swingCooldown = 1f;
     private float cooldownTimer = 0f;
     private bool inCooldown = false;
 
@@ -74,22 +75,25 @@ public class PlayerHit : MonoBehaviour
         {
             windowTimer += Time.deltaTime;
 
-            sumAx += Mathf.Abs(ax);
-            sumAy += Mathf.Abs(ay);
-            sumAz += Mathf.Abs(az);
+            if(windowTimer >= 0.080f)
+            {
+                sumAx += Mathf.Abs(ax);
+                sumAy += Mathf.Abs(ay);
+                sumAz += Mathf.Abs(az);
 
-            peakAx = Mathf.Max(peakAx, ax);
-            peakAy = Mathf.Max(peakAy, Mathf.Abs(ay));
-            peakAz = Mathf.Max(peakAz, Mathf.Abs(az));
+                peakAx = Mathf.Max(peakAx, ax);
+                peakAy = Mathf.Max(peakAy, Mathf.Abs(ay));
+                peakAz = Mathf.Max(peakAz, Mathf.Abs(az));
 
-            peakGx = Mathf.Max(peakGx, gx);
-            peakGy = Mathf.Max(peakGy, Mathf.Abs(gy));
-            peakGz = Mathf.Max(peakGz, Mathf.Abs(gz));
+                peakGx = Mathf.Max(peakGx, gx);
+                peakGy = Mathf.Max(peakGy, Mathf.Abs(gy));
+                peakGz = Mathf.Max(peakGz, Mathf.Abs(gz));
 
-            if (ax > peakAxPos) peakAxPos = ax;
-            if (ax < peakAxNeg) peakAxNeg = ax;
+                if (ax > peakAxPos) peakAxPos = ax;
+                if (ax < peakAxNeg) peakAxNeg = ax;
+            }
 
-            if (windowTimer >= 0.400f) // 400ms window
+            if (windowTimer >= 0.350f) // 400ms window
             {
                 ClassifySwing();
                 collecting = false;
@@ -121,7 +125,7 @@ public class PlayerHit : MonoBehaviour
         float totalAccel = total;
 
         // ---------- THRESHOLDS (tune-friendly) ----------
-        const float overhandVerticalRatio = 0.40f;  // vertical 
+        const float overhandVerticalRatio = 0.35f;  // vertical default 0.4
         const float overhandMinAccel = 300f;    // strong motion
 
         const float forehandPeakAxMin = 10f;     // forehand = pos

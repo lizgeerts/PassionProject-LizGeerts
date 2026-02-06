@@ -19,7 +19,7 @@ const char* password = WIFI_PASSWORD_DORM;
 
 WiFiUDP udp;
 const char* remoteIP = PcIP_DORM; // wifi ip adress from pc
-const int EspID = 2; //set 1 or 2 based on which esp it is
+const int EspID = 1; //set 1 or 2 based on which esp it is
 
 const int remotePort = 5005;  
 
@@ -39,7 +39,7 @@ float gyroZerror = 0.03;
 //all the other serial prints are for debugging so they are now put in comments so they don't keep causing errors in the unity console.
 
 unsigned long lastSend = 0;
-const int sendInterval = 40;
+const int sendInterval = 30;
 
 //Initialize WiFi
 void initWiFi() {

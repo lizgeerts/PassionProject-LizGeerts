@@ -130,7 +130,8 @@ public class EspUdp : MonoBehaviour
 
         if (receiveThread != null)
         {
-            receiveThread.Abort();
+            receiveThread.Join();
+            //receiveThread.Abort();
             receiveThread = null;
         }
     }
