@@ -17,7 +17,7 @@ public class GameManager : MonoBehaviour
 
     [SerializeField] private TextMeshProUGUI teamText1;
     [SerializeField] private TextMeshProUGUI teamText2;
-
+    [SerializeField] private GameObject points;
 
     [Header("Cameras")]
     public Camera cameraPlayer1;
@@ -47,15 +47,19 @@ public class GameManager : MonoBehaviour
 
     void AddPlayer()
     {
+        RectTransform rt = points.GetComponent<RectTransform>();
+
         if (gameIsMultiplayer)
         {
             NPC2.SetActive(false);
             Player2.SetActive(true);
+            rt.SetInsetAndSizeFromParentEdge(RectTransform.Edge.Left, 1000f, rt.rect.width);
         }
         else
         {
             NPC2.SetActive(true);
             Player2.SetActive(false);
+            rt.SetInsetAndSizeFromParentEdge(RectTransform.Edge.Left, 90f, rt.rect.width);
         }
     }
 

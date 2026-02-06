@@ -9,8 +9,6 @@ public class MainMenu : MonoBehaviour
     [SerializeField] private GameObject instructionScreen;
     [SerializeField] private GameObject practiseBackButton;
 
-    [SerializeField] private GameObject player;
-
     [SerializeField] private TextMeshProUGUI winText;
     private bool hasShownWinningScreen = false;
 
@@ -26,7 +24,6 @@ public class MainMenu : MonoBehaviour
         playersScreen.SetActive(false);
         endScreen.SetActive(false);
         instructionScreen.SetActive(false);
-        player.SetActive(false);
         practiseBackButton.SetActive(false);
         SoundMainMenu.instance.PlayLoop(menuMusic, transform, true, 0.04f);
     }
@@ -91,14 +88,14 @@ public class MainMenu : MonoBehaviour
 
     public void Practise()
     {
-        player.SetActive(true);
+        //player.SetActive(true);
         instructionScreen.SetActive(false);
         practiseBackButton.SetActive(true);
     }
 
     public void BackToInstructions()
     {
-        player.SetActive(false);
+       // player.SetActive(false);
         instructionScreen.SetActive(true);
         practiseBackButton.SetActive(false);
     }
