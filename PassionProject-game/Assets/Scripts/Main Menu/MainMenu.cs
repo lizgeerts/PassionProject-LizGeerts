@@ -6,6 +6,7 @@ public class MainMenu : MonoBehaviour
     [SerializeField] private GameObject startScreen;
     [SerializeField] private GameObject playersScreen;
     [SerializeField] private GameObject endScreen;
+    [SerializeField] private GameObject instructionScreen;
 
     [SerializeField] private TextMeshProUGUI winText;
     private bool hasShownWinningScreen = false;
@@ -16,6 +17,7 @@ public class MainMenu : MonoBehaviour
         startScreen.SetActive(true);
         playersScreen.SetActive(false);
         endScreen.SetActive(false);
+        instructionScreen.SetActive(false);
     }
 
     void Update()
@@ -33,6 +35,7 @@ public class MainMenu : MonoBehaviour
         startScreen.SetActive(false);
         endScreen.SetActive(false);
         playersScreen.SetActive(true);
+        instructionScreen.SetActive(false);
         hasShownWinningScreen = false;
         StaticData.showWinningScreen = false;
     }
@@ -46,14 +49,18 @@ public class MainMenu : MonoBehaviour
     {
         bool multiplayer = true;
         StaticData.multiplayerValueToKeep = multiplayer;
-        SceneManager.LoadScene("Padel");
+        instructionScreen.SetActive(true);
+        playersScreen.SetActive(false);
+        //SceneManager.LoadScene("Padel");
     }
 
     public void setSingleplayer()
     {
         bool multiplayer = false;
         StaticData.multiplayerValueToKeep = multiplayer;
-        SceneManager.LoadScene("Padel");
+        instructionScreen.SetActive(true);
+        playersScreen.SetActive(false);
+        //SceneManager.LoadScene("Padel");
     }
 
     public void BackToMain()
@@ -61,6 +68,16 @@ public class MainMenu : MonoBehaviour
         startScreen.SetActive(true);
         playersScreen.SetActive(false);
         endScreen.SetActive(false);
+    }
+
+    public void StartGame()
+    {
+      SceneManager.LoadScene("Padel");
+    }
+
+    public void Practise()
+    {
+        
     }
 
     private void ShowWinningScreen()
