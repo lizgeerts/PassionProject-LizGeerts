@@ -41,7 +41,7 @@ public class PlayerBallHit : MonoBehaviour
 
     private void HitBall()
     {
-        if (ballCanLaunch)
+        if (ballCanLaunch && (ballLaunchScript.state != BallLaunch.BallState.ToEndPoint || ballLaunchScript.state != BallLaunch.BallState.Idle)  )
         {
             playerHitScript.ConsumeSwing();
 

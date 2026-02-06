@@ -19,7 +19,8 @@ public class BallLaunch : MonoBehaviour
         Serving,
         Hit,
         Flying,
-        Floating
+        Floating,
+        ToEndPoint
     }
 
     public BallState state = BallState.Idle;
@@ -53,6 +54,7 @@ public class BallLaunch : MonoBehaviour
     private Vector3 startPos;
     private Vector3 bouncePos;
     public Vector3 hitPos;
+    public Vector3 endPos;
 
     private float timer;
     public Transform targetPlayer;
@@ -65,7 +67,7 @@ public class BallLaunch : MonoBehaviour
         ToBounce,
         ToTeleport,
         ToRacket,
-        Float
+        Float,
     }
 
     private FlightPhase flightPhase = FlightPhase.None;
@@ -139,6 +141,9 @@ public class BallLaunch : MonoBehaviour
 
             case BallState.Floating:
                 UpdateFloat();
+                break;
+            case BallState.ToEndPoint:
+                UpdateEndPoint();
                 break;
         }
     }
@@ -243,6 +248,27 @@ public class BallLaunch : MonoBehaviour
         {
             bouncePos = spaceScript.BlackHole.transform.position;
         }
+
+        //endPos = hitPos - targetPlayer.forward * 2.5f - Vector3.up * Random.Range(0.3f, 0.8f);
+        calculateEndPos();
+    }
+
+    private void calculateEndPos()
+    {
+        // distance ball travels after hit
+        float travelDistance = Random.Range(2.5f, 3.5f);
+
+        // gravity pull (downward)
+        float drop = Random.Range(0.4f, 0.8f);
+
+        // slight sideways randomness (very subtle)
+        Vector3 sideJitter = targetPlayer.right * Random.Range(-0.25f, 0.25f);
+
+        endPos =
+            hitPos -
+            targetPlayer.forward * travelDistance +
+            sideJitter +
+            Vector3.down * drop;
     }
 
 
@@ -327,7 +353,7 @@ public class BallLaunch : MonoBehaviour
 
     void UpdateFloat()
     {
-        if (restarting) return;
+        //if (restarting) return;
 
         timer += Time.deltaTime;
 
@@ -337,10 +363,9 @@ public class BallLaunch : MonoBehaviour
 
         if (timer >= decidedHitFloatTime)
         {
-            pointSystemScript.AddPoint();
-            flightPhase = FlightPhase.None;
-            restarting = true;
-            StartCoroutine(RestartAfterDelay(1f));
+            timer = 0f;
+            startPos = hitPos;
+            state = BallState.ToEndPoint;
         }
     }
 
@@ -348,7 +373,7 @@ public class BallLaunch : MonoBehaviour
     {
         if (targetPlayer.name == "Player" || gameManager.gameIsMultiplayer && targetPlayer.name == "Player2")
         {
-            decidedHitFloatTime = Random.Range(0.3f, 0.8f);
+            decidedHitFloatTime = Random.Range(0.2f, 0.5f);
             return;
         }
 
@@ -356,9 +381,36 @@ public class BallLaunch : MonoBehaviour
 
         willNPCCatch = npcCatches ? true : false;
 
-        decidedHitFloatTime = 0.7f;
+        decidedHitFloatTime = 0.1f;
 
        // Debug.Log($"npc catch: {willNPCCatch}");
+    }
+
+    void UpdateEndPoint()
+    {
+        if (restarting) return;
+
+        timer += Time.deltaTime;
+        float duration = flightTime * currentShot.flightTimeMultiplier * 0.5f;
+        float t = Mathf.Clamp01(timer / duration);
+        //     //the smaller duration, the faster timer is at 1
+
+        float easedT = t * t; // ease-in gravity feel
+
+        Vector3 pos = Vector3.Lerp(hitPos, endPos, t);
+
+        // add a subtle downward curve 
+        pos.y -= Mathf.Sin(easedT * Mathf.PI) * 0.4f;
+
+        transform.position = pos;
+
+        if (t >= 1f)
+        {
+            pointSystemScript.AddPoint();
+            flightPhase = FlightPhase.None;
+            restarting = true;
+            StartCoroutine(RestartAfterDelay(1f));
+        }
     }
 
     IEnumerator RestartAfterDelay(float delay)
