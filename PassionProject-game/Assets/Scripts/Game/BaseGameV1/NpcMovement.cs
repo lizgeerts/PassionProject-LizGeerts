@@ -1,9 +1,5 @@
-using System;
-using NUnit.Framework;
-using NUnit.Framework.Internal;
-using UnityEditor.ShaderGraph.Internal;
+
 using UnityEngine;
-using UnityEngine.AI;
 
 
 public class NpcMovement : MonoBehaviour

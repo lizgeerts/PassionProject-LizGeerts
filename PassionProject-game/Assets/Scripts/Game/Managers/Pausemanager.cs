@@ -1,5 +1,5 @@
-using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Pausemanager : MonoBehaviour
 {
@@ -17,12 +17,12 @@ public class Pausemanager : MonoBehaviour
         }
     }
 
-  private void Start()
-  {
-    gamePauseScreen.SetActive(false);
-  }
-  
-  public void PauseGame()
+    private void Start()
+    {
+        gamePauseScreen.SetActive(false);
+    }
+
+    public void PauseGame()
     {
         isPaused = true;
         Time.timeScale = 0f;
@@ -36,5 +36,12 @@ public class Pausemanager : MonoBehaviour
         Time.timeScale = 1f;
         InputManager.playerInput.SwitchCurrentActionMap("Player");
         gamePauseScreen.SetActive(false);
+    }
+
+    public void LoadMenuScene()
+    {
+        Time.timeScale = 1f;
+        StaticData.showWinningScreen = false;
+        SceneManager.LoadScene("MainMenu");
     }
 }
