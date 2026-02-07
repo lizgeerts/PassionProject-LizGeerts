@@ -18927,7 +18927,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 0, y: 0.5}
-  m_AnchoredPosition: {x: 376.09998, y: 598.6}
+  m_AnchoredPosition: {x: 376.09998, y: 725.9}
   m_SizeDelta: {x: 576.8, y: 186.4}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &921059274
@@ -43095,7 +43095,7 @@ MonoBehaviour:
   pointsTillChaos: 1
   transitionMultiverse: 0
   CityAmbience: {fileID: 8300000, guid: 66be69c4426584cecbb2cb1f7319fb54, type: 3}
-  gameIsMultiplayer: 0
+  gameIsMultiplayer: 1
   Player2: {fileID: 664295400}
   NPC2: {fileID: 519976183}
   teamText1: {fileID: 1030835360}

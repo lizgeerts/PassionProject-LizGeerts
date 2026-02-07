@@ -53,7 +53,7 @@ public class GameManager : MonoBehaviour
         {
             NPC2.SetActive(false);
             Player2.SetActive(true);
-            rt.SetInsetAndSizeFromParentEdge(RectTransform.Edge.Left, 1000f, rt.rect.width);
+            rt.SetInsetAndSizeFromParentEdge(RectTransform.Edge.Left, 1200f, rt.rect.width);
         }
         else
         {
@@ -71,8 +71,8 @@ public class GameManager : MonoBehaviour
             cameraPlayer1.gameObject.SetActive(true);
             cameraPlayer2.gameObject.SetActive(true);
 
-            cameraPlayer1.rect = new Rect(0f, 0f, 0.5f, 1f);   
-            cameraPlayer2.rect = new Rect(0.5f, 0f, 0.5f, 1f); 
+            cameraPlayer1.rect = new Rect(0f, 0f, 0.5f, 1f);
+            cameraPlayer2.rect = new Rect(0.5f, 0f, 0.5f, 1f);
         }
         else
         {
@@ -80,7 +80,7 @@ public class GameManager : MonoBehaviour
             cameraPlayer1.gameObject.SetActive(true);
             cameraPlayer2.gameObject.SetActive(false);
 
-            cameraPlayer1.rect = new Rect(0f, 0f, 1f, 1f); 
+            cameraPlayer1.rect = new Rect(0f, 0f, 1f, 1f);
         }
     }
 
